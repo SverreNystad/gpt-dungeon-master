@@ -202,7 +202,7 @@ As a high elf, you have a keen mind and a mastery of at least the basics of magi
 
 ***Elf Weapon Training.*** You have proficiency with the longsword, shortsword, shortbow, and longbow.
 
-***Cantrip.*** You know one cantrip of your choice from the wizard spell list. Intelligence is your spellcasting ability for it.
+***Cantrip.*** You know one cantrip of your choice from the [wizard spell list](#section-wizard-spells). Intelligence is your spellcasting ability for it.
 
 ***Extra Language.*** You can speak, read, and write one extra language of your choice.
 
@@ -873,7 +873,7 @@ You have learned to untangle and reshape the fabric of reality in harmony with y
 
 #### Cantrips
 
-You know two cantrips of your choice from the bard spell list. You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table.
+You know two cantrips of your choice from the [bard spell list](#section-bard-spells). You learn additional bard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Bard table.
 
 #### Spell Slots
 
@@ -1158,7 +1158,7 @@ For example, if you know the 1st-level spell [*cure wounds*](#cure-wounds) and h
 
 #### Spells Known of 1st Level and Higher
 
-You know four 1st-level spells of your choice from the bard spell list.
+You know four 1st-level spells of your choice from the [bard spell list](#section-bard-spells).
 
 The Spells Known column of the Bard table shows when you learn more bard spells of your choice. Each of these spells must be of a level for which you have spell slots, as shown on the table. For instance, when you reach 3rd level in this class, you can learn one new spell of 1st or 2nd level.
 
@@ -1452,7 +1452,7 @@ As a conduit for divine power, you can cast cleric spells.
 
 #### Cantrips
 
-At 1st level, you know three cantrips of your choice from the cleric spell list. You learn additional cleric cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Cleric table.
+At 1st level, you know three cantrips of your choice from the [cleric spell list](#section-cleric-spells). You learn additional cleric cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Cleric table.
 
 #### Preparing and Casting Spells
 
@@ -1733,7 +1733,7 @@ At 1st level, you know three cantrips of your choice from the cleric spell list.
 
 The Cleric Spell Slots per Level table shows how many spell slots you have to cast your spells of 1st level and higher. To cast one of these spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.
 
-You prepare the list of cleric spells that are available for you to cast, choosing from the cleric spell list. When you do so, choose a number of cleric spells equal to your Wisdom modifier + your cleric level (minimum of one spell). The spells must be of a level for which you have spell slots.
+You prepare the list of cleric spells that are available for you to cast, choosing from the [cleric spell list](#section-cleric-spells). When you do so, choose a number of cleric spells equal to your Wisdom modifier + your cleric level (minimum of one spell). The spells must be of a level for which you have spell slots.
 
 For example, if you are a 3rd-level cleric, you have four 1st-level and two 2nd-level spell slots. With a Wisdom of 16, your list of prepared spells can include six spells of 1st or 2nd level, in any combination. If you prepare the 1st-level spell [*cure wounds*](#cure-wounds), you can cast it using a 1st-level or 2nd-level slot. Casting the spell doesn't remove it from your list of prepared spells.
 
@@ -1773,7 +1773,7 @@ Choose one domain (see "[Domains](#section-domains)") related to your deity. Eac
 
 Each domain has a list of spells—its domain spells—that you gain at the cleric levels noted in the domain description. Once you gain a domain spell, you always have it prepared, and it doesn't count against the number of spells you can prepare each day.
 
-If you have a domain spell that doesn't appear on the cleric spell list, the spell is nonetheless a cleric spell for you.
+If you have a domain spell that doesn't appear on the [cleric spell list](#section-cleric-spells), the spell is nonetheless a cleric spell for you.
 
 ### Channel Divinity
 
@@ -2101,7 +2101,7 @@ Drawing on the divine essence of nature itself, you can cast spells to shape tha
 
 #### Cantrips
 
-At 1st level, you know two cantrips of your choice from the druid spell list. You learn additional druid cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Druid table.
+At 1st level, you know two cantrips of your choice from the [druid spell list](#section-druid-spells). You learn additional druid cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Druid table.
 
 #### Preparing and Casting Spells
 
@@ -2382,7 +2382,7 @@ At 1st level, you know two cantrips of your choice from the druid spell list. Yo
 
 The Druid Spell Slots per Level table shows how many spell slots you have to cast your spells of 1st level and higher. To cast one of these druid spells, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.
 
-You prepare the list of druid spells that are available for you to cast, choosing from the druid spell list. When you do so, choose a number of druid spells equal to your Wisdom modifier + your druid level (minimum of one spell). The spells must be of a level for which you have spell slots.
+You prepare the list of druid spells that are available for you to cast, choosing from the [druid spell list](#section-druid-spells). When you do so, choose a number of druid spells equal to your Wisdom modifier + your druid level (minimum of one spell). The spells must be of a level for which you have spell slots.
 
 For example, if you are a 3rd-level druid, you have four 1st-level and two 2nd-level spell slots. With a Wisdom of 16, your list of prepared spells can include six spells of 1st or 2nd level, in any combination. If you prepare the 1st-level spell [*cure wounds*](#cure-wounds), you can cast it using a 1st-level or 2nd-level slot. Casting the spell doesn't remove it from your list of prepared spells.
 
@@ -2522,7 +2522,7 @@ For example, when you are a 4th-level druid, you can recover up to two levels wo
 
 Your mystical connection to the land infuses you with the ability to cast certain spells. At 3rd, 5th, 7th, and 9th level you gain access to circle spells connected to the land where you became a druid. Choose that land—arctic, coast, desert, forest, grassland, mountain, or swamp—and consult the associated list of spells.
 
-Once you gain access to a circle spell, you always have it prepared, and it doesn't count against the number of spells you can prepare each day. If you gain access to a spell that doesn't appear on the druid spell list, the spell is nonetheless a druid spell for you.
+Once you gain access to a circle spell, you always have it prepared, and it doesn't count against the number of spells you can prepare each day. If you gain access to a spell that doesn't appear on the [druid spell list](#section-druid-spells), the spell is nonetheless a druid spell for you.
 
 <table>
 <caption>Arctic</caption>
@@ -3751,7 +3751,7 @@ By 2nd level, you have learned to draw on divine magic through meditation and pr
 
 The Paladin Spell Slots by Level table shows how many spell slots you have to cast your spells. To cast one of your paladin spells of 1st level or higher, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.
 
-You prepare the list of paladin spells that are available for you to cast, choosing from the paladin spell list. When you do so, choose a number of paladin spells equal to your Charisma modifier + half your paladin level, rounded down (minimum of one spell). The spells must be of a level for which you have spell slots.
+You prepare the list of paladin spells that are available for you to cast, choosing from the [paladin spell list](#section-paladin-spells). When you do so, choose a number of paladin spells equal to your Charisma modifier + half your paladin level, rounded down (minimum of one spell). The spells must be of a level for which you have spell slots.
 
 For example, if you are a 5th-level paladin, you have four 1st-level and two 2nd-level spell slots.
 
@@ -3799,7 +3799,7 @@ Your choice grants you features at 3rd level and again at 7th, 15th, and 20th le
 
 Each oath has a list of associated spells. You gain access to these spells at the levels specified in the oath description. Once you gain access to an oath spell, you always have it prepared. Oath spells don't count against the number of spells you can prepare each day.
 
-If you gain an oath spell that doesn't appear on the paladin spell list, the spell is nonetheless a paladin spell for you.
+If you gain an oath spell that doesn't appear on the [paladin spell list](#section-paladin-spells), the spell is nonetheless a paladin spell for you.
 
 #### Channel Divinity
 
@@ -4362,7 +4362,7 @@ For example, if you know the 1st-level spell [*speak with animals*](#speak-with-
 
 #### Spells Known of 1st Level and Higher
 
-You know two 1st-level spells of your choice from the ranger spell list.
+You know two 1st-level spells of your choice from the [ranger spell list](#section-ranger-spells).
 
 The Spells Known column of the Ranger table shows when you learn more ranger spells of your choice. Each of these spells must be of a level for which you have spell slots. For instance, when you reach 5th level in this class, you can learn one new spell of 1st or 2nd level.
 
@@ -4964,7 +4964,7 @@ An event in your past, or in the life of a parent or ancestor, left an indelible
 
 #### Cantrips
 
-At 1st level, you know four cantrips of your choice from the sorcerer spell list. You learn additional sorcerer cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Sorcerer table.
+At 1st level, you know four cantrips of your choice from the [sorcerer spell list](#section-sorcerer-spells). You learn additional sorcerer cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Sorcerer table.
 
 #### Spell Slots
 
@@ -5249,7 +5249,7 @@ For example, if you know the 1st-level spell [*burning hands*](#burning-hands) a
 
 #### Spells Known of 1st Level and Higher
 
-You know two 1st-level spells of your choice from the sorcerer spell list.
+You know two 1st-level spells of your choice from the [sorcerer spell list](#section-sorcerer-spells).
 
 The Spells Known column of the Sorcerer table shows when you learn more sorcerer spells of your choice. Each of these spells must be of a level for which you have spell slots. For instance, when you reach 3rd level in this class, you can learn one new spell of 1st or 2nd level.
 
@@ -5894,7 +5894,7 @@ You can transform one magic weapon into your pact weapon by performing a special
 
 #### Pact of the Tome
 
-Your patron gives you a grimoire called a Book of Shadows. When you gain this feature, choose three cantrips from any class's spell list (the three needn't be from the same list). While the book is on your person, you can cast those cantrips at will. They don't count against your number of cantrips known. If they don't appear on the warlock spell list, they are nonetheless warlock spells for you.
+Your patron gives you a grimoire called a Book of Shadows. When you gain this feature, choose three cantrips from any class's spell list (the three needn't be from the same list). While the book is on your person, you can cast those cantrips at will. They don't count against your number of cantrips known. If they don't appear on the [warlock spell list](#section-warlock-spells), they are nonetheless warlock spells for you.
 
 If you lose your Book of Shadows, you can perform a 1-hour ceremony to receive a replacement from your patron. This ceremony can be performed during a short or long rest, and it destroys the previous book. The book turns to ash when you die.
 
@@ -5904,7 +5904,7 @@ When you reach 4th level, and again at 8th, 12th, 16th, and 19th level, you can 
 
 ### Mystic Arcanum
 
-At 11th level, your patron bestows upon you a magical secret called an arcanum. Choose one 6th-level spell from the warlock spell list as this arcanum.
+At 11th level, your patron bestows upon you a magical secret called an arcanum. Choose one 6th-level spell from the [warlock spell list](#section-warlock-spells) as this arcanum.
 
 You can cast your arcanum spell once without expending a spell slot. You must finish a long rest before you can do so again.
 
@@ -5952,7 +5952,7 @@ You can cast [*compulsion*](#compulsion) once using a warlock spell slot. You ca
 
 *Prerequisite: Pact of the Tome feature*
 
-You can now inscribe magical rituals in your Book of Shadows. Choose two 1st-level spells that have the ritual tag from any class's spell list (the two needn't be from the same list). The spells appear in the book and don't count against the number of spells you know. With your Book of Shadows in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag.
+You can now inscribe magical rituals in your Book of Shadows. Choose two 1st-level spells that have the ritual tag from any class's [spell list](#chapter-spell-lists) (the two needn't be from the same list). The spells appear in the book and don't count against the number of spells you know. With your Book of Shadows in hand, you can cast the chosen spells as rituals. You can't cast the spells except as rituals, unless you've learned them by some other means. You can also cast a warlock spell you know as a ritual if it has the ritual tag.
 
 On your adventures, you can add other ritual spells to your Book of Shadows. When you find such a spell, you can add it to the book if the spell's level is equal to or less than half your warlock level (rounded up) and if you can spare the time to transcribe the spell. For each level of the spell, the transcription process takes 2 hours and costs 50 gp for the rare inks needed to inscribe it.
 
@@ -6353,7 +6353,7 @@ As a student of arcane magic, you have a spellbook containing spells that show t
 
 #### Cantrips
 
-At 1st level, you know three cantrips of your choice from the wizard spell list. You learn additional wizard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Wizard table.
+At 1st level, you know three cantrips of your choice from the [wizard spell list](#section-wizard-spells). You learn additional wizard cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Wizard table.
 
 #### Spellbook
 
@@ -9528,7 +9528,7 @@ In a typical campaign, characters aren't driven mad by the horrors they face and
 
 ### Going Mad
 
-Various magical effects can inflict madness on an otherwise stable mind. Certain spells, such as [*contact other plane*](#contact-other-plane) and [*symbol*](#symbol), can cause insanity, and you can use the madness rules here instead of the spell effects of those spells. Diseases, poisons, and planar effects such as psychic wind or the howling winds of a chaotic plane can all inflict madness. Some artifacts can also break the psyche of a character who uses or becomes attuned to them.
+Various magical effects can inflict madness on an otherwise stable mind. Certain spells, such as [*contact other plane*](#contact-other-plane) and [*symbol*](#symbol), can cause insanity, and you can use the madness rules here instead of the spell effects of those spells. Diseases, poisons, and planar effects such as psychic wind or the howling winds of a chaotic plane can all inflict madness. Some artifacts can also break the psyche of a character who uses or becomes [attuned](#section-attunement) to them.
 
 Resisting a madness-inducing effect usually requires a Wisdom or Charisma saving throw.
 
@@ -15414,7 +15414,7 @@ Hailstones turn the storm's area of effect into difficult terrain until the end 
 
 **Duration:** Instantaneous
 
-You choose one object that you must touch throughout the casting of the spell. If it is a magic item or some other magic-imbued object, you learn its properties and how to use them, whether it requires attunement to use, and how many charges it has, if any. You learn whether any spells are affecting the item and what they are. If the item was created by a spell, you learn which spell created it.
+You choose one object that you must touch throughout the casting of the spell. If it is a magic item or some other magic-imbued object, you learn its properties and how to use them, whether it requires [attunement](#section-attunement) to use, and how many charges it has, if any. You learn whether any spells are affecting the item and what they are. If the item was created by a spell, you learn which spell created it.
 
 If you instead touch a creature throughout the casting, you learn what spells, if any, are currently affecting it.
 
@@ -17059,7 +17059,7 @@ The reincarnated creature recalls its former life and experiences. It retains th
 
 **Duration:** Instantaneous
 
-At your touch, all curses affecting one creature or object end. If the object is a cursed magic item, its curse remains, but the spell breaks its owner's attunement to the object so it can be removed or discarded.
+At your touch, all curses affecting one creature or object end. If the object is a cursed magic item, its curse remains, but the spell breaks its owner's [attunement](#section-attunement) to the object so it can be removed or discarded.
 
 #### Resilient Sphere
 
@@ -20944,7 +20944,7 @@ Magic items are gleaned from the hoards of conquered monsters or discovered in l
 
 ## Attunement {#section-attunement}
 
-Some magic items require a creature to form a bond with them before their magical properties can be used. This bond is called **attunement**, and certain items have a prerequisite for it. If the prerequisite is a class, a creature must be a member of that class to attune to the item. (If the class is a spellcasting class, a monster qualifies if it has spell slots and uses that class's spell list.) If the prerequisite is to be a spellcaster, a creature qualifies if it can cast at least one spell using its traits or features, not using a magic item or the like.
+Some magic items require a creature to form a bond with them before their magical properties can be used. This bond is called **attunement**, and certain items have a prerequisite for it. If the prerequisite is a class, a creature must be a member of that class to attune to the item. (If the class is a spellcasting class, a monster qualifies if it has spell slots and uses that class's [spell list](#chapter-spell-lists).) If the prerequisite is to be a spellcaster, a creature qualifies if it can cast at least one spell using its traits or features, not using a magic item or the like.
 
 Without becoming attuned to an item that requires attunement, a creature gains only its nonmagical benefits, unless its description states otherwise. For example, a magic shield that requires attunement provides the benefits of a normal shield to a creature not attuned to it, but none of its magical properties.
 
@@ -21010,19 +21010,19 @@ You have a bonus to attack and damage rolls made with this piece of magic ammuni
 
 ### Amulet of Health
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 Your Constitution score is 19 while you wear this amulet. It has no effect on you if your Constitution is already 19 or higher.
 
 ### Amulet of Proof against Detection and Location
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While wearing this amulet, you are hidden from divination magic. You can't be targeted by such magic or perceived through magical scrying sensors.
 
 ### Amulet of the Planes
 
-*Wondrous item, very rare (requires attunement)*
+*Wondrous item, very rare (requires [attunement](#section-attunement))*
 
 While wearing this amulet, you can use an action to name a location that you are familiar with on another plane of existence. Then make a DC 15 Intelligence check. On a successful check, you cast the [*plane shift*](#plane-shift) spell. On a failure, you and each creature and object within 15 feet of you travel to a random destination. Roll a d100. On a 1–60, you travel to a random location on the plane you named.
 
@@ -21030,7 +21030,7 @@ On a 61–100, you travel to a randomly determined plane of existence.
 
 ### Animated Shield
 
-*Armor (shield), very rare (requires attunement)*
+*Armor (shield), very rare (requires [attunement](#section-attunement))*
 
 While holding this shield, you can speak its command word as a bonus action to cause it to animate. The shield leaps into the air and hovers in your space to protect you as if you were wielding it, leaving your hands free. The shield remains animated for 1 minute, until you use a bonus action to end this effect, or until you are [incapacitated](#incapacitated) or die, at which point the shield falls to the ground or into your hand if you have one free.
 
@@ -21134,13 +21134,13 @@ You have a bonus to AC while wearing this armor. The bonus is determined by its 
 
 ### Armor of Invulnerability
 
-*Armor (plate), legendary (requires attunement)*
+*Armor (plate), legendary (requires [attunement](#section-attunement))*
 
 You have resistance to nonmagical damage while you wear this armor. Additionally, you can use an action to make yourself immune to nonmagical damage for 10 minutes or until you are no longer wearing the armor. Once this special action is used, it can't be used again until the next dawn.
 
 ### Armor of Resistance
 
-*Armor (light, medium, or heavy), rare (requires attunement)*
+*Armor (light, medium, or heavy), rare (requires [attunement](#section-attunement))*
 
 You have resistance to one type of damage while you wear this armor. The GM chooses the type or determines it randomly from the options below.
 
@@ -21201,7 +21201,7 @@ You have resistance to one type of damage while you wear this armor. The GM choo
 
 ### Armor of Vulnerability
 
-*Armor (plate), rare (requires attunement)*
+*Armor (plate), rare (requires [attunement](#section-attunement))*
 
 While wearing this armor, you have resistance to one of the following damage types: bludgeoning, piercing, or slashing. The GM chooses the type or determines it randomly.
 
@@ -21209,7 +21209,7 @@ While wearing this armor, you have resistance to one of the following damage typ
 
 ### Arrow-Catching Shield
 
-*Armor (shield), rare (requires attunement)*
+*Armor (shield), rare (requires [attunement](#section-attunement))*
 
 You gain a +2 bonus to AC against ranged attacks while you wield this shield. This bonus is in addition to the shield's normal bonus to AC. In addition, whenever an attacker makes a ranged attack against a target within 5 feet of you, you can use your reaction to become the target of the attack instead.
 
@@ -21486,7 +21486,7 @@ An enclosed creature can use its action to push against the sphere's wall, movin
 
 ### Belt of Dwarvenkind
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 While wearing this belt, you gain the following benefits:
 
@@ -21503,7 +21503,7 @@ If you aren't a dwarf, you gain the following additional benefits while wearing 
 
 ### Belt of Giant Strength
 
-*Wondrous item, rarity varies (requires attunement)*
+*Wondrous item, rarity varies (requires [attunement](#section-attunement))*
 
 While wearing this belt, your Strength score changes to a score granted by the belt. If your Strength is already equal to or greater than the belt's score, the item has no effect on you.
 
@@ -21553,7 +21553,7 @@ Six varieties of this belt exist, corresponding with and having rarity according
 
 ### Berserker Axe
 
-*Weapon (any axe), rare (requires attunement)*
+*Weapon (any axe), rare (requires [attunement](#section-attunement))*
 
 You gain a +1 bonus to attack and damage rolls made with this magic weapon. In addition, while you are attuned to this weapon, your hit point maximum increases by 1 for each level you have attained.
 
@@ -21569,13 +21569,13 @@ While you wear these boots, your steps make no sound, regardless of the surface 
 
 ### Boots of Levitation
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 While you wear these boots, you can use an action to cast the [*levitate*](#levitate) spell on yourself at will.
 
 ### Boots of Speed
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 While you wear these boots, you can use a bonus action and click the boots' heels together. If you do, the boots double your walking speed, and any creature that makes an opportunity attack against you has disadvantage on the attack roll. If you click your heels together again, you end the effect.
 
@@ -21583,13 +21583,13 @@ When the boots' property has been used for a total of 10 minutes, the magic ceas
 
 ### Boots of Striding and Springing
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While you wear these boots, your walking speed becomes 30 feet, unless your walking speed is higher, and your speed isn't reduced if you are encumbered or wearing heavy armor. In addition, you can jump three times the normal distance, though you can't jump farther than your remaining movement would allow.
 
 ### Boots of the Winterlands
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 These furred boots are snug and feel quite warm.
 
@@ -21609,13 +21609,13 @@ The bowl is about 1 foot in diameter and half as deep. It weighs 3 pounds and ho
 
 ### Bracers of Archery
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While wearing these bracers, you have proficiency with the longbow and shortbow, and you gain a +2 bonus to damage rolls on ranged attacks made with such weapons.
 
 ### Bracers of Defense
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 While wearing these bracers, you gain a +2 bonus to AC if you are wearing no armor and using no shield.
 
@@ -21627,7 +21627,7 @@ While a fire burns in this brass brazier, you can use an action to speak the bra
 
 ### Brooch of Shielding
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While wearing this brooch, you have resistance to force damage, and you have immunity to damage from the [*magic missile*](#magic-missile) spell.
 
@@ -21641,7 +21641,7 @@ You can send the broom to travel alone to a destination within 1 mile of you if 
 
 ### Candle of Invocation
 
-*Wondrous item, very rare (requires attunement)*
+*Wondrous item, very rare (requires [attunement](#section-attunement))*
 
 This slender taper is dedicated to a deity and shares that deity's alignment. The candle's alignment can be detected with the [*detect evil and good*](#detect-evil-and-good) spell. The GM chooses the god and associated alignment or determines the alignment randomly.
 
@@ -21787,7 +21787,7 @@ While wearing this circlet, you can use an action to cast the [*scorching ray*](
 
 ### Cloak of Arachnida
 
-*Wondrous item, very rare (requires attunement)*
+*Wondrous item, very rare (requires [attunement](#section-attunement))*
 
 This fine garment is made of black silk interwoven with faint silvery threads. While wearing it, you gain the following benefits:
 
@@ -21799,25 +21799,25 @@ This fine garment is made of black silk interwoven with faint silvery threads. W
 
 ### Cloak of Displacement
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 While you wear this cloak, it projects an illusion that makes you appear to be standing in a place near your actual location, causing any creature to have disadvantage on attack rolls against you. If you take damage, the property ceases to function until the start of your next turn. This property is suppressed while you are [incapacitated](#incapacitated), [restrained](#restrained), or otherwise unable to move.
 
 ### Cloak of Elvenkind
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While you wear this cloak with its hood up, Wisdom (Perception) checks made to see you have disadvantage, and you have advantage on Dexterity (Stealth) checks made to hide, as the cloak's color shifts to camouflage you. Pulling the hood up or down requires an action.
 
 ### Cloak of Protection
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 You gain a +1 bonus to AC and saving throws while you wear this cloak.
 
 ### Cloak of the Bat
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 While wearing this cloak, you have advantage on Dexterity (Stealth) checks. In an area of dim light or darkness, you can grip the edges of the cloak with both hands and use it to fly at a speed of 40 feet. If you ever fail to grip the cloak's edges while flying in this way, or if you are no longer in dim light or darkness, you lose this flying speed.
 
@@ -21831,7 +21831,7 @@ While wearing this cloak with its hood up, you can breathe underwater, and you h
 
 ### Crystal Ball
 
-*Wondrous item, very rare or legendary (requires attunement)*
+*Wondrous item, very rare or legendary (requires [attunement](#section-attunement))*
 
 The typical crystal ball, a very rare item, is about 6 inches in diameter. While touching it, you can cast the [*scrying*](#scrying) spell (save DC 17) with it.
 
@@ -21845,7 +21845,7 @@ The following crystal ball variants are legendary items and have additional prop
 
 ### Cube of Force
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 This cube is about an inch across. Each face has a distinct marking on it that can be pressed. The cube starts with 36 charges, and it regains 1d20 expended charges daily at dawn.
 
@@ -21964,7 +21964,7 @@ That creature must succeed on a DC 15 Constitution saving throw or take 2d10 poi
 
 ### Dancing Sword
 
-*Weapon (any sword), very rare (requires attunement)*
+*Weapon (any sword), very rare (requires [attunement](#section-attunement))*
 
 You can use a bonus action to toss this magic sword into the air and speak the command word. When you do so, the sword begins to hover, flies up to 30 feet, and attacks one creature of your choice within 5 feet of it. The sword uses your attack roll and ability score modifier to damage rolls.
 
@@ -22304,7 +22304,7 @@ Once a card is drawn, it fades from existence. Unless the card is the Fool or th
 
 ### Defender
 
-*Weapon (any sword), legendary (requires attunement)*
+*Weapon (any sword), legendary (requires [attunement](#section-attunement))*
 
 You gain a +3 bonus to attack and damage rolls made with this magic weapon.
 
@@ -22312,7 +22312,7 @@ The first time you attack with the sword on each of your turns, you can transfer
 
 ### Demon Armor
 
-*Armor (plate), very rare (requires attunement)*
+*Armor (plate), very rare (requires [attunement](#section-attunement))*
 
 While wearing this armor, you gain a +1 bonus to AC, and you can understand and speak Abyssal. In addition, the armor's clawed gauntlets turn unarmed strikes with your hands into magic weapons that deal slashing damage, with a +1 bonus to attack rolls and damage rolls and a damage die of 1d8.
 
@@ -22328,7 +22328,7 @@ You and any creature you designate when you use the shackles can use an action t
 
 ### Dragon Scale Mail
 
-*Armor (scale mail), very rare (requires attunement)*
+*Armor (scale mail), very rare (requires [attunement](#section-attunement))*
 
 Dragon scale mail is made of the scales of one kind of dragon. Sometimes dragons collect their cast-off scales and gift them to humanoids. Other times, hunters carefully skin and preserve the hide of a dead dragon. In either case, dragon scale mail is highly valued.
 
@@ -22433,7 +22433,7 @@ While wearing this armor, you gain a +2 bonus to AC. In addition, if an effect m
 
 ### Dwarven Thrower
 
-*Weapon (warhammer), very rare (requires attunement by a dwarf)*
+*Weapon (warhammer), very rare (requires [attunement](#section-attunement) by a dwarf)*
 
 You gain a +3 bonus to attack and damage rolls made with this magic weapon. It has the thrown property with a normal range of 20 feet and a long range of 60 feet. When you hit with a ranged attack using this weapon, it deals an extra 1d8 damage or, if the target is a giant, 2d8 damage. Immediately after the attack, the weapon flies back to your hand.
 
@@ -22533,7 +22533,7 @@ The cloud persists as long as the bottle is open. Closing the bottle requires yo
 
 ### Eyes of Charming
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 These crystal lenses fit over the eyes. They have 3 charges. While wearing them, you can expend 1 charge as an action to cast the [*charm person*](#charm-person) spell (save DC 13) on a humanoid within 30 feet of you, provided that you and the target can see each other. The lenses regain all expended charges daily at dawn.
 
@@ -22545,7 +22545,7 @@ These crystal lenses fit over the eyes. While wearing them, you can see much bet
 
 ### Eyes of the Eagle
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 These crystal lenses fit over the eyes. While wearing them, you have advantage on Wisdom (Perception) checks that rely on sight. In conditions of clear visibility, you can make out details of even extremely distant creatures and objects as small as 2 feet across.
 
@@ -22648,7 +22648,7 @@ If you have a good alignment, the figurine has a 10 percent chance each time you
 
 ### Flame Tongue
 
-*Weapon (any sword), rare (requires attunement)*
+*Weapon (any sword), rare (requires [attunement](#section-attunement))*
 
 You can use a bonus action to speak this magic sword's command word, causing flames to erupt from the blade. These flames shed bright light in a 40-foot radius and dim light for an additional 40 feet. While the sword is ablaze, it deals an extra 2d6 fire damage to any target it hits. The flames last until you use a bonus action to speak the command word again or until you drop or sheathe the sword.
 
@@ -22668,7 +22668,7 @@ The third command word causes the folding boat to fold back into a box, provided
 
 ### Frost Brand
 
-*Weapon (any sword), very rare (requires attunement)*
+*Weapon (any sword), very rare (requires [attunement](#section-attunement))*
 
 When you hit with an attack using this magic sword, the target takes an extra 1d6 cold damage. In addition, while you hold the sword, you have resistance to fire damage.
 
@@ -22678,7 +22678,7 @@ When you draw this weapon, you can extinguish all nonmagical flames within 30 fe
 
 ### Gauntlets of Ogre Power
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 Your Strength score is 19 while you wear these gauntlets. They have no effect on you if your Strength is already 19 or higher.
 
@@ -22696,7 +22696,7 @@ When all of the gem's charges are expended, the gem becomes a nonmagical jewel w
 
 ### Gem of Seeing
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 This gem has 3 charges. As an action, you can speak the gem's command word and expend 1 charge. For the next 10 minutes, you have truesight out to 120 feet when you peer through the gem.
 
@@ -22720,13 +22720,13 @@ You can also use a bonus action to speak the armor's command word and cause the 
 
 ### Gloves of Missile Snaring
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 These gloves seem to almost meld into your hands when you don them. When a ranged weapon attack hits you while you're wearing them, you can use your reaction to reduce the damage by 1d10 + your Dexterity modifier, provided that you have a free hand. If you reduce the damage to 0, you can catch the missile if it is small enough for you to hold in that hand.
 
 ### Gloves of Swimming and Climbing
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While wearing these gloves, climbing and swimming don't cost you extra movement, and you gain a +5 bonus to Strength (Athletics) checks made to climb or swim.
 
@@ -22742,7 +22742,7 @@ While wearing these dark lenses, you have darkvision out to a range of 60 feet. 
 
 You gain a +1 bonus to attack and damage rolls made with this magic weapon.
 
-***Giant's Bane (Requires Attunement).*** You must be wearing a belt of giant strength (any variety) and gauntlets of ogre power to attune to this weapon. The attunement ends if you take off either of those items. While you are attuned to this weapon and holding it, your Strength score increases by 4 and can exceed 20, but not 30. When you roll a 20 on an attack roll made with this weapon against a giant, the giant must succeed on a DC 17 Constitution saving throw or die.
+***Giant's Bane (Requires [Attunement](#section-attunement)).*** You must be wearing a belt of giant strength (any variety) and gauntlets of ogre power to attune to this weapon. The attunement ends if you take off either of those items. While you are attuned to this weapon and holding it, your Strength score increases by 4 and can exceed 20, but not 30. When you roll a 20 on an attack roll made with this weapon against a giant, the giant must succeed on a DC 17 Constitution saving throw or die.
 
 The hammer also has 5 charges. While attuned to it, you can expend 1 charge and make a ranged weapon attack with the hammer, hurling it as if it had the thrown property with a normal range of 20 feet and a long range of 60 feet. If the attack hits, the hammer unleashes a thunderclap audible out to 300 feet. The target and every creature within 30 feet of it must succeed on a DC 17 Constitution saving throw or be [stunned](#stunned) until the end of your next turn.
 
@@ -22764,19 +22764,19 @@ Placing the haversack inside an extradimensional space created by a bag of holdi
 
 ### Hat of Disguise
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While wearing this hat, you can use an action to cast the [*disguise self*](#disguise-self) spell from it at will. The spell ends if the hat is removed.
 
 ### Headband of Intellect
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 Your Intelligence score is 19 while you wear this headband. It has no effect on you if your Intelligence is already 19 or higher.
 
 ### Helm of Brilliance
 
-*Wondrous item, very rare (requires attunement)*
+*Wondrous item, very rare (requires [attunement](#section-attunement))*
 
 This dazzling helm is set with 1d10 diamonds, 2d10 rubies, 3d10 fire opals, and 4d10 opals. Any gem pried from the helm crumbles to dust. When all the gems are removed or destroyed, the helm loses its magic.
 
@@ -22797,7 +22797,7 @@ While wearing this helm, you can use an action to cast the [*comprehend language
 
 ### Helm of Telepathy
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While wearing this helm, you can use an action to cast the [*detect thoughts*](#detect-thoughts) spell (save DC 13) from it. As long as you maintain concentration on the spell, you can use a bonus action to send a telepathic message to a creature you are focused on. It can reply—using a bonus action to do so—while your focus on it continues.
 
@@ -22805,13 +22805,13 @@ While focusing on a creature with [*detect thoughts*](#detect-thoughts), you can
 
 ### Helm of Teleportation
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 This helm has 3 charges. While wearing it, you can use an action and expend 1 charge to cast the [*teleport*](#teleport) spell from it. The helm regains 1d3 expended charges daily at dawn.
 
 ### Holy Avenger
 
-*Weapon (any sword), legendary (requires attunement by a paladin)*
+*Weapon (any sword), legendary (requires [attunement](#section-attunement) by a paladin)*
 
 You gain a +3 bonus to attack and damage rolls made with this magic weapon. When you hit a fiend or an undead with it, that creature takes an extra 2d10 radiant damage.
 
@@ -22910,7 +22910,7 @@ The tower is made of adamantine, and its magic prevents it from being tipped ove
 
 ### Ioun Stone
 
-*Wondrous item, rarity varies (requires attunement)*
+*Wondrous item, rarity varies (requires [attunement](#section-attunement))*
 
 Many types of *ioun stone* exist, each type a distinct combination of shape and color.
 
@@ -23085,7 +23085,7 @@ While lit, this hooded lantern burns for 6 hours on 1 pint of oil, shedding brig
 
 ### Luck Blade
 
-*Weapon (any sword), legendary (requires attunement)*
+*Weapon (any sword), legendary (requires [attunement](#section-attunement))*
 
 You gain a +1 bonus to attack and damage rolls made with this magic weapon. While the sword is on your person, you also gain a +1 bonus to saving throws.
 
@@ -23095,7 +23095,7 @@ You gain a +1 bonus to attack and damage rolls made with this magic weapon. Whil
 
 ### Mace of Disruption
 
-*Weapon (mace), rare (requires attunement)*
+*Weapon (mace), rare (requires [attunement](#section-attunement))*
 
 When you hit a fiend or an undead with this magic weapon, that creature takes an extra 2d6 radiant damage. If the target has 25 hit points or fewer after taking this damage, it must succeed on a DC 15 Wisdom saving throw or be destroyed. On a successful save, the creature becomes [frightened](#frightened) of you until the end of your next turn.
 
@@ -23111,7 +23111,7 @@ When you roll a 20 on an attack roll made with this weapon, the target takes an 
 
 ### Mace of Terror
 
-*Weapon (mace), rare (requires attunement)*
+*Weapon (mace), rare (requires [attunement](#section-attunement))*
 
 This magic weapon has 3 charges. While holding it, you can use an action and expend 1 charge to release a wave of terror. Each creature of your choice in a 30-foot radius extending from you must succeed on a DC 15 Wisdom saving throw or become [frightened](#frightened) of you for 1 minute. While it is frightened in this way, a creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If it has nowhere it can move, the creature can use the Dodge action. At the end of each of its turns, a creature can repeat the saving throw, ending the effect on itself on a success.
 
@@ -23119,7 +23119,7 @@ The mace regains 1d3 expended charges daily at dawn.
 
 ### Mantle of Spell Resistance
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 You have advantage on saving throws against spells while you wear this cloak.
 
@@ -23210,7 +23210,7 @@ If you paint a form of energy such as fire or lightning, the energy appears but 
 
 ### Medallion of Thoughts
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 The medallion has 3 charges. While wearing it, you can use an action and expend 1 charge to cast the [*detect thoughts*](#detect-thoughts) spell (save DC 13) from it. The medallion regains 1d3 expended charges daily at dawn.
 
@@ -23240,7 +23240,7 @@ Mithral is a light, flexible metal. A mithral chain shirt or breastplate can be 
 
 ### Necklace of Adaptation
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While wearing this necklace, you can breathe normally in any environment, and you have advantage on saving throws made against harmful gases and vapors (such as [*cloudkill*](#cloudkill) and [*stinking cloud*](#stinking-cloud) effects, inhaled poisons, and the breath weapons of some dragons).
 
@@ -23254,7 +23254,7 @@ You can hurl multiple beads, or even the whole necklace, as one action. When you
 
 ### Necklace of Prayer Beads
 
-*Wondrous item, rare (requires attunement by a cleric, druid, or paladin)*
+*Wondrous item, rare (requires [attunement](#section-attunement) by a cleric, druid, or paladin)*
 
 This necklace has 1d4 + 2 magic beads made from aquamarine, black pearl, or topaz. It also has many nonmagical beads made from stones such as amber, bloodstone, citrine, coral, jade, pearl, or quartz. If a magic bead is removed from the necklace, that bead loses its magic.
 
@@ -23309,7 +23309,7 @@ Six types of magic beads exist. The GM decides the type of each bead on the neck
 
 ### Nine Lives Stealer
 
-*Weapon (any sword), very rare (requires attunement)*
+*Weapon (any sword), very rare (requires [attunement](#section-attunement))*
 
 You gain a +2 bonus to attack and damage rolls made with this magic weapon.
 
@@ -23317,7 +23317,7 @@ The sword has 1d8 + 1 charges. If you score a critical hit against a creature th
 
 ### Oathbow
 
-*Weapon (longbow), very rare (requires attunement)*
+*Weapon (longbow), very rare (requires [attunement](#section-attunement))*
 
 When you nock an arrow on this bow, it whispers in Elvish, "Swift defeat to my enemies." When you use this weapon to make a ranged attack, you can, as a command phrase, say, "Swift death to you who have wronged me." The target of your attack becomes your sworn enemy until it dies or until dawn seven days later. You can have only one such sworn enemy at a time. When your sworn enemy dies, you can choose a new one after the next dawn.
 
@@ -23347,7 +23347,7 @@ Alternatively, the oil can be poured on the ground as an action, where it covers
 
 ### Pearl of Power
 
-*Wondrous item, uncommon (requires attunement by a spellcaster)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement) by a spellcaster)*
 
 While this pearl is on your person, you can use an action to speak its command word and regain one expended spell slot. If the expended slot was of 4th level or higher, the new slot is 3rd level. Once you use the pearl, it can t be used again until the next dawn.
 
@@ -23365,7 +23365,7 @@ This delicate silver chain has a brilliant-cut black gem pendant. While you wear
 
 ### Periapt of Wound Closure
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While you wear this pendant, you stabilize whenever you are dying at the start of your turn. In addition, whenever you roll a Hit Die to regain hit points, double the number of hit points it restores.
 
@@ -23383,7 +23383,7 @@ You must be proficient with wind instruments to use these pipes. They have 3 cha
 
 ### Pipes of the Sewers
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 You must be proficient with wind instruments to use these pipes. While you are attuned to the pipes, ordinary rats and giant rats are indifferent toward you and will not attack you unless you threaten or harm them.
 
@@ -23393,7 +23393,7 @@ Whenever a swarm of rats that isn't under another creature's control comes withi
 
 ### Plate Armor of Etherealness
 
-*Armor (plate), legendary (requires attunement)*
+*Armor (plate), legendary (requires [attunement](#section-attunement))*
 
 While you're wearing this armor, you can speak its command word as an action to gain the effect of the etherealness spell, which last for 10 minutes or until you remove the armor or use an action to speak the command word again. This property of the armor can't be used again until the next dawn.
 
@@ -23676,7 +23676,7 @@ This ring has 3 charges, and it regains 1d3 expended charges daily at dawn. Whil
 
 ### Ring of Djinni Summoning
 
-*Ring, legendary (requires attunement)*
+*Ring, legendary (requires [attunement](#section-attunement))*
 
 While wearing this ring, you can speak its command word as an action to summon a particular djinni from the elemental plane of air. The djinni appears in an unoccupied space you choose within 120 feet of you. It remains as long as you concentrate (as if concentrating on a spell), to a maximum of 1 hour, or until it drops to 0 hit points. It then returns to its home plane.
 
@@ -23686,7 +23686,7 @@ After the djinni departs, it can't be summoned again for 24 hours, and the ring 
 
 ### Ring of Elemental Command
 
-*Ring, legendary (requires attunement)*
+*Ring, legendary (requires [attunement](#section-attunement))*
 
 This ring is linked to one of the four elemental planes. The GM chooses or randomly determines the linked plane.
 
@@ -23726,37 +23726,37 @@ If you help slay a water elemental while attuned to the ring, you gain access to
 
 ### Ring of Evasion
 
-*Ring, rare (requires attunement)*
+*Ring, rare (requires [attunement](#section-attunement))*
 
 This ring has 3 charges, and it regains 1d3 expended charges daily at dawn. When you fail a Dexterity saving throw while wearing it, you can use your reaction to expend 1 of its charges to succeed on that saving throw instead.
 
 ### Ring of Feather Falling
 
-*Ring, rare (requires attunement)*
+*Ring, rare (requires [attunement](#section-attunement))*
 
 When you fall while wearing this ring, you descend 60 feet per round and take no damage from falling.
 
 ### Ring of Free Action
 
-*Ring, rare (requires attunement)*
+*Ring, rare (requires [attunement](#section-attunement))*
 
 While you wear this ring, difficult terrain doesn't cost you extra movement. In addition, magic can neither reduce your speed nor cause you to be [paralyzed](#paralyzed) or [restrained](#restrained).
 
 ### Ring of Invisibility
 
-*Ring, legendary (requires attunement)*
+*Ring, legendary (requires [attunement](#section-attunement))*
 
 While wearing this ring, you can turn [invisible](#invisible) as an action. Anything you are wearing or carrying is invisible with you. You remain invisible until the ring is removed, until you attack or cast a spell, or until you use a bonus action to become visible again.
 
 ### Ring of Jumping
 
-*Ring, uncommon (requires attunement)*
+*Ring, uncommon (requires [attunement](#section-attunement))*
 
 While wearing this ring, you can cast the jump spell from it as a bonus action at will, but can target only yourself when you do so.
 
 ### Ring of Mind Shielding
 
-*Ring, uncommon (requires attunement)*
+*Ring, uncommon (requires [attunement](#section-attunement))*
 
 While wearing this ring, you are immune to magic that allows other creatures to read your thoughts, determine whether you are lying, know your alignment, or know your creature type. Creatures can telepathically communicate with you only if you allow it.
 
@@ -23766,19 +23766,19 @@ If you die while wearing the ring, your soul enters it, unless it already houses
 
 ### Ring of Protection
 
-*Ring, rare (requires attunement)*
+*Ring, rare (requires [attunement](#section-attunement))*
 
 You gain a +1 bonus to AC and saving throws while wearing this ring.
 
 ### Ring of Regeneration
 
-*Ring, very rare (requires attunement)*
+*Ring, very rare (requires [attunement](#section-attunement))*
 
 While wearing this ring, you regain 1d6 hit points every 10 minutes, provided that you have at least 1 hit point. If you lose a body part, the ring causes the missing part to regrow and return to full functionality after 1d6 + 1 days if you have at least 1 hit point the whole time.
 
 ### Ring of Resistance
 
-*Ring, rare (requires attunement)*
+*Ring, rare (requires [attunement](#section-attunement))*
 
 You have resistance to one damage type while wearing this ring. The gem in the ring indicates the type, which the GM chooses or determines randomly.
 
@@ -23851,7 +23851,7 @@ You have resistance to one damage type while wearing this ring. The gem in the r
 
 ### Ring of Shooting Stars
 
-*Ring, very rare (requires attunement outdoors at night)*
+*Ring, very rare (requires [attunement](#section-attunement) outdoors at night)*
 
 While wearing this ring in dim light or darkness, you can cast [*dancing lights*](#dancing-lights) and [*light*](#light) from the ring at will. Casting either spell from the ring requires an action.
 
@@ -23902,7 +23902,7 @@ When a creature other than you comes within 5 feet of a sphere, the sphere disch
 
 ### Ring of Spell Storing
 
-*Ring, rare (requires attunement)*
+*Ring, rare (requires [attunement](#section-attunement))*
 
 This ring stores spells cast into it, holding them until the attuned wearer uses them. The ring can store up to 5 levels worth of spells at a time. When found, it contains 1d6 - 1 levels of stored spells chosen by the GM.
 
@@ -23912,7 +23912,7 @@ While wearing this ring, you can cast any spell stored in it. The spell uses the
 
 ### Ring of Spell Turning
 
-*Ring, legendary (requires attunement)*
+*Ring, legendary (requires [attunement](#section-attunement))*
 
 While wearing this ring, you have advantage on saving throws against any spell that targets only you (not in an area of effect). In addition, if you roll a 20 for the save and the spell is 7th level or lower, the spell has no effect on you and instead targets the caster, using the slot level, spell save DC, attack bonus, and spellcasting ability of the caster.
 
@@ -23924,7 +23924,7 @@ You have a swimming speed of 40 feet while wearing this ring.
 
 ### Ring of Telekinesis
 
-*Ring, very rare (requires attunement)*
+*Ring, very rare (requires [attunement](#section-attunement))*
 
 While wearing this ring, you can cast the [*telekinesis*](#telekinesis) spell at will, but you can target only objects that aren't being worn or carried.
 
@@ -23936,7 +23936,7 @@ While wearing this ring, you can use an action to expend 1 of its 3 charges to c
 
 ### Ring of Warmth
 
-*Ring, uncommon (requires attunement)*
+*Ring, uncommon (requires [attunement](#section-attunement))*
 
 While wearing this ring, you have resistance to cold damage. In addition, you and everything you wear and carry are unharmed by temperatures as low as -50 degrees Fahrenheit.
 
@@ -23948,7 +23948,7 @@ While wearing this ring, you can stand on and move across any liquid surface as 
 
 ### Ring of X-ray Vision
 
-*Ring, rare (requires attunement)*
+*Ring, rare (requires [attunement](#section-attunement))*
 
 While wearing this ring, you can use an action to speak its command word. When you do so, you can see into and through solid matter for 1 minute. This vision has a radius of 30 feet. To you, solid objects within that radius appear transparent and don't prevent light from passing through them. The vision can penetrate 1 foot of stone, 1 inch of common metal, or up to 3 feet of wood or dirt. Thicker substances block the vision, as does a thin sheet of lead.
 
@@ -23956,7 +23956,7 @@ Whenever you use the ring again before taking a long rest, you must succeed on a
 
 ### Ring of the Ram
 
-*Ring, rare (requires attunement)*
+*Ring, rare (requires [attunement](#section-attunement))*
 
 This ring has 3 charges, and it regains 1d3 expended charges daily at dawn. While wearing the ring, you can use an action to expend 1 to 3 of its charges to attack one creature you can see within 60 feet of you. The ring produces a spectral ram's head and makes its attack roll with a +7 bonus. On a hit, for each charge you spend, the target takes 2d10 force damage and is pushed 5 feet away from you.
 
@@ -23964,7 +23964,7 @@ Alternatively, you can expend 1 to 3 of the ring's charges as an action to try t
 
 ### Robe of Eyes
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 This robe is adorned with eyelike patterns. While you wear the robe, you gain the following benefits:
 
@@ -23980,13 +23980,13 @@ A [*light*](#light) spell cast on the robe or a [*daylight*](#daylight) spell ca
 
 ### Robe of Scintillating Colors
 
-*Wondrous item, very rare (requires attunement)*
+*Wondrous item, very rare (requires [attunement](#section-attunement))*
 
 This robe has 3 charges, and it regains 1d3 expended charges daily at dawn. While you wear it, you can use an action and expend 1 charge to cause the garment to display a shifting pattern of dazzling hues until the end of your next turn. During this time, the robe sheds bright light in a 30-foot radius and dim light for an additional 30 feet. Creatures that can see you have disadvantage on attack rolls against you. In addition, any creature in the bright light that can see you when the robe's power is activated must succeed on a DC 15 Wisdom saving throw or become [stunned](#stunned) until the effect ends.
 
 ### Robe of Stars
 
-*Wondrous item, very rare (requires attunement)*
+*Wondrous item, very rare (requires [attunement](#section-attunement))*
 
 This black or dark blue robe is embroidered with small white or silver stars. You gain a +1 bonus to saving throws while you wear it.
 
@@ -24080,11 +24080,11 @@ In addition, the robe has 4d4 other patches. The GM chooses the patches or deter
 
 ### Robe of the Archmagi
 
-*Wondrous item, legendary (requires attunement by a sorcerer, warlock, or wizard)*
+*Wondrous item, legendary (requires [attunement](#section-attunement) by a sorcerer, warlock, or wizard)*
 
 This elegant garment is made from exquisite cloth of white, gray, or black and adorned with silvery runes.
 
-The robe's color corresponds to the alignment for which the item was created. A white robe was made for good, gray for neutral, and black for evil. You can't attune to a robe of the archmagi that doesn't correspond to your alignment.
+The robe's color corresponds to the alignment for which the item was created. A white robe was made for good, gray for neutral, and black for evil. You can't attune to a *robe of the archmagi* that doesn't correspond to your alignment.
 
 You gain these benefits while wearing the robe:
 
@@ -24094,7 +24094,7 @@ You gain these benefits while wearing the robe:
 
 ### Rod of Absorption
 
-*Rod, very rare (requires attunement)*
+*Rod, very rare (requires [attunement](#section-attunement))*
 
 While holding this rod, you can use your reaction to absorb a spell that is targeting only you and not with an area of effect. The absorbed spell's effect is canceled, and the spell's energy—not the spell itself—is stored in the rod. The energy has the same level as the spell when it was cast. The rod can absorb and store up to 50 levels of energy over the course of its existence. Once the rod absorbs 50 levels of energy, it can't absorb more. If you are targeted by a spell that the rod can't store, the rod has no effect on that spell.
 
@@ -24106,7 +24106,7 @@ A newly found rod has 1d10 levels of spell energy stored in it already. A rod th
 
 ### Rod of Alertness
 
-*Rod, very rare (requires attunement)*
+*Rod, very rare (requires [attunement](#section-attunement))*
 
 This rod has a flanged head and the following properties.
 
@@ -24120,7 +24120,7 @@ The rod's head stops glowing and the effect ends after 10 minutes, or when a cre
 
 ### Rod of Lordly Might
 
-*Rod, legendary (requires attunement)*
+*Rod, legendary (requires [attunement](#section-attunement))*
 
 This rod has a flanged head, and it functions as a magic mace that grants a +3 bonus to attack and damage rolls made with it. The rod has properties associated with six different buttons that are set in a row along the haft. It has three other properties as well, detailed below.
 
@@ -24150,7 +24150,7 @@ On a failure, a target is [frightened](#frightened) of you for 1 minute. A frigh
 
 ### Rod of Rulership
 
-*Rod, rare (requires attunement)*
+*Rod, rare (requires [attunement](#section-attunement))*
 
 You can use an action to present the rod and command obedience from each creature of your choice that you can see within 120 feet of you. Each target must succeed on a DC 15 Wisdom saving throw or be [charmed](#charmed) by you for 8 hours. While charmed in this way, the creature regards you as its trusted leader. If harmed by you or your companions, or commanded to do something contrary to its nature, a target ceases to be charmed in this way. The rod can't be used again until the next dawn.
 
@@ -24186,7 +24186,7 @@ The rope has AC 20 and 20 hit points. It regains 1 hit point every 5 minutes as 
 
 ### Scarab of Protection
 
-*Wondrous item, legendary (requires attunement)*
+*Wondrous item, legendary (requires [attunement](#section-attunement))*
 
 If you hold this beetle-shaped medallion in your hand for 1 round, an inscription appears on its surface revealing its magical nature. It provides two benefits while it is on your person:
 
@@ -24195,7 +24195,7 @@ If you hold this beetle-shaped medallion in your hand for 1 round, an inscriptio
 
 ### Scimitar of Speed
 
-*Weapon (scimitar), very rare (requires attunement)*
+*Weapon (scimitar), very rare (requires [attunement](#section-attunement))*
 
 You gain a +2 bonus to attack and damage rolls made with this magic weapon. In addition, you can make one attack with it as a bonus action on each of your turns.
 
@@ -24207,7 +24207,7 @@ While holding this shield, you have a bonus to AC determined by the shield's rar
 
 ### Shield of Missile Attraction
 
-*Armor (shield), rare (requires attunement)*
+*Armor (shield), rare (requires [attunement](#section-attunement))*
 
 While holding this shield, you have resistance to damage from ranged weapon attacks.
 
@@ -24215,7 +24215,7 @@ While holding this shield, you have resistance to damage from ranged weapon atta
 
 ### Slippers of Spider Climbing
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While you wear these light shoes, you can move up, down, and across vertical surfaces and upside down along ceilings, while leaving your hands free. You have a climbing speed equal to your walking speed.
 
@@ -24325,7 +24325,7 @@ A wizard spell on a *spell scroll* can be copied just as spells in spellbooks ca
 
 ### Spellguard Shield
 
-*Armor (shield), very rare (requires attunement)*
+*Armor (shield), very rare (requires [attunement](#section-attunement))*
 
 While holding this shield, you have advantage on saving throws against spells and other magical effects, and spell attacks have disadvantage against you.
 
@@ -24372,7 +24372,7 @@ If the sphere comes into contact with a planar portal, such as that created by t
 
 ### Staff of Charming
 
-*Staff, rare (requires attunement by a bard, cleric, druid, sorcerer, warlock, or wizard)*
+*Staff, rare (requires [attunement](#section-attunement) by a bard, cleric, druid, sorcerer, warlock, or wizard)*
 
 While holding this staff, you can use an action to expend 1 of its 10 charges to cast [*charm person*](#charm-person), [*command*](#command), or [*comprehend languages*](#comprehend-languages) from it using your spell save DC. The staff can also be used as a magic quarterstaff.
 
@@ -24382,7 +24382,7 @@ The staff regains 1d8 + 2 expended charges daily at dawn. If you expend the last
 
 ### Staff of Fire
 
-*Staff, very rare (requires attunement by a druid, sorcerer, warlock, or wizard)*
+*Staff, very rare (requires [attunement](#section-attunement) by a druid, sorcerer, warlock, or wizard)*
 
 You have resistance to fire damage while you hold this staff.
 
@@ -24392,7 +24392,7 @@ The staff regains 1d6 + 4 expended charges daily at dawn. If you expend the last
 
 ### Staff of Frost
 
-*Staff, very rare (requires attunement by a druid, sorcerer, warlock, or wizard)*
+*Staff, very rare (requires [attunement](#section-attunement) by a druid, sorcerer, warlock, or wizard)*
 
 You have resistance to cold damage while you hold this staff.
 
@@ -24402,7 +24402,7 @@ The staff regains 1d6 + 4 expended charges daily at dawn. If you expend the last
 
 ### Staff of Healing
 
-*Staff, rare (requires attunement by a bard, cleric, or druid)*
+*Staff, rare (requires [attunement](#section-attunement) by a bard, cleric, or druid)*
 
 This staff has 10 charges. While holding it, you can use an action to expend 1 or more of its charges to cast one of the following spells from it, using your spell save DC and spellcasting ability modifier: [*cure wounds*](#cure-wounds) (1 charge per spell level, up to 4th), [*lesser restoration*](#lesser-restoration) (2 charges), or [*mass cure wounds*](#mass-cure-wounds) (5 charges).
 
@@ -24410,7 +24410,7 @@ The staff regains 1d6 + 4 expended charges daily at dawn. If you expend the last
 
 ### Staff of Power
 
-*Staff, very rare (requires attunement by a sorcerer, warlock, or wizard)*
+*Staff, very rare (requires [attunement](#section-attunement) by a sorcerer, warlock, or wizard)*
 
 This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls made with it. While holding it, you gain a +2 bonus to Armor Class, saving throws, and spell attack rolls.
 
@@ -24453,7 +24453,7 @@ You have a 50 percent chance to instantly travel to a random plane of existence,
 
 ### Staff of Striking
 
-*Staff, very rare (requires attunement)*
+*Staff, very rare (requires [attunement](#section-attunement))*
 
 This staff can be wielded as a magic quarterstaff that grants a +3 bonus to attack and damage rolls made with it.
 
@@ -24461,7 +24461,7 @@ The staff has 10 charges. When you hit with a melee attack using it, you can exp
 
 ### Staff of Swarming Insects
 
-*Staff, rare (requires attunement by a bard, cleric, druid, sorcerer, warlock, or wizard)*
+*Staff, rare (requires [attunement](#section-attunement) by a bard, cleric, druid, sorcerer, warlock, or wizard)*
 
 This staff has 10 charges and regains 1d6 + 4 expended charges daily at dawn. If you expend the last charge, roll a d20. On a 1, a swarm of insects consumes and destroys the staff, then disperses.
 
@@ -24471,7 +24471,7 @@ This staff has 10 charges and regains 1d6 + 4 expended charges daily at dawn. If
 
 ### Staff of Thunder and Lightning
 
-*Staff, very rare (requires attunement)*
+*Staff, very rare (requires [attunement](#section-attunement))*
 
 This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls made with it. It also has the following additional properties. When one of these properties is used, it can't be used again until the next dawn.
 
@@ -24487,7 +24487,7 @@ This staff can be wielded as a magic quarterstaff that grants a +2 bonus to atta
 
 ### Staff of Withering
 
-*Staff, rare (requires attunement by a cleric, druid, or warlock)*
+*Staff, rare (requires [attunement](#section-attunement) by a cleric, druid, or warlock)*
 
 This staff has 3 charges and regains 1d3 expended charges daily at dawn.
 
@@ -24497,7 +24497,7 @@ On a hit, it deals damage as a normal quarterstaff, and you can expend 1 charge 
 
 ### Staff of the Magi
 
-*Staff, legendary (requires attunement by a sorcerer, warlock, or wizard)*
+*Staff, legendary (requires [attunement](#section-attunement) by a sorcerer, warlock, or wizard)*
 
 This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls made with it. While you hold it, you gain a +2 bonus to spell attack rolls.
 
@@ -24542,7 +24542,7 @@ You have a 50 percent chance to instantly travel to a random plane of existence,
 
 ### Staff of the Python
 
-*Staff, uncommon (requires attunement by a cleric, druid, or warlock)*
+*Staff, uncommon (requires [attunement](#section-attunement) by a cleric, druid, or warlock)*
 
 You can use an action to speak this staff's command word and throw the staff on the ground within 10 feet of you. The staff becomes a giant constrictor snake under your control and acts on its own initiative count. By using a bonus action to speak the command word again, you return the staff to its normal form in a space formerly occupied by the snake.
 
@@ -24552,7 +24552,7 @@ If the snake is reduced to 0 hit points, it dies and reverts to its staff form. 
 
 ### Staff of the Woodlands
 
-*Staff, rare (requires attunement by a druid)*
+*Staff, rare (requires [attunement](#section-attunement) by a druid)*
 
 This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls made with it. While holding it, you have a +2 bonus to spell attack rolls.
 
@@ -24570,13 +24570,13 @@ If the stone is touching the ground, you can use an action to speak its command 
 
 ### Stone of Good Luck (Luckstone)
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While this polished agate is on your person, you gain a +1 bonus to ability checks and saving throws.
 
 ### Sun Blade
 
-*Weapon (longsword), rare (requires attunement)*
+*Weapon (longsword), rare (requires [attunement](#section-attunement))*
 
 This item appears to be a longsword hilt. While grasping the hilt, you can use a bonus action to cause a blade of pure radiance to spring into existence, or make the blade disappear. While the blade exists, this magic longsword has the finesse property. If you are proficient with shortswords or longswords, you are proficient with the sun blade.
 
@@ -24586,13 +24586,13 @@ The sword's luminous blade emits bright light in a 15-foot radius and dim light 
 
 ### Sword of Life Stealing
 
-*Weapon (any sword), rare (requires attunement)*
+*Weapon (any sword), rare (requires [attunement](#section-attunement))*
 
 When you attack a creature with this magic weapon and roll a 20 on the attack roll, that target takes an extra 3d6 necrotic damage, provided that the target isn't a construct or an undead. You gain temporary hit points equal to the extra damage dealt.
 
 ### Sword of Sharpness
 
-*Weapon (any sword that deals slashing damage), very rare (requires attunement)*
+*Weapon (any sword that deals slashing damage), very rare (requires [attunement](#section-attunement))*
 
 When you attack an object with this magic sword and hit, maximize your weapon damage dice against the target.
 
@@ -24602,7 +24602,7 @@ In addition, you can speak the sword's command word to cause the blade to shed b
 
 ### Sword of Wounding
 
-*Weapon (any sword), rare (requires attunement)*
+*Weapon (any sword), rare (requires [attunement](#section-attunement))*
 
 Hit points lost to this weapon's damage can be regained only through a short or long rest, rather than by regeneration, magic, or any other means.
 
@@ -24610,7 +24610,7 @@ Once per turn, when you hit a creature with an attack using this magic weapon, y
 
 ### Talisman of Pure Good
 
-*Wondrous item, legendary (requires attunement by a creature of good alignment)*
+*Wondrous item, legendary (requires [attunement](#section-attunement) by a creature of good alignment)*
 
 This talisman is a mighty symbol of goodness. A creature that is neither good nor evil in alignment takes 6d6 radiant damage upon touching the talisman. An evil creature takes 8d6 radiant damage upon touching the talisman. Either sort of creature takes the damage again each time it ends its turn holding or carrying the talisman.
 
@@ -24620,7 +24620,7 @@ The talisman has 7 charges. If you are wearing or holding it, you can use an act
 
 ### Talisman of Ultimate Evil
 
-*Wondrous item, legendary (requires attunement by a creature of evil alignment)*
+*Wondrous item, legendary (requires [attunement](#section-attunement) by a creature of evil alignment)*
 
 This item symbolizes unrepentant evil. A creature that is neither good nor evil in alignment takes 6d6 necrotic damage upon touching the talisman. A good creature takes 8d6 necrotic damage upon touching the talisman. Either sort of creature takes the damage again each time it ends its turn holding or carrying the talisman.
 
@@ -24630,7 +24630,7 @@ The talisman has 6 charges. If you are wearing or holding it, you can use an act
 
 ### Talisman of the Sphere
 
-*Wondrous item, legendary (requires attunement)*
+*Wondrous item, legendary (requires [attunement](#section-attunement))*
 
 When you make an Intelligence (Arcana) check to control a [*sphere of annihilation*](#item-sphere-of-annihilation) while you are holding this talisman, you double your proficiency bonus on the check. In addition, when you start your turn with control over a *sphere of annihilation*, you can use an action to levitate it 10 feet plus a number of additional feet equal to 10 × your Intelligence modifier.
 
@@ -24654,7 +24654,7 @@ This book contains intuition and insight exercises, and its words are charged wi
 
 ### Trident of Fish Command
 
-*Weapon (trident), uncommon (requires attunement)*
+*Weapon (trident), uncommon (requires [attunement](#section-attunement))*
 
 This trident is a magic weapon. It has 3 charges. While you carry it, you can use an action and expend 1 charge to cast [*dominate beast*](#dominate-beast) (save DC 15) from it on a beast that has an innate swimming speed. The trident regains 1d3 expended charges daily at dawn.
 
@@ -24672,7 +24672,7 @@ When you roll a 20 on your attack roll with this magic weapon, your critical hit
 
 ### Vorpal Sword
 
-*Weapon (any sword that deals slashing damage), legendary (requires attunement)*
+*Weapon (any sword that deals slashing damage), legendary (requires [attunement](#section-attunement))*
 
 You gain a +3 bonus to attack and damage rolls made with this magic weapon. In addition, the weapon ignores resistance to slashing damage.
 
@@ -24680,7 +24680,7 @@ When you attack a creature that has at least one head with this weapon and roll 
 
 ### Wand of Binding
 
-*Wand, rare (requires attunement by a spellcaster)*
+*Wand, rare (requires [attunement](#section-attunement) by a spellcaster)*
 
 This wand has 7 charges for the following properties. It regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.
 
@@ -24690,7 +24690,7 @@ This wand has 7 charges for the following properties. It regains 1d6 + 1 expende
 
 ### Wand of Enemy Detection
 
-*Wand, rare (requires attunement)*
+*Wand, rare (requires [attunement](#section-attunement))*
 
 This wand has 7 charges. While holding it, you can use an action and expend 1 charge to speak its command word. For the next minute, you know the direction of the nearest creature hostile to you within 60 feet, but not its distance from you. The wand can sense the presence of hostile creatures that are ethereal, [invisible](#invisible), disguised, or hidden, as well as those in plain sight. The effect ends if you stop holding the wand.
 
@@ -24698,7 +24698,7 @@ The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand'
 
 ### Wand of Fear
 
-*Wand, rare (requires attunement)*
+*Wand, rare (requires [attunement](#section-attunement))*
 
 This wand has 7 charges for the following properties. It regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.
 
@@ -24708,7 +24708,7 @@ This wand has 7 charges for the following properties. It regains 1d6 + 1 expende
 
 ### Wand of Fireballs
 
-*Wand, rare (requires attunement by a spellcaster)*
+*Wand, rare (requires [attunement](#section-attunement) by a spellcaster)*
 
 This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast the [*fireball*](#fireball) spell (save DC 15) from it. For 1 charge, you cast the 3rd-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.
 
@@ -24716,7 +24716,7 @@ The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand'
 
 ### Wand of Lightning Bolts
 
-*Wand, rare (requires attunement by a spellcaster)*
+*Wand, rare (requires [attunement](#section-attunement) by a spellcaster)*
 
 This wand has 7 charges. While holding it, you can use an action to expend 1 or more of its charges to cast the [*lightning bolt*](#lightning-bolt) spell (save DC 15) from it. For 1 charge, you cast the 3rd-level version of the spell. You can increase the spell slot level by one for each additional charge you expend.
 
@@ -24738,7 +24738,7 @@ The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand'
 
 ### Wand of Paralysis
 
-*Wand, rare (requires attunement by a spellcaster)*
+*Wand, rare (requires [attunement](#section-attunement) by a spellcaster)*
 
 This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cause a thin blue ray to streak from the tip toward a creature you can see within 60 feet of you. The target must succeed on a DC 15 Constitution saving throw or be [paralyzed](#paralyzed) for 1 minute. At the end of each of the target's turns, it can repeat the saving throw, ending the effect on itself on a success.
 
@@ -24746,7 +24746,7 @@ The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand'
 
 ### Wand of Polymorph
 
-*Wand, very rare (requires attunement by a spellcaster)*
+*Wand, very rare (requires [attunement](#section-attunement) by a spellcaster)*
 
 This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cast the [*polymorph*](#polymorph) spell (save DC 15) from it.
 
@@ -24760,7 +24760,7 @@ The wand has 3 charges. While holding it, you can use an action to expend 1 of i
 
 ### Wand of Web
 
-*Wand, uncommon (requires attunement by a spellcaster)*
+*Wand, uncommon (requires [attunement](#section-attunement) by a spellcaster)*
 
 This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges to cast the [*web*](#web) spell (save DC 15) from it.
 
@@ -24768,7 +24768,7 @@ The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand'
 
 ### Wand of Wonder
 
-*Wand, rare (requires attunement by a spellcaster)*
+*Wand, rare (requires [attunement](#section-attunement) by a spellcaster)*
 
 This wand has 7 charges. While holding it, you can use an action to expend 1 of its charges and choose a target within 120 feet of you. The target can be a creature, an object, or a point in space. Roll d100 and consult the following table to discover what happens.
 
@@ -24883,7 +24883,7 @@ The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand'
 
 ### Wand of the War Mage, +1, +2, or +3
 
-*Wand, uncommon (+1), rare (+2), or very rare (+3) (requires attunement by a spellcaster)*
+*Wand, uncommon (+1), rare (+2), or very rare (+3) (requires [attunement](#section-attunement) by a spellcaster)*
 
 While holding this wand, you gain a bonus to spell attack rolls determined by the wand's rarity. In addition, you ignore half cover when making a spell attack.
 
@@ -24909,7 +24909,7 @@ While holding this fan, you can use an action to cast the [*gust of wind*](#gust
 
 ### Winged Boots
 
-*Wondrous item, uncommon (requires attunement)*
+*Wondrous item, uncommon (requires [attunement](#section-attunement))*
 
 While you wear these boots, you have a flying speed equal to your walking speed. You can use the boots to fly for up to 4 hours, all at once or in several shorter flights, each one using a minimum of 1 minute from the duration. If you are flying when the duration expires, you descend at a rate of 30 feet per round until you land.
 
@@ -24917,7 +24917,7 @@ The boots regain 2 hours of flying capability for every 12 hours they aren't in 
 
 ### Wings of Flying
 
-*Wondrous item, rare (requires attunement)*
+*Wondrous item, rare (requires [attunement](#section-attunement))*
 
 While wearing this cloak, you can use an action to speak its command word. This turns the cloak into a pair of bat wings or bird wings on your back for 1 hour or until you repeat the command word as an action. The wings give you a flying speed of 60 feet. When they disappear, you can't use them again for 1d12 hours.
 
@@ -25128,7 +25128,7 @@ A sentient item has a will of its own, shaped by its personality and alignment. 
 
 If its wielder refuses to comply with the item's wishes, the item can do any or all of the following:
 
--   Make it impossible for its wielder to attune to it.
+-   Make it impossible for its wielder to [attune](#section-attunement) to it.
 -   Suppress one or more of its activated properties.
 -   Attempt to take control of its wielder.
 
@@ -25138,7 +25138,7 @@ If a sentient item attempts to take control of its wielder, the wielder must mak
 
 ### Orb of the Wyrm
 
-*Wondrous item, artifact (requires attunement)*
+*Wondrous item, artifact (requires [attunement](#section-attunement))*
 
 Ages past, elves and humans waged a terrible war against evil dragons. When the world seemed doomed, powerful wizards came together and worked their greatest magic, forging five *Orbs of the Wyrm* (or *Wyrm Orbs*) to help them defeat the dragons. One orb was taken to each of the five wizard towers, and there they were used to speed the war toward a victorious end. The wizards used the orbs to lure dragons to them, then destroyed the dragons with powerful magic.
 
@@ -25764,7 +25764,7 @@ A monster's innate spells can't be swapped out with other spells. If a monster's
 
 A monster with the Spellcasting special trait has a spellcaster level and spell slots, which it uses to cast its spells of 1st level and higher (see "[Spellcasting](#chapter-spellcasting)"). The spellcaster level is also used for any cantrips included in the feature.
 
-The monster has a list of spells known or prepared from a specific class. The list might also include spells from a feature in that class, such as the Divine Domain feature of the cleric or the Druid Circle feature of the druid. The monster is considered a member of that class when attuning to or using a magic item that requires membership in the class or access to its spell list.
+The monster has a list of spells known or prepared from a specific class. The list might also include spells from a feature in that class, such as the Divine Domain feature of the cleric or the Druid Circle feature of the druid. The monster is considered a member of that class when [attuning](#section-attunement) to or using a magic item that requires membership in the class or access to its [spell list](#chapter-spell-lists).
 
 A monster can cast a spell from its list at a higher level if it has the spell slot to do so. For example, a drow mage with the 3rd-level lightning bolt spell can cast it as a 5th-level spell by using one of its 5th-level spell slots.
 
