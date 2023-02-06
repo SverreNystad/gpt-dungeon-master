@@ -22,11 +22,11 @@ Most races have tendencies toward certain alignments, described in this entry. T
 
 ### Size
 
-Characters of most races are Medium, a size category including creatures that are roughly 4 to 8 feet tall. Members of a few races are Small (between 2 and 4 feet tall), which means that certain rules of the game affect them differently. The most important of these rules is that Small characters have trouble wielding heavy weapons, as explained in "[Equipment](#chapter-equipment)."
+Characters of most races are Medium, a size category including creatures that are roughly 4 to 8 feet tall. Members of a few races are Small (between 2 and 4 feet tall), which means that certain rules of the game affect them differently. The most important of these rules is that Small characters have trouble wielding [heavy weapons](#weapon-properties).
 
 ### Speed
 
-Your speed determines how far you can move when traveling (see "[Adventuring](#chapter-adventuring)") and fighting (see "[Combat](#chapter-combat)").
+Your speed determines how far you can move when [traveling](#travel-pace) and [fighting](#section-movement-and-position).
 
 ### Languages
 
@@ -602,7 +602,7 @@ You have advantage on Dexterity saving throws against effects that you can see, 
 
 ### Primal Path
 
-At 3rd level, you choose a path (see "[Barbarian Paths](#section-barbarian-paths)") that shapes the nature of your rage. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels.
+At 3rd level, you choose a [path](#section-barbarian-paths) that shapes the nature of your rage. Your choice grants you features at 3rd level and again at 6th, 10th, and 14th levels.
 
 ### Ability Score Improvement
 
@@ -1188,7 +1188,7 @@ You can cast any bard spell you know as a ritual if that spell has the ritual ta
 
 #### Spellcasting Focus
 
-You can use a musical instrument (see "[Equipment](#chapter-equipment)") as a spellcasting focus for your bard spells.
+You can use a [musical instrument](#section-tools) as a spellcasting focus for your bard spells.
 
 ### Bardic Inspiration
 
@@ -1212,7 +1212,7 @@ The extra hit points increase when you reach certain levels in this class: to 1d
 
 ### Bard College
 
-At 3rd level, you delve into the advanced techniques of a bard college (see "[Bard Colleges](#section-bard-colleges)") of your choice. Your choice grants you features at 3rd level and again at 6th and 14th level.
+At 3rd level, you delve into the advanced techniques of a [bard college](#section-bard-colleges) of your choice. Your choice grants you features at 3rd level and again at 6th and 14th level.
 
 ### Expertise
 
@@ -1763,11 +1763,11 @@ You can cast a cleric spell as a ritual if that spell has the ritual tag and you
 
 #### Spellcasting Focus
 
-You can use a holy symbol (see "[Equipment](#chapter-equipment)") as a spellcasting focus for your cleric spells.
+You can use a [holy symbol](#section-adventuring-gear) as a spellcasting focus for your cleric spells.
 
 ### Divine Domain
 
-Choose one domain (see "[Domains](#section-domains)") related to your deity. Each domain provides examples of gods associated with it. Your choice grants you domain spells and other features when you choose it at 1st level. It also grants you additional ways to use Channel Divinity when you gain that feature at 2nd level, and additional benefits at 6th, 8th, and 17th levels.
+Choose one [domain](#section-domains) related to your deity. Each domain provides examples of gods associated with it. Your choice grants you domain spells and other features when you choose it at 1st level. It also grants you additional ways to use Channel Divinity when you gain that feature at 2nd level, and additional benefits at 6th, 8th, and 17th levels.
 
 #### Domain Spells
 
@@ -1851,7 +1851,7 @@ At 20th level, your call for intervention succeeds automatically, no roll requir
 
 ### Life Domain
 
-The Life domain focuses on the vibrant positive energy—one of the fundamental forces of the universe—that sustains all life. The gods of life (see "[Pantheons](#chapter-pantheons)") promote vitality and health through healing the sick and wounded, caring for those in need, and driving away the forces of death and undeath. Almost any non-evil deity can claim influence over this domain, particularly agricultural deities (such as Isis, The Daghdha, and Demeter), sun gods (such as Belenus, Frey, and Re-Horakhty), gods of healing or endurance (such as Apollo, Lugh, and Diancecht), and gods of home and community (such as Hestia, Hathor, and Frigga).
+The Life domain focuses on the vibrant positive energy—one of the fundamental forces of the universe—that sustains all life. The [gods of life](#chapter-pantheons) promote vitality and health through healing the sick and wounded, caring for those in need, and driving away the forces of death and undeath. Almost any non-evil deity can claim influence over this domain, particularly agricultural deities (such as Isis, The Daghdha, and Demeter), sun gods (such as Belenus, Frey, and Re-Horakhty), gods of healing or endurance (such as Apollo, Lugh, and Diancecht), and gods of home and community (such as Hestia, Hathor, and Frigga).
 
 <table style="width:89%;">
 <caption>Life Domain Spells</caption>
@@ -2412,7 +2412,7 @@ You can cast a druid spell as a ritual if that spell has the ritual tag and you 
 
 #### Spellcasting Focus
 
-You can use a druidic focus (see "[Equipment](#chapter-equipment)") as a spellcasting focus for your druid spells.
+You can use a [druidic focus](#section-adventuring-gear) as a spellcasting focus for your druid spells.
 
 ### Wild Shape
 
@@ -2470,7 +2470,7 @@ While you are transformed, the following rules apply:
 
 ### Druid Circle
 
-At 2nd level, you choose to identify with a circle of druids (see "[Druid Circles](#section-druid-circles)"). Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.
+At 2nd level, you choose to identify with a [circle of druids](#section-druid-circles). Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.
 
 ### Timeless Body
 
@@ -2955,7 +2955,7 @@ Starting at 2nd level, you can push yourself beyond your normal limits for a mom
 
 ### Martial Archetype
 
-At 3rd level, you choose an archetype (see "[Martial Archetypes](#section-martial-archetypes)") that you strive to emulate in your combat styles and techniques. The archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level.
+At 3rd level, you choose an [archetype](#section-martial-archetypes) that you strive to emulate in your combat styles and techniques. The archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level.
 
 ### Ability Score Improvement
 
@@ -3271,7 +3271,7 @@ At 9th level, you gain the ability to move along vertical surfaces and across li
 
 ### Monastic Tradition
 
-When you reach 3rd level, you commit yourself to a monastic tradition (see "[Monastic Traditions](#section-monastic-traditions)"). Your tradition grants you features at 3rd level and again at 6th, 11th, and 17th level.
+When you reach 3rd level, you commit yourself to a [monastic tradition](#section-monastic-traditions). Your tradition grants you features at 3rd level and again at 6th, 11th, and 17th level.
 
 ### Deflect Missiles
 
@@ -3791,7 +3791,7 @@ By 3rd level, the divine magic flowing through you makes you immune to disease.
 
 ### Sacred Oath
 
-When you reach 3rd level, you swear the oath (see "[Sacred Oaths](#section-sacred-oaths)") that binds you as a paladin forever. Up to this time you have been in a preparatory stage, committed to the path but not yet sworn to it. Now you choose a sacred oath.
+When you reach 3rd level, you swear the [sacred oath](#section-sacred-oaths) that binds you as a paladin forever. Up to this time you have been in a preparatory stage, committed to the path but not yet sworn to it. Now you choose a sacred oath.
 
 Your choice grants you features at 3rd level and again at 7th, 15th, and 20th level. Those features include oath spells and the Channel Divinity feature.
 
@@ -4388,7 +4388,7 @@ Wisdom is your spellcasting ability for your ranger spells, since your magic dra
 
 ### Ranger Archetype
 
-At 3rd level, you choose an archetype (see "[Ranger Archetypes](#section-ranger-archetypes)") that you strive to emulate. Your choice grants you features at 3rd level and again at 7th, 11th, and 15th level.
+At 3rd level, you choose an [archetype](#section-ranger-archetypes) that you strive to emulate. Your choice grants you features at 3rd level and again at 7th, 11th, and 15th level.
 
 ### Primeval Awareness
 
@@ -4673,7 +4673,7 @@ Starting at 2nd level, your quick thinking and agility allow you to move and act
 
 ### Roguish Archetype
 
-At 3rd level, you choose an archetype (see "[Roguish Archetypes](#section-roguish-archetypes)") that you emulate in the exercise of your rogue abilities. Your archetype choice grants you features at 3rd level and then again at 9th, 13th, and 17th level.
+At 3rd level, you choose an [archetype](#section-roguish-archetypes) that you emulate in the exercise of your rogue abilities. Your archetype choice grants you features at 3rd level and then again at 9th, 13th, and 17th level.
 
 ### Ability Score Improvement
 
@@ -5279,7 +5279,7 @@ You can use an arcane focus as a spellcasting focus for your sorcerer spells.
 
 ### Sorcerous Origin
 
-Choose a sorcerous origin (see "[Sorcerous Origins](#section-sorcerous-origins)"), which describes the source of your innate magical power.
+Choose a [sorcerous origin](#section-sorcerous-origins), which describes the source of your innate magical power.
 
 Your choice grants you features when you choose it at 1st level and again at 6th, 14th, and 18th level.
 
@@ -5866,7 +5866,7 @@ You can use an arcane focus as a spellcasting focus for your warlock spells.
 
 ### Eldritch Invocations
 
-In your study of occult lore, you have unearthed eldritch invocations (see "[Eldritch Invocations](#section-eldritch-invocations)"), fragments of forbidden knowledge that imbue you with an abiding magical ability.
+In your study of occult lore, you have unearthed [eldritch invocations](#section-eldritch-invocations), fragments of forbidden knowledge that imbue you with an abiding magical ability.
 
 At 2nd level, you gain two eldritch invocations of your choice. When you gain certain warlock levels, you gain additional invocations of your choice, as shown in the Invocations Known column of the Warlock table.
 
@@ -6674,7 +6674,7 @@ You can use an arcane focus as a spellcasting focus for your wizard spells.
 
 Each time you gain a wizard level, you can add two wizard spells of your choice to your spellbook for free. Each of these spells must be of a level for which you have spell slots, as shown on the Wizard table.
 
-On your adventures, you might find other spells that you can add to your spellbook (see "[Your Spellbook](#your-spellbook)").
+On your adventures, you might find other spells that you can add to [your spellbook](#your-spellbook).
 
 ### Arcane Recovery
 
@@ -6684,7 +6684,7 @@ For example, if you're a 4th-level wizard, you can recover up to two levels wort
 
 ### Arcane Tradition
 
-When you reach 2nd level, you choose an arcane tradition, shaping your practice of magic through a specific school (see "[Arcane Traditions](#section-arcane-traditions)").
+When you reach 2nd level, you choose an arcane tradition, shaping your practice of magic through a specific [school](#section-arcane-traditions).
 
 Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.
 
@@ -7134,7 +7134,7 @@ At the beginning of every combat, you roll initiative by making a Dexterity chec
 >
 > ***Passive Perception.*** When you hide, there's a chance someone will notice you even if they aren't searching. To determine whether such a creature notices you, the GM compares your Dexterity (Stealth) check with that creature's passive Wisdom (Perception) score, which equals 10 + the creature's Wisdom modifier, as well as any other bonuses or penalties. If the creature has advantage, add 5. For disadvantage, subtract 5. For example, if a 1st-level character (with a proficiency bonus of +2) has a Wisdom of 15 (a +2 modifier) and proficiency in Perception, he or she has a passive Wisdom (Perception) of 14.
 >
-> ***What Can You See?*** One of the main factors in determining whether you can find a hidden creature or object is how well you can see in an area, which might be lightly or heavily obscured (see "[Adventuring](#chapter-adventuring)").
+> ***What Can You See?*** One of the main factors in determining whether you can find a hidden creature or object is how well you can see in an area, which might be [lightly or heavily obscured](#vision-and-light).
 
 ### Constitution
 
@@ -8022,15 +8022,15 @@ Backgrounds provide both concrete benefits (features, proficiencies, and languag
 
 #### Proficiencies
 
-Each background gives a character proficiency in two skills (see "[Using Ability Scores](#chapter-using-ability-scores)").
+Each background gives a character proficiency in two [skills](#skills).
 
-In addition, most backgrounds give a character proficiency with one or more tools (see "[Equipment](#chapter-equipment)").
+In addition, most backgrounds give a character proficiency with one or more [tools](#section-tools).
 
 If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
 
 #### Languages
 
-Some backgrounds also allow characters to learn additional languages beyond those given by race (see "[Languages](#section-languages)").
+Some backgrounds also allow characters to learn additional [languages](#section-languages) beyond those given by race.
 
 #### Equipment
 
@@ -10421,7 +10421,7 @@ If damage reduces you to 0 hit points and fails to kill you, you fall [unconscio
 
 Whenever you start your turn with 0 hit points, you must make a special saving throw, called a death saving throw, to determine whether you creep closer to death or hang onto life. Unlike other saving throws, this one isn't tied to any ability score. You are in the hands of fate now, aided only by spells and features that improve your chances of succeeding on a saving throw.
 
-Roll a d20. If the roll is 10 or higher, you succeed. Otherwise, you fail. A success or failure has no effect by itself. On your third success, you become stable (see below). On your third failure, you die. The successes and failures don't need to be consecutive; keep track of both until you collect three of a kind. The number of both is reset to zero when you regain any hit points or become stable.
+Roll a d20. If the roll is 10 or higher, you succeed. Otherwise, you fail. A success or failure has no effect by itself. On your third success, you become [stable](#stabilizing-a-creature). On your third failure, you die. The successes and failures don't need to be consecutive; keep track of both until you collect three of a kind. The number of both is reset to zero when you regain any hit points or become stable.
 
 ***Rolling 1 or 20.*** When you make a death saving throw and roll a 1 on the d20, it counts as two failures. If you roll a 20 on the d20, you regain 1 hit point.
 
@@ -10591,7 +10591,7 @@ Some spells can be cast as reactions. These spells take a fraction of a second t
 
 #### Longer Casting Times
 
-Certain spells (including spells cast as rituals) require more time to cast: minutes or even hours. When you cast a spell with a casting time longer than a single action or reaction, you must spend your action each turn casting the spell, and you must maintain your concentration while you do so (see "[Concentration](#concentration)"). If your concentration is broken, the spell fails, but you don't expend a spell slot. If you want to try casting the spell again, you must start over.
+Certain spells (including spells cast as rituals) require more time to cast: minutes or even hours. When you cast a spell with a casting time longer than a single action or reaction, you must spend your action each turn casting the spell, and you must maintain your [concentration](#concentration) while you do so. If your concentration is broken, the spell fails, but you don't expend a spell slot. If you want to try casting the spell again, you must start over.
 
 ### Range
 
@@ -10599,7 +10599,7 @@ The target of a spell must be within the spell's range. For a spell like [*magic
 
 Most spells have ranges expressed in feet. Some spells can target only a creature (including you) that you touch. Other spells, such as the [*shield*](#shield) spell, affect only you. These spells have a range of self.
 
-Spells that create cones or lines of effect that originate from you also have a range of self, indicating that the origin point of the spell's effect must be you (see "[Areas of Effect](#areas-of-effect)").
+Spells that create cones or lines of effect that originate from you also have a range of self, indicating that the [origin point](#areas-of-effect) of the spell's effect must be you.
 
 Once a spell is cast, its effects aren't limited by its range, unless the spell's description says otherwise.
 
@@ -10647,7 +10647,7 @@ The GM might also decide that certain environmental phenomena, such as a wave cr
 
 ### Targets
 
-A typical spell requires you to pick one or more targets to be affected by the spell's magic. A spell's description tells you whether the spell targets creatures, objects, or a point of origin for an area of effect (see "[Areas of Effect](#areas-of-effect)").
+A typical spell requires you to pick one or more targets to be affected by the spell's magic. A spell's description tells you whether the spell targets creatures, objects, or a point of origin for an [area of effect](#areas-of-effect).
 
 Unless a spell has a perceptible effect, a creature might not know it was targeted by a spell at all. An effect like crackling lightning is obvious, but a more subtle effect, such as an attempt to read a creature's thoughts, typically goes unnoticed, unless a spell says otherwise.
 
@@ -20601,7 +20601,7 @@ Many weapons have special properties related to their use, as shown in the Weapo
 
 ***Ammunition.*** You can use a weapon that has the ammunition property to make a ranged attack only if you have ammunition to fire from the weapon. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon). At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield.
 
-If you use a weapon that has the ammunition property to make a melee attack, you treat the weapon as an improvised weapon (see "[Improvised Weapons](#improvised-weapons)"). A sling must be loaded to deal any damage when used in this way.
+If you use a weapon that has the ammunition property to make a melee attack, you treat the weapon as an [improvised weapon](#improvised-weapons). A sling must be loaded to deal any damage when used in this way.
 
 ***Finesse.*** When making an attack with a finesse weapon, you use your choice of your Strength or Dexterity modifier for the attack and damage rolls. You must use the same modifier for both rolls.
 
@@ -22288,7 +22288,7 @@ Once a card is drawn, it fades from existence. Unless the card is the Fool or th
 
 ***Ruin.*** All forms of wealth that you carry or own, other than magic items, are lost to you. Portable property vanishes. Businesses, buildings, and land you own are lost in a way that alters reality the least. Any documentation that proves you should own something lost to this card also disappears.
 
-***Skull.*** You summon an avatar of death—a ghostly humanoid skeleton clad in a tattered black robe and carrying a spectral scythe. It appears in a space of the GM's choice within 10 feet of you and attacks you, warning all others that you must win the battle alone. The avatar fights until you die or it drops to 0 hit points, whereupon it disappears. If anyone tries to help you, the helper summons its own avatar of death. A creature slain by an avatar of death can't be restored to life. (See "[Avatar of Death](#avatar-of-death)".)
+***Skull.*** You summon an [avatar of death](#avatar-of-death)—a ghostly humanoid skeleton clad in a tattered black robe and carrying a spectral scythe. It appears in a space of the GM's choice within 10 feet of you and attacks you, warning all others that you must win the battle alone. The avatar fights until you die or it drops to 0 hit points, whereupon it disappears. If anyone tries to help you, the helper summons its own avatar of death. A creature slain by an avatar of death can't be restored to life.
 
 ***Star.*** Increase one of your ability scores by 2. The score can exceed 20 but can't exceed 24.
 
@@ -22622,7 +22622,7 @@ When the creature becomes a figurine again, its property can't be used again unt
 
 ***Bronze Griffon (Rare).*** This bronze statuette is of a griffon rampant. It can become a griffon for up to 6 hours. Once it has been used, it can't be used again until 5 days have passed.
 
-***Ebony Fly (Rare).*** This ebony statuette is carved in the likeness of a horsefly. It can become a giant fly (see "[Giant Fly](#giant-fly)") for up to 12 hours and can be ridden as a mount. Once it has been used, it can't be used again until 2 days have passed.
+***Ebony Fly (Rare).*** This ebony statuette is carved in the likeness of a horsefly. It can become a [giant fly](#giant-fly) for up to 12 hours and can be ridden as a mount. Once it has been used, it can't be used again until 2 days have passed.
 
 ***Golden Lions (Rare).*** These gold statuettes of lions are always created in pairs. You can use one figurine or both simultaneously. Each can become a lion for up to 1 hour. Once a lion has been used, it can't be used again until 7 days have passed.
 
@@ -25356,7 +25356,7 @@ A monster that has a climbing speed can use all or part of its movement to move 
 
 #### Fly
 
-A monster that has a flying speed can use all or part of its movement to fly. Some monsters have the ability to hover, which makes them hard to knock out of the air (see "[Movement and Position](#section-movement-and-position)" for rules on flying). Such a monster stops hovering when it dies.
+A monster that has a flying speed can use all or part of its movement to fly. Some monsters have the ability to hover, which makes them hard to [knock out of the air](#flying-movement). Such a monster stops hovering when it dies.
 
 #### Swim
 
