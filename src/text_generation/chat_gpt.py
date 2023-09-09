@@ -4,9 +4,9 @@ from config import GPTConfig
 
 
 class Role(Enum):
-    SYSTEM = "system"
-    ASSISTANT = "assistant"
-    USER = "user"
+    SYSTEM = "system" # The system role is used to give truths to the chatbot
+    ASSISTANT = "assistant" # The assistant role is the chatbot itself
+    USER = "user" # The user role is used to give input to the chatbot
 
 def chat_with_gpt(prompt):
     # API endpoint (this is a hypothetical endpoint; refer to the official documentation for the exact endpoint)
@@ -32,10 +32,6 @@ def chat_with_gpt(prompt):
         "messages": history,
         
     }
-
-    # "message": {
-    #   "role": "assistant",
-    #   "content": "\n\nHello there, how may I assist you today?",
     
     response = requests.post(endpoint, headers=headers, json=data)
     
@@ -54,11 +50,3 @@ if __name__ == "__main__":
     response = chat_with_gpt(prompt)
     if response:
         print("GPT Response:", response)
-
-
-"""GPTConfig
-Cosntruct message
-messages er en måte å sende meldinger
-den siste er prompten 
-role, content
-"""
