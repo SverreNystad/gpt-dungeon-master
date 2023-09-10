@@ -98,3 +98,22 @@ echo "OPENAI_API_KEY=YOUR_API_KEY" > .env # Remember to change YOUR_API_KEY to y
 
 ### License
 The license is not yet decided. Check back later for updates.
+
+
+### Roadmap (work in progress)
+#### Phase 1 Preliminary Setup
+Create a repository structure, and set up initial project documentation, survey the best tools for text-to-speech, speech-to-text, the GPT model and generative art.
+
+#### Phase 2 Create tools
+Implement most of the planned features, creating a TTS and SST engines module, creating a generative image module, create a text generation module.
+
+#### Phase 3 Core Functionality and polishing
+Create the core out of combate functionality like Character interaction and dynamic storytelling. Integrate the different modules.
+
+
+#### Phase 4 Interactive UI
+Creating a user friendly UI to make the project easier to use without deep knolegde of the project.
+
+#### Phase 5 Official Release and Future Work
+* Launch the official version of the GPT Dungeon Master. 
+* Explore the possibility of introducing combat aspects and other advanced features into the system.
