@@ -61,7 +61,7 @@ def test_correct_image_generation():
     
     response = generate_image_request(prompt=correct_prompt)
 
-    assert response["code"] == 200
+    assert response["data"] != None
 
 def test_correct_image_generation_with_size():
     correct_prompt = "A painting of a dungeon master sitting at a table with a group of adventurers playing Dungeons and Dragons."
@@ -69,7 +69,7 @@ def test_correct_image_generation_with_size():
 
     response = generate_image_request(prompt=correct_prompt, size=correct_size)
 
-    assert response["code"] == 200
+    assert response["data"] != None
 
 def test_correct_image_generation_when_generating_several_pictures():
     correct_prompt = "A painting of a dungeon master sitting at a table with a group of adventurers playing Dungeons and Dragons."
@@ -77,4 +77,5 @@ def test_correct_image_generation_when_generating_several_pictures():
 
     response = generate_image_request(prompt=correct_prompt, number_of_images=correct_amount_of_images)
 
-    assert response["code"] == 200
+    assert response["data"] != None
+    assert len(response["data"]) == correct_amount_of_images
