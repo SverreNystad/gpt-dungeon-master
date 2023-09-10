@@ -1,6 +1,6 @@
 from enum import Enum
 import requests
-from config import GPTConfig
+from src.text_generation.config import GPTConfig
 
 
 class Role(Enum):
