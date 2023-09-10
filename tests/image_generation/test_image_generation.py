@@ -1,8 +1,6 @@
 import pytest
-import sys
-sys.path.append('C:/Users/Bruker/OneDrive/koding/gpt-dungeon-master')  # path to the root of your project
 
-from src.image_generation.image_generation import generate_image_request, ImageSize
+from src.text_to_image.image_generator import generate_image_request, ImageSize
 
 def test_image_generation_not_supported_size():
     with pytest.raises(ValueError):

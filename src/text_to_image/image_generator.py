@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import requests
-from src.image_generation.config import ImageConfig
+from src.text_to_image.config import ImageConfig
 
 @dataclass(init=False)
 class ImageSize:
@@ -23,6 +23,7 @@ class ImageSize:
 
     def __repr__(self) -> str:
         return f"{self.width}x{self.height}"
+    
     def __str__(self) -> str:
         return f"{self.width}x{self.height}"
 

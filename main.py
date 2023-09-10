@@ -1,5 +1,5 @@
 from src.text_generation.chat_gpt import chat_with_gpt
-from src.image_generation.image_generation import generate_image_request, ImageSize
+from src.text_to_image.image_generator import generate_image_request, ImageSize
 
 # Run chat_gpt.py
 print("Running chat_gpt.py")
