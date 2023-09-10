@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import requests
-from config import ImageConfig
+from src.image_generation.config import ImageConfig
 
 @dataclass(init=False)
 class ImageSize:
@@ -12,8 +12,12 @@ class ImageSize:
     height: int
 
     def __init__(self, width: int=256, height: int=256) -> None:
-        assert width == height, "Width and height must be the same."
-        assert width in [256, 512, 1024], "Width and height must be one of 256, 512, or 1024."
+        if (width < 0) or (height < 0):
+            raise ValueError("Width and height must be positive.")
+        if (width not in [256, 512, 1024]) or (height not in [256, 512, 1024]):
+            raise ValueError("Width and height must be one of 256, 512, or 1024.")
+        if width != height:
+            raise ValueError("Width and height must be the same.")
         self.width = width
         self.height = height
 
@@ -22,17 +26,24 @@ class ImageSize:
     def __str__(self) -> str:
         return f"{self.width}x{self.height}"
 
-def generate_image(prompt: str, number_of_images: int=1, size: ImageSize=ImageSize(256,256)) -> str:
+def generate_image_request(prompt: str, number_of_images: int=1, size: ImageSize=ImageSize(256,256)) -> str:
     """
     Generates an image based on the given prompt.
     Args:
-    :param prompt: A text description of the desired image(s). The maximum length is 1000 characters.
-    :param number_of_images: The number of images to generate. Defaults to 1, cant be more than 10 or less than 1.
-    :param size: The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
+        :param prompt (str): A text description of the desired image(s). The maximum length is 1000 characters.
+        :param number_of_images (int): The number of images to generate. Defaults to 1, cant be more than 10 or less than 1.
+        :param size (ImageSize): The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
+    Returns:
+        :return: A JSON object containing the generated image(s).
     """
-    assert number_of_images <= 10 and number_of_images >= 1, "Number of images must be between 1 and 10."
-    assert len(prompt) <= 1000, "Prompt must be less than 1000 characters."
-    assert isinstance(size, ImageSize), "Size must be an instance of ImageSize."
+    if not (1 <= number_of_images <= 10):
+        raise ValueError("Number of images must be between 1 and 10.")
+    
+    if len(prompt) > 1000 or len(prompt) < 1:
+        raise ValueError("Prompt must be at least 1 character or less than 1000 characters.")
+    
+    if not isinstance(size, ImageSize):
+        raise TypeError("Size must be an instance of ImageSize.")
 
     URL = ImageConfig().URL
     API_KEY = ImageConfig().API_KEY
@@ -51,4 +62,3 @@ def generate_image(prompt: str, number_of_images: int=1, size: ImageSize=ImageSi
     response = requests.post(URL, headers=headers, json=data)
     return response.json()
 
-print(generate_image(prompt="A painting of a dungeon master sitting at a table with a group of adventurers playing Dungeons and Dragons."))
