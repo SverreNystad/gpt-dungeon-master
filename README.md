@@ -33,7 +33,9 @@
         <li><a href="#Setup">Setup</a></li>
       </ul>
     </li>
+    <li><a href="#Tests">Usage</a></li>
     <li><a href="#license">License</a></li>
+    <li><a href="#roadmap-work-in-progress">License</a></li>
   </ol>
 </details>
 
@@ -99,6 +101,18 @@ pip install -r requirements.txt
 touch .env
 echo "OPENAI_API_KEY=YOUR_API_KEY" > .env # Remember to change YOUR_API_KEY to your actual API key
 ```
+
+## Tests
+To run all the tests, run the following command in the root directory of the project:
+```bash
+pytest --cov
+coverage html # To generate a coverage report
+```
+If you do not want to run api tests, run the following command instead:
+```bash
+pytest -m "not apitest" --cov
+```
+
 
 ### License
 The license is not yet decided. Check back later for updates.
