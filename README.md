@@ -108,14 +108,14 @@ The license is not yet decided. Check back later for updates.
 Create a repository structure, and set up initial project documentation, survey the best tools for text-to-speech, speech-to-text, the GPT model and generative art.
 
 #### Phase 2 Create tools
-Implement most of the planned features, creating a TTS and SST engines module, creating a generative image module, create a text generation module.
+Implement most of the planned features, creating a TTS and creating a generative image module, create a text generation module.
 
 #### Phase 3 Core Functionality and polishing
 Create the core out of combate functionality like Character interaction and dynamic storytelling. Integrate the different modules.
 
 
 #### Phase 4 Interactive UI
-Creating a user friendly UI to make the project easier to use without deep knolegde of the project.
+Creating a user friendly UI to make the project easier to use without deep knolegde of the project. Work on QOL tools like SST engines module or similar tools.
 
 #### Phase 5 Official Release and Future Work
 * Launch the official version of the GPT Dungeon Master. 
