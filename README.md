@@ -7,7 +7,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/SverreNystad/gpt-dungeon-master)
 [![Project Version](https://img.shields.io/badge/version-0.0.3-blue)](https://img.shields.io/badge/version-0.0.1-blue)
 
-![Alt text](<DALL·E 2023-09-09 23.10.21 - A robot in a medieval cloak sitting at the head of a stone table, with AI-driven holographic projections of a 20 sided dice, digital art.png>)
+![Alt text](docs/images/DALL·E%202023-09-09%2023.10.21%20-%20A%20robot%20in%20a%20medieval%20cloak%20sitting%20at%20the%20head%20of%20a%20stone%20table,%20with%20AI-driven%20holographic%20projections%20of%20a%2020%20sided%20dice,%20digital%20art.png)
 
 
 </div>
