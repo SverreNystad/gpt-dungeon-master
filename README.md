@@ -58,6 +58,9 @@ Welcome to the GPT Dungeon Master repository! This project harnesses the power o
 
 ## Usage
 The GPT Dungeon Master is currently in development. Check back later for updates.
+```bash
+python main.py
+```
 
 ## Installation
 To install the GPT Dungeon Master, one needs to have all the prerequisites installed and set up, and follow the setup guild. The following sections will guide you through the process.
