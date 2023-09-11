@@ -38,7 +38,7 @@ def test_image_generation_with_too_many_pictures():
     
 
 def test_image_generation_with_too_long_prompt():
-    prompt = 10000 * "a"
+    prompt = 10000 * "a" # random string of length 10000
     with pytest.raises(ValueError):
         generate_image_request(prompt=prompt)
 
@@ -53,7 +53,7 @@ def test_image_generation_with_wrong_type_of_size():
     with pytest.raises(TypeError):
         generate_image_request(prompt="test", size=wrong_type_size)
 
-
+@pytest.mark.apitest
 def test_correct_image_generation():
     correct_prompt = "A painting of a dungeon master sitting at a table with a group of adventurers playing Dungeons and Dragons."
     
@@ -61,6 +61,7 @@ def test_correct_image_generation():
 
     assert response["data"] != None
 
+@pytest.mark.apitest
 def test_correct_image_generation_with_size():
     correct_prompt = "A painting of a dungeon master sitting at a table with a group of adventurers playing Dungeons and Dragons."
     correct_size = ImageSize(512, 512)
@@ -69,6 +70,7 @@ def test_correct_image_generation_with_size():
 
     assert response["data"] != None
 
+@pytest.mark.apitest
 def test_correct_image_generation_when_generating_several_pictures():
     correct_prompt = "A painting of a dungeon master sitting at a table with a group of adventurers playing Dungeons and Dragons."
     correct_amount_of_images = 2
