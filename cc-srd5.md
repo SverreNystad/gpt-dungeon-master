@@ -11309,7 +11309,6 @@ For example, if two clerics cast [*bless*](#bless) on the same target, that char
 -   [*Counterspell*](#counterspell)
 -   [*Daylight*](#daylight)
 -   [*Dispel Magic*](#dispel-magic)
--   [*Eldritch Blast*](#eldritch-blast)
 -   [*Fear*](#fear)
 -   [*Fireball*](#fireball)
 -   [*Fly*](#fly)
@@ -11397,8 +11396,10 @@ For example, if two clerics cast [*bless*](#bless) on the same target, that char
 ### Cantrips (0 Level)
 
 -   [*Chill Touch*](#chill-touch)
+-   [*Eldritch Blast*](#eldritch-blast)
 -   [*Mage Hand*](#mage-hand)
 -   [*Minor Illusion*](#minor-illusion)
+-   [*Poison Spray*](#poison-spray)
 -   [*Prestidigitation*](#prestidigitation)
 -   [*True Strike*](#true-strike)
 
@@ -13989,7 +13990,7 @@ A fissure that opens beneath a structure causes it to automatically collapse (se
 
 *Evocation cantrip*
 
-**Class:** [Sorcerer](#section-sorcerer)
+**Class:** [Warlock](#section-warlock)
 
 **Casting Time:** 1 action
 
@@ -14293,7 +14294,7 @@ The spell can also be ended by [*greater restoration*](#greater-restoration), [*
 
 *1st-level conjuration*
 
-**Classes:** [Warlock](#section-warlock)
+**Classes:** [Wizard](#section-wizard)
 
 **Casting Time:** 1 hour
 
@@ -16532,7 +16533,7 @@ If you cast this spell over 8 hours, you enrich the land. All plants in a half-m
 
 *Conjuration cantrip*
 
-**Classes:** [Druid](#section-druid), [Sorcerer](#section-sorcerer), [Wizard](#section-wizard)
+**Classes:** [Druid](#section-druid), [Sorcerer](#section-sorcerer), [Warlock](#section-warlock), [Wizard](#section-wizard)
 
 **Casting Time:** 1 action
 
