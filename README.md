@@ -2,7 +2,9 @@
 
 <div align="center">
 
-![GPT-dungeon-master Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/SverreNystad/gpt-dungeon-master/python-app.yml)
+![GPT-dungeon-master Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/SverreNystad/gpt-dungeon-master/build_test_pipeline.yml)
+[![codecov.io](https://codecov.io/github/SverreNystad/gpt-dungeon-master/coverage.svg?branch=main)]
+(https://codecov.io/github/SverreNystad/gpt-dungeon-master?branch=main)
 ![GPT-dungeon-master top language](https://img.shields.io/github/languages/top/SverreNystad/gpt-dungeon-master)
 ![GitHub language count](https://img.shields.io/github/languages/count/SverreNystad/gpt-dungeon-master)
 [![Project Version](https://img.shields.io/badge/version-0.0.3-blue)](https://img.shields.io/badge/version-0.0.1-blue)
