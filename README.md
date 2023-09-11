@@ -33,7 +33,7 @@
         <li><a href="#Setup">Setup</a></li>
       </ul>
     </li>
-    <li><a href="#Tests">Usage</a></li>
+    <li><a href="#Tests">Tests</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#roadmap-work-in-progress">License</a></li>
   </ol>
