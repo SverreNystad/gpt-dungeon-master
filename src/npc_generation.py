@@ -85,8 +85,7 @@ def generate_npc() -> NPC:
     race: Race = Race.HALF_ELF
     role: str = "Shopkeeper"
 
-    name_template = f"What would be a good name for a {race.value} that has the role of {role} for a RPG?"
-    name: str = llm.predict(name_template)
+    name = generate_name(race, role)
 
     background = generate_general_background(name, age, race, role)
     alignment = generate_alignment(background)
@@ -95,7 +94,13 @@ def generate_npc() -> NPC:
     relations: NPCRelations = generate_npc_relations(background)
     psychology: NPCPsychology = generate_npc_psychology(profile, background, relations)
     return NPC(profile, relations, psychology)
-    
+
+def generate_name(race: Race, role: str) -> str:
+    name_template = f"What would be a good name for a {race.value} that has the role of {role} for a RPG?"
+    raw_name: str = llm.predict(name_template)
+    # Clean the name
+    name = raw_name.replace("\n", "")
+
 def generate_general_background(name: str, age: int, race: Race, role: str) -> str:
     """
     Generate a background for an NPC.
