@@ -44,6 +44,16 @@ class NPCProfile:
     alive: bool
     background: str
 
+
+@dataclass()
+class NPCPsychology:
+    """The psychology for non-player characters (NPCs)."""
+    personality: str
+    ideals: list[str]
+    bonds: list[str]
+    flaws: list[str]
+    goals: list[str]
+
 @dataclass()
 class NPCRelations:
     """The relations for non-player characters (NPCs)."""
@@ -62,7 +72,7 @@ class NPC:
     # NPC PROFILE
     NPCProfile: NPCProfile
     relations: NPCRelations 
-
+    psychology: NPCPsychology
     # occupation: str
 
     # NPC STATS
@@ -81,8 +91,8 @@ def generate_npc() -> NPC:
     profile = NPCProfile(name, age, race, alignment, True, background)
 
     relations: NPCRelations = generate_npc_relations(background)
-
-    return NPC(profile, relations)
+    psychology: NPCPsychology = generate_npc_psychology(profile, background, relations)
+    return NPC(profile, relations, psychology)
     
 
 def generate_alignment(info:str=None, alignment_list:list[Alignment]=None) -> Alignment:
@@ -145,7 +155,7 @@ def generate_npc_relations(background:str) -> NPCRelations:
     # Create NPCRelations object
     different_relations: list[NPCRelation] = []
     for raw_relation in relations:
-        # raw_relation Format: [name], [type_of_relation], [attitude], [still_exist]
+        # raw_relation format: [name], [type_of_relation], [attitude], [still_exist]
         relation = raw_relation.split(",")
         name: str = relation[0].strip()
         type_of_relation: str = relation[1].strip()
@@ -168,3 +178,37 @@ def get_npc_relation_template(background: str) -> str:
         "The relations should be separated by a new line. Do not give any other answer."
     )
     return npc_relation_template
+
+def generate_npc_psychology(profile: NPCProfile, background: str, relations: NPCRelations) -> NPCPsychology:
+    """Generate the psychology for an NPC."""
+    # Generate psychology
+    psychology_template = get_psychology_template(profile, background, relations)
+    raw_psychology = llm.predict(psychology_template)
+    
+    # Clean the psychology
+    raw_psychology = raw_psychology.strip()
+    print(raw_psychology)
+
+    # Create NPCPsychology object
+    psychology = raw_psychology.split(" | ")
+    personality_traits: list[str] = psychology[0]
+    ideals: list[str] = psychology[1]
+    bonds: list[str] = psychology[2]
+    flaws: list[str] = psychology[3]
+    goals: list[str] = psychology[4]
+
+    return NPCPsychology(personality_traits, ideals, bonds, flaws, goals)
+
+def get_psychology_template(profile: NPCProfile, background: str, relations: NPCRelations) -> str:
+    psychology_template = f"""
+        NPC Characteristics:
+        - Background: {background}
+        - Race: {profile.race}
+        - Age: {profile.age}
+        - Alignment: {profile.alignment}
+        - Relations: {relations}
+
+        Please generate an NPC psychological profile using the format:
+        '[personality] | [ideals] | [bonds] | [flaws] | [goals]'
+        Do not give any other answer."""
+    return psychology_template
