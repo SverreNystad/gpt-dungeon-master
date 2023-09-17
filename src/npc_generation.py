@@ -212,6 +212,16 @@ def generate_npc_psychology(profile: NPCProfile, background: str, relations: NPC
     return NPCPsychology(personality_traits, ideals, bonds, flaws, goals, fears, interests)
 
 def get_psychology_template(profile: NPCProfile, background: str, relations: NPCRelations) -> str:
+    """
+    Get the template for the NPC psychology question.
+    
+    Args:
+        profile (NPCProfile): The profile of the NPC.
+        background (str): The background of the NPC.
+        relations (NPCRelations): The relations of the NPC.
+    Returns:
+        str: The template for the NPC psychology question.
+    """
     psychology_template = f"""
         NPC Characteristics:
         - Background: {background}
