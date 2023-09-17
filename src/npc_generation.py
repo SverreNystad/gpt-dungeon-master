@@ -107,13 +107,16 @@ def generate_npc() -> NPC:
 
     relations: NPCRelations = generate_npc_relations(background)
     psychology: NPCPsychology = generate_npc_psychology(profile, background, relations)
-    return NPC(profile, relations, psychology)
+
+    appearance = generate_appearance(race, age, role, background)
+    return NPC(profile, relations, psychology, appearance)
 
 def generate_name(race: Race, role: str) -> str:
     name_template = f"What would be a good name for a {race.value} that has the role of {role} for a RPG?"
     raw_name: str = llm.predict(name_template)
     # Clean the name
     name = raw_name.replace("\n", "")
+    return name
 
 def generate_general_background(name: str, age: int, race: Race, role: str) -> str:
     """
@@ -299,7 +302,17 @@ def generate_age_for_race(race: Race) -> int:
 
     return age
 
-def get_appearance_template():
+def generate_appearance(race: Race, age: int, role: str, backstory: str) -> str:
+    
+    # Generate appearance
+    appearance_template = get_appearance_template(race, age, role, backstory)
+    raw_appearance = llm.predict(appearance_template)
+
+    # Parse the appearance
+    appearance = raw_appearance.strip()
+    return appearance
+
+def get_appearance_template(race: Race, age: int, role: str, story: str) -> str:
     """"Get the template for the appearance question."""
 
     # Physique & Build: {physique}
@@ -312,5 +325,13 @@ def get_appearance_template():
     # Race & Ethnic Features: {race_features}
     # Voice & Speech Pattern: {voice}
     # Other Notable Features: {other_features}
-    appearance_template = f""""""
+    appearance_template = f"""
+        Using the details:
+        Fantasy Race: {race.value}
+        Age: {age}
+        Role in Story: {role}
+        Story Context: {story}
+
+        Please generate an appearance description for the NPC.
+        """
     return appearance_template
