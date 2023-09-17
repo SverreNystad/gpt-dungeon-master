@@ -53,6 +53,8 @@ class NPCPsychology:
     bonds: list[str]
     flaws: list[str]
     goals: list[str]
+    fears: list[str]
+    interests: list[str]
 
 @dataclass()
 class NPCRelations:
@@ -191,12 +193,15 @@ def generate_npc_psychology(profile: NPCProfile, background: str, relations: NPC
     # Create NPCPsychology object
     psychology = raw_psychology.split(" | ")
     personality_traits: list[str] = psychology[0]
+    # Format: [personality] | [ideals] | [bonds] | [flaws] | [goals] | [fears] | [interests]
     ideals: list[str] = psychology[1]
     bonds: list[str] = psychology[2]
     flaws: list[str] = psychology[3]
     goals: list[str] = psychology[4]
+    fears: list[str] = psychology[5]
+    interests: list[str] = psychology[6]
 
-    return NPCPsychology(personality_traits, ideals, bonds, flaws, goals)
+    return NPCPsychology(personality_traits, ideals, bonds, flaws, goals, fears, interests)
 
 def get_psychology_template(profile: NPCProfile, background: str, relations: NPCRelations) -> str:
     psychology_template = f"""
@@ -208,6 +213,6 @@ def get_psychology_template(profile: NPCProfile, background: str, relations: NPC
         - Relations: {relations}
 
         Please generate an NPC psychological profile using the format:
-        '[personality] | [ideals] | [bonds] | [flaws] | [goals]'
+        '[personality] | [ideals] | [bonds] | [flaws] | [goals] | [fears] | [interests]'
         Do not give any other answer."""
     return psychology_template
