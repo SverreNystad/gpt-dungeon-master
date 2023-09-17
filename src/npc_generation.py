@@ -217,5 +217,5 @@ def get_psychology_template(profile: NPCProfile, background: str, relations: NPC
 
         Please generate an NPC psychological profile using the format:
         '[personality] | [ideals] | [bonds] | [flaws] | [goals] | [fears] | [interests]'
-        Do not give any other answer."""
+        Do not give any other answer and only give the values."""
     return psychology_template
