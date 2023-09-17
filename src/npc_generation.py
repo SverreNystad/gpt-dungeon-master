@@ -247,39 +247,39 @@ def generate_age_for_race(race: Race) -> int:
     # TODO: REFACTOR MAKE USE OF MATCH CASE
     if race == Race.HUMAN:
         human_max_age = 90
-        human_min_age = 0
+        human_min_age = 6
         age = random.randint(human_min_age, human_max_age)
     elif race == Race.ELF:
         elf_max_age = 750
-        elf_min_age = 0
+        elf_min_age = 6
         age = random.randint(elf_min_age, elf_max_age)
     elif race == Race.DWARF:
         dwarf_max_age = 350
-        dwarf_min_age = 0
+        dwarf_min_age = 6
         age = random.randint(dwarf_min_age, dwarf_max_age)
     elif race == Race.HALF_ELF:
         half_elf_max_age = 180
-        half_elf_min_age = 0
+        half_elf_min_age = 6
         age = random.randint(half_elf_min_age, half_elf_max_age)
     elif race == Race.DRAGONBORN:
         dragonborn_max_age = 80
-        dragonborn_min_age = 0
+        dragonborn_min_age = 1
         age = random.randint(dragonborn_min_age, dragonborn_max_age)
     elif race == Race.GNOME:
         gnome_max_age = 500
-        gnome_min_age = 0
+        gnome_min_age = 6
         age = random.randint(gnome_min_age, gnome_max_age)
     elif race == Race.HALF_ORC:
         half_orc_max_age = 75
-        half_orc_min_age = 0
+        half_orc_min_age = 1
         age = random.randint(half_orc_min_age, half_orc_max_age)
     elif race == Race.TIEFLING:
         tiefling_max_age = 100
-        tiefling_min_age = 0
+        tiefling_min_age = 6
         age = random.randint(tiefling_min_age, tiefling_max_age)
     elif race == Race.HAFLING:
         halfling_max_age = 250
-        halfling_min_age = 0
+        halfling_min_age = 6
         age = random.randint(halfling_min_age, halfling_max_age)
 
     return age
