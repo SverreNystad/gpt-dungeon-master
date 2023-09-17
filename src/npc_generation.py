@@ -70,11 +70,6 @@ class NPC:
 
 def generate_npc() -> NPC:
     """Generate an NPC."""
-
-    
-
-    # messege = [HumanMessage(content=text)]
-    title: str = "The Wizard"
     age: int = 20
     race: Race = Race.HALF_ELF
     role: str = "Shopkeeper"
@@ -100,9 +95,9 @@ def generate_alignment(info:str=None, alignment_list:list[Alignment]=[]) -> Alig
     alignment_template += f" It must be one of the following: {alignment_list}, do not give any other answer."
     alignment = llm.predict(alignment_template)
     print(alignment_template)
-    return alignment
     if alignment not in alignment_list:
         return generate_alignment(info, alignment_list)
+    return alignment
 
 def generate_general_background(name: str, age: int, race: Race, role: str) -> str:
     """Generate a background for an NPC."""
