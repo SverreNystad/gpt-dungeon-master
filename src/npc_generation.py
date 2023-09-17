@@ -61,10 +61,9 @@ class NPC:
     """Class for non-player characters (NPCs)."""
     # NPC PROFILE
     NPCProfile: NPCProfile
-    
+    relations: NPCRelations 
 
     # occupation: str
-    # relations: list[str] 
 
     # NPC STATS
 
@@ -79,8 +78,11 @@ def generate_npc() -> NPC:
 
     background = generate_general_background(name, age, race, role)
     alignment = generate_alignment(background)
+    profile = NPCProfile(name, age, race, alignment, True, background)
+    
+    relations: NPCRelations = generate_npc_relations(background)
 
-    return NPC(NPCProfile(name, age, race, alignment, True, background))
+    return NPC(profile, relations)
     
 
 def generate_alignment(info:str=None, alignment_list:list[Alignment]=None) -> Alignment:
@@ -151,7 +153,7 @@ def generate_npc_relations(background:str) -> NPCRelations:
         still_exist: bool = relation[3].strip()
 
         different_relations.append(NPCRelation(name, type_of_relation, attitude, still_exist))
-        
+
     return NPCRelations(different_relations)
 
 def get_npc_relation_template(background: str) -> str:
