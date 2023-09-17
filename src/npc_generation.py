@@ -82,22 +82,33 @@ def generate_npc() -> NPC:
 
     return NPC(NPCProfile(name, age, race, alignment, True, background))
     
+# def generate_
 
+def generate_alignment(info:str=None, alignment_list:list[Alignment]=None) -> Alignment:
+    if info is None:
+        return random.choice(Alignment)
+    if alignment_list is None:
+        alignment_list = [alignment.value for alignment in Alignment]
 
-def generate_alignment(info:str=None, alignment_list:list[Alignment]=[]) -> Alignment:
+    alignment_template = get_alignment_template(info, alignment_list)
+    alignment = llm.predict(alignment_template)
+    alignment = alignment.lower()
+    
+    return alignment
+
+def get_alignment_template(info:str=None, alignment_list:list[Alignment]=[]) -> str:
+    """Get the template for the alignment question.
+    Args:
+        info (str, optional): Information about the NPC. Defaults to None.
+        alignment_list (list[Alignment], optional): List of alignments that are allowed. Defaults to all possible alignments.
+    """
     alignment_template = "What is the alignment of the NPC?"
     if info is not None:
         alignment_template += f" Based on this info: {info}."
-    else:
-        return random.choice(Alignment)
     if len(alignment_list) == 0:
         alignment_list = [alignment.value for alignment in Alignment]
     alignment_template += f" It must be one of the following: {alignment_list}, do not give any other answer."
-    alignment = llm.predict(alignment_template)
-    print(alignment_template)
-    if alignment not in alignment_list:
-        return generate_alignment(info, alignment_list)
-    return alignment
+    return alignment_template
 
 def generate_general_background(name: str, age: int, race: Race, role: str) -> str:
     """Generate a background for an NPC."""
