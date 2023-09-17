@@ -79,7 +79,7 @@ def generate_npc() -> NPC:
     background = generate_general_background(name, age, race, role)
     alignment = generate_alignment(background)
     profile = NPCProfile(name, age, race, alignment, True, background)
-    
+
     relations: NPCRelations = generate_npc_relations(background)
 
     return NPC(profile, relations)
@@ -145,7 +145,7 @@ def generate_npc_relations(background:str) -> NPCRelations:
     # Create NPCRelations object
     different_relations: list[NPCRelation] = []
     for raw_relation in relations:
-        # Format: [name], [type_of_relation], [attitude], [still_exist]
+        # raw_relation Format: [name], [type_of_relation], [attitude], [still_exist]
         relation = raw_relation.split(",")
         name: str = relation[0].strip()
         type_of_relation: str = relation[1].strip()
