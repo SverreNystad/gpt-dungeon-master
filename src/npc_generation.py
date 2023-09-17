@@ -94,6 +94,22 @@ def generate_npc() -> NPC:
     psychology: NPCPsychology = generate_npc_psychology(profile, background, relations)
     return NPC(profile, relations, psychology)
     
+def generate_general_background(name: str, age: int, race: Race, role: str) -> str:
+    """
+    Generate a background for an NPC.
+
+    Args:
+        name (str): The name of the NPC.
+        age (int): The age of the NPC.
+        race (Race): The race of the NPC.
+        role (str): The role of the NPC in the story.
+    Returns:
+        str: The background of the NPC.
+    """
+    
+    text = f"""Generate a backstory for a NPC of race: {race.value}, with the name: {name}, and age: {age}. The character should have the role: {role} in the story."""
+    background = llm.predict(text)
+    return background
 
 def generate_alignment(info:str=None, alignment_list:list[Alignment]=None) -> Alignment:
     if info is None:
@@ -125,23 +141,6 @@ def get_alignment_template(info:str=None, alignment_list:list[Alignment]=[]) -> 
     alignment_template += f" It must be one of the following: {alignment_list}, do not give any other answer."
     return alignment_template
 
-def generate_general_background(name: str, age: int, race: Race, role: str) -> str:
-    """
-    Generate a background for an NPC.
-
-    Args:
-        name (str): The name of the NPC.
-        age (int): The age of the NPC.
-        race (Race): The race of the NPC.
-        role (str): The role of the NPC in the story.
-    Returns:
-        str: The background of the NPC.
-    """
-    
-    text = f"""Generate a backstory for a NPC of race: {race.value}, with the name: {name}, and age: {age}. The character should have the role: {role} in the story."""
-    background = llm.predict(text)
-    return background
-    
 def generate_npc_relations(background:str) -> NPCRelations:
     """Generate the relations for an NPC."""
     # Generate relations
