@@ -96,8 +96,8 @@ class NPC:
 def generate_npc() -> NPC:
     """Generate an NPC."""
     race: Race = Race.HALF_ELF
-    age: int = generate_age_for_race(race)
     role: str = "Shopkeeper"
+    age: int = generate_age_for_race(race)
 
     name = generate_name(race, role)
 
