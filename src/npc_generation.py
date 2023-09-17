@@ -81,8 +81,8 @@ class NPC:
 
 def generate_npc() -> NPC:
     """Generate an NPC."""
-    age: int = 20
     race: Race = Race.HALF_ELF
+    age: int = generate_age_for_race(race)
     role: str = "Shopkeeper"
 
     name = generate_name(race, role)
@@ -249,6 +249,7 @@ def generate_age_for_race(race: Race) -> int:
         human_max_age = 90
         human_min_age = 6
         age = random.randint(human_min_age, human_max_age)
+
     elif race == Race.ELF:
         elf_max_age = 750
         elf_min_age = 6
