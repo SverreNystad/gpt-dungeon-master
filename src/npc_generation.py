@@ -23,6 +23,19 @@ class Race(Enum):
     TIEFLING = "tiefling"
     HAFLING = "hafling"
 
+class LifeStage(Enum):
+    CHILD = "child"
+    ADOLESCENT = "adolescent"
+    YOUNG_ADULT = "young adult"
+    ADULT = "adult"
+    MIDDLE_AGE = "middle age"
+    OLD = "old"
+
+@dataclass()
+class Age:
+    years_old: int
+    life_stage: LifeStage
+
 class Alignment(Enum):
     LAWFUL_GOOD = "lawful good"
     NEUTRAL_GOOD = "neutral good"
@@ -75,6 +88,7 @@ class NPC:
     NPCProfile: NPCProfile
     relations: NPCRelations 
     psychology: NPCPsychology
+    appearance: str
     # occupation: str
 
     # NPC STATS
@@ -284,3 +298,19 @@ def generate_age_for_race(race: Race) -> int:
         age = random.randint(halfling_min_age, halfling_max_age)
 
     return age
+
+def get_appearance_template():
+    """"Get the template for the appearance question."""
+
+    # Physique & Build: {physique}
+    # Facial Features: {facial_features}
+    # Eye & Hair Color: {eye_hair_color}
+    # Distinguishing Marks: {marks}
+    # Clothing & Accessories: {clothing}
+    # Posture & Gait: {posture}
+    # Age & Aging Signs: {age_signs}
+    # Race & Ethnic Features: {race_features}
+    # Voice & Speech Pattern: {voice}
+    # Other Notable Features: {other_features}
+    appearance_template = f""""""
+    return appearance_template
