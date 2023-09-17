@@ -74,15 +74,14 @@ def generate_npc() -> NPC:
     race: Race = Race.HALF_ELF
     role: str = "Shopkeeper"
 
-    text = f"What would be a good name for a {race.value} that has the role of {role} for a RPG?"
-    name: str = llm.predict(text)
+    name_template = f"What would be a good name for a {race.value} that has the role of {role} for a RPG?"
+    name: str = llm.predict(name_template)
 
     background = generate_general_background(name, age, race, role)
     alignment = generate_alignment(background)
 
     return NPC(NPCProfile(name, age, race, alignment, True, background))
     
-# def generate_
 
 def generate_alignment(info:str=None, alignment_list:list[Alignment]=None) -> Alignment:
     if info is None:
@@ -91,9 +90,11 @@ def generate_alignment(info:str=None, alignment_list:list[Alignment]=None) -> Al
         alignment_list = [alignment.value for alignment in Alignment]
 
     alignment_template = get_alignment_template(info, alignment_list)
-    alignment = llm.predict(alignment_template)
-    alignment = alignment.lower()
+    raw_alignment = llm.predict(alignment_template)
     
+    # Clean the alignment
+    alignment = raw_alignment.replace("\n", "")
+    alignment = alignment.lower()
     return alignment
 
 def get_alignment_template(info:str=None, alignment_list:list[Alignment]=[]) -> str:
@@ -101,6 +102,8 @@ def get_alignment_template(info:str=None, alignment_list:list[Alignment]=[]) -> 
     Args:
         info (str, optional): Information about the NPC. Defaults to None.
         alignment_list (list[Alignment], optional): List of alignments that are allowed. Defaults to all possible alignments.
+    Returns:
+        str: The template for the alignment question.
     """
     alignment_template = "What is the alignment of the NPC?"
     if info is not None:
@@ -111,19 +114,55 @@ def get_alignment_template(info:str=None, alignment_list:list[Alignment]=[]) -> 
     return alignment_template
 
 def generate_general_background(name: str, age: int, race: Race, role: str) -> str:
-    """Generate a background for an NPC."""
-    
-    text = f"""Generate a backstory for a NPC of race: {race.value}, with the name: {name}, and age: {age}. The character should have the role: {role} in the story.
     """
-    return llm.predict(text)
-    
+    Generate a background for an NPC.
 
-def generate_dummy_npc() -> NPC:
-    good_human = NPC("Rolf", 20, Race.HUMAN, "farmer", Alignment.NEUTRAL_GOOD)
-
-    bad_half_orc = NPC("Mort", 40, Race.HALF_ORC, "bandit", Alignment.CHAOTIC_EVIL)
+    Args:
+        name (str): The name of the NPC.
+        age (int): The age of the NPC.
+        race (Race): The race of the NPC.
+        role (str): The role of the NPC in the story.
+    Returns:
+        str: The background of the NPC.
+    """
     
-
+    text = f"""Generate a backstory for a NPC of race: {race.value}, with the name: {name}, and age: {age}. The character should have the role: {role} in the story."""
+    background = llm.predict(text)
+    return background
     
-    print(f"good_human {good_human}")
-    print(f"bad_half_orc {bad_half_orc}")
+def generate_npc_relations(background:str) -> NPCRelations:
+    """Generate the relations for an NPC."""
+    # Generate relations
+    relations_template = get_npc_relation_template(background)
+    raw_relations = llm.predict(relations_template)
+    
+    # Clean the relations
+    raw_relations = raw_relations.strip()
+    relations: list[str] = raw_relations.split("\n")
+
+    # Create NPCRelations object
+    different_relations: list[NPCRelation] = []
+    for raw_relation in relations:
+        # Format: [name], [type_of_relation], [attitude], [still_exist]
+        relation = raw_relation.split(",")
+        name: str = relation[0].strip()
+        type_of_relation: str = relation[1].strip()
+        attitude: float = relation[2].strip()
+        still_exist: bool = relation[3].strip()
+
+        different_relations.append(NPCRelation(name, type_of_relation, attitude, still_exist))
+        
+    return NPCRelations(different_relations)
+
+def get_npc_relation_template(background: str) -> str:
+    """Get the template for the NPC relation question."""
+    npc_relation_template = (
+        f"Generate relations for an NPC given its background: {background}. A relation should be in the format: "
+        "'[name], [type_of_relation], [attitude], [still_exist]'\n"
+        "[name]: Replace with the name of the other NPC to whom the main NPC has a relation.\n"
+        "[type_of_relation]: Replace with the type of relation the main NPC has with the other NPC (e.g., friend, enemy, acquaintance, sibling, spouse).\n"
+        "[attitude]: Replace with a float value between -1 and 1 (where -1 is extreme hatred and 1 is extreme love) indicating the main NPC's attitude towards the other NPC.\n"
+        "[still_exist]: Replace with a boolean value (True or False) indicating if the relationship still exists."
+        "The relations should be separated by a new line. Do not give any other answer."
+    )
+    return npc_relation_template
