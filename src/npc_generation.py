@@ -157,13 +157,16 @@ def generate_npc_relations(background:str) -> NPCRelations:
     different_relations: list[NPCRelation] = []
     for raw_relation in relations:
         # raw_relation format: [name], [type_of_relation], [attitude], [still_exist]
-        relation = raw_relation.split(",")
-        name: str = relation[0].strip()
-        type_of_relation: str = relation[1].strip()
-        attitude: float = relation[2].strip()
-        still_exist: bool = relation[3].strip()
+        try:
+            relation = raw_relation.split(",")
+            name: str = relation[0].strip()
+            type_of_relation: str = relation[1].strip()
+            attitude: float = relation[2].strip()
+            still_exist: bool = relation[3].strip()
+            different_relations.append(NPCRelation(name, type_of_relation, attitude, still_exist))
+        except IndexError:
+            print(f"Error: {raw_relation} is not a valid relation.")
 
-        different_relations.append(NPCRelation(name, type_of_relation, attitude, still_exist))
 
     return NPCRelations(different_relations)
 
