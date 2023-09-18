@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import logging
 import random
 from langchain.llms import OpenAI
 from enum import Enum
@@ -9,6 +10,9 @@ from langchain.schema import HumanMessage
 api_key = GPTConfig.API_KEY
 llm: OpenAI = OpenAI(openai_api_key=api_key) if api_key is not None else None
 
+
+# Create a logger instance for this script
+logger = logging.getLogger(__name__)
 
 
 class Race(Enum):
@@ -115,6 +119,7 @@ def generate_npc() -> NPC:
     age: int = generate_age_for_race(race)
 
     name = generate_name(race, role)
+    logger.info(f"Creating NPC: {name}")
 
     background = generate_general_background(name, age, race, role)
     alignment = generate_alignment(background)
