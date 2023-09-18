@@ -1,8 +1,9 @@
 import pytest
-import src.text_generation.text_generator as text_generator
+from src.text_generation.text_generator import get_default_text_generator, TextGenerator, LLM, Chatbot
 
 @pytest.mark.apitest
-def test_chat_gpt_response():
+def test_text_generator():
     prompt = "Say anything!"
-    response = text_generator.chat_with_gpt(prompt)
-    assert response
+    generator: TextGenerator = get_default_text_generator()
+    result = generator.predict(prompt)
+    assert result is not None, "The result was None"
