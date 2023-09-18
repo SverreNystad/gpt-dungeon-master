@@ -1,4 +1,4 @@
-
+import pytest
 from src.npc_generation import Alignment, NPCProfile, NPCRelations, Race, get_alignment_template, get_appearance_template, get_npc_relation_template, get_psychology_template
 
 @pytest.fixture
