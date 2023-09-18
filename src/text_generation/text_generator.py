@@ -1,10 +1,19 @@
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from src.text_generation.config import GPTConfig
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 
 class TextGenerator(ABC):
     """A text generator that can generate text based on a prompt."""
+    
+    @classmethod
+    def __instancecheck__(cls, instance):
+        return cls.__subclasscheck__(type(instance))
+    
+    @classmethod
+    def __subclasscheck__(cls: ABCMeta, subclass: type) -> bool:
+        return (hasattr(subclass, 'predict') and 
+                callable(subclass.predict))
 
     @abstractmethod
     def predict(self, prompt: str) -> str:
@@ -33,7 +42,6 @@ class Chatbot(TextGenerator):
     def predict(self, prompt: str) -> str:
         """Chat with the chatbot."""
         return self.__chatbot.predict(prompt)
-    
 
 def get_default_text_generator() -> TextGenerator:
     """Return the default text generator."""
