@@ -40,7 +40,7 @@ tenacity==8.2.3
 tomli==2.0.1
 tqdm==4.66.1
 typing-inspect==0.9.0
-typing_extensions==4.7.1
+typing_extensions==4.8.0
 urllib3==1.26.16
 websocket-client==1.6.2
 yarl==1.9.2
