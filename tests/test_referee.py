@@ -18,7 +18,7 @@ def VERY_EASY_CONTEXT():
 @pytest.fixture
 def EASY_CONTEXT():
     return """
-    An easy task.
+    Making a cup of instant coffee
     """
 
 @pytest.fixture
