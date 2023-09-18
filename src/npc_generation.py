@@ -7,7 +7,8 @@ from langchain.schema import HumanMessage
 
 
 api_key = GPTConfig.API_KEY
-llm = OpenAI(openai_api_key=api_key)
+llm: OpenAI = OpenAI(openai_api_key=api_key) if api_key is not None else None
+
 
 
 class Race(Enum):
