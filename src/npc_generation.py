@@ -37,6 +37,23 @@ class Age:
     life_stage: LifeStage
 
 class Alignment(Enum):
+    """
+    An enumeration representing the nine classic alignments found in role-playing games.
+    
+    These alignments define a character's moral and ethical compass, and are often used 
+    to depict a character's personal beliefs and tendencies.
+
+    Attributes:
+    - LAWFUL_GOOD: Characters believe in order and doing what's right.
+    - NEUTRAL_GOOD: Characters do the best they can to help others, without bias.
+    - CHAOTIC_GOOD: Characters act as their conscience directs, with little regard for rules.
+    - LAWFUL_NEUTRAL: Characters act in accordance with law, order, and tradition.
+    - NEUTRAL: Characters are indifferent and act without prejudice or compulsion.
+    - CHAOTIC_NEUTRAL: Characters follow their whims and are essentially unpredictable.
+    - LAWFUL_EVIL: Characters take what they want through authority, no matter the cost.
+    - NEUTRAL_EVIL: Characters do whatever they can to gain, without any moral compass.
+    - CHAOTIC_EVIL: Characters act with malice, disregarding any semblance of order.
+    """
     LAWFUL_GOOD = "lawful good"
     NEUTRAL_GOOD = "neutral good"
     CHAOTIC_GOOD = "chaotic good"
