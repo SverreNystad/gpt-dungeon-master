@@ -88,10 +88,6 @@ class NPCPsychology:
     fears: list[str]
     interests: list[str]
 
-@dataclass()
-class NPCRelations:
-    """The relations for non-player characters (NPCs)."""
-    list_of_relations: list[str]
 
 @dataclass()
 class NPCRelation:
@@ -99,6 +95,12 @@ class NPCRelation:
     type_of_relation: str
     attitude: float
     still_exist: bool
+
+
+@dataclass()
+class NPCRelations:
+    """The relations for non-player characters (NPCs)."""
+    list_of_relations: list[NPCRelation]
 
 @dataclass()
 class NPC:
