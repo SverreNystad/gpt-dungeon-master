@@ -42,27 +42,26 @@ class Alignment(Enum):
     
     These alignments define a character's moral and ethical compass, and are often used 
     to depict a character's personal beliefs and tendencies.
-
-    Attributes:
-    - LAWFUL_GOOD: Characters believe in order and doing what's right.
-    - NEUTRAL_GOOD: Characters do the best they can to help others, without bias.
-    - CHAOTIC_GOOD: Characters act as their conscience directs, with little regard for rules.
-    - LAWFUL_NEUTRAL: Characters act in accordance with law, order, and tradition.
-    - NEUTRAL: Characters are indifferent and act without prejudice or compulsion.
-    - CHAOTIC_NEUTRAL: Characters follow their whims and are essentially unpredictable.
-    - LAWFUL_EVIL: Characters take what they want through authority, no matter the cost.
-    - NEUTRAL_EVIL: Characters do whatever they can to gain, without any moral compass.
-    - CHAOTIC_EVIL: Characters act with malice, disregarding any semblance of order.
     """
-    LAWFUL_GOOD = "lawful good"
+    
+    LAWFUL_GOOD = "lawful good" 
+    """Characters believe in order and doing what's right."""
     NEUTRAL_GOOD = "neutral good"
+    """Characters do the best they can to help others, without bias."""
     CHAOTIC_GOOD = "chaotic good"
+    """Characters act as their conscience directs, with little regard for rules."""
     LAWFUL_NEUTRAL = "lawful neutral"
+    """Characters act in accordance with law, order, and tradition."""
     NEUTRAL = "neutral"
+    """Characters are indifferent and act without prejudice or compulsion."""
     CHAOTIC_NEUTRAL = "chaotic neutral"
+    """Characters follow their whims and are essentially unpredictable."""
     LAWFUL_EVIL = "lawful evil"
+    """Characters take what they want through authority, no matter the cost."""
     NEUTRAL_EVIL = "neutral evil"
+    """Characters do whatever they can to gain, without any moral compass."""
     CHAOTIC_EVIL = "chaotic evil"
+    """Characters act with malice, disregarding any semblance of order."""
 
 @dataclass()
 class NPCProfile:
