@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 import random
 from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
 from enum import Enum
 from src.text_generation.config import GPTConfig
 from langchain.schema import HumanMessage
@@ -9,7 +8,6 @@ from langchain.schema import HumanMessage
 
 api_key = GPTConfig.API_KEY
 llm = OpenAI(openai_api_key=api_key)
-chat_model = ChatOpenAI(openai_api_key=api_key)
 
 
 class Race(Enum):
@@ -43,7 +41,7 @@ class Alignment(Enum):
     These alignments define a character's moral and ethical compass, and are often used 
     to depict a character's personal beliefs and tendencies.
     """
-    
+
     LAWFUL_GOOD = "lawful good" 
     """Characters believe in order and doing what's right."""
     NEUTRAL_GOOD = "neutral good"
