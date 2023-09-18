@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 import requests
 from src.text_to_image.config import ImageConfig
+import logging
+
+# Set up logging
+logger = logging.getLogger(__name__)
 
 @dataclass(init=False)
 class ImageSize:
@@ -37,6 +41,7 @@ def generate_image_request(prompt: str, number_of_images: int=1, size: ImageSize
     Returns:
         :return: A JSON object containing the generated image(s).
     """
+    logger.info(f"Running generate_image_request prompt= {prompt}, number_of_images= {number_of_images}, size= {size}")
     if not (1 <= number_of_images <= 10):
         raise ValueError("Number of images must be between 1 and 10.")
     
