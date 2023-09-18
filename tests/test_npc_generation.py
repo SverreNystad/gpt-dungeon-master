@@ -3,9 +3,6 @@ import pytest
 from src.npc_generation import NPC, Alignment, NPCProfile, NPCPsychology, NPCRelations, Race, generate_age_for_race, generate_alignment, generate_appearance, generate_general_background, generate_name, generate_npc, generate_npc_psychology, generate_npc_relations
 
 
-import pytest
-
-
 @pytest.mark.apitest
 def test_generate_npc():
     npc = generate_npc()
