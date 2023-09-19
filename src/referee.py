@@ -1,8 +1,5 @@
 from enum import Enum
-
-from langchain import OpenAI
-
-from src.text_generation.config import GPTConfig
+from src.text_generation.text_generator import get_default_text_generator
 
 class Difficulty(Enum):
     """The difficulty of a action or task."""
@@ -21,14 +18,11 @@ class Difficulty(Enum):
     NEARLY_IMPOSSIBLE = 1.0
     """A task of this difficulty is almost impossible for adventurers of an appropriate skill."""
 
-api_key = GPTConfig.API_KEY
-llm: OpenAI = OpenAI(openai_api_key=api_key) if api_key is not None else None
-
 def decide_difficulty(context: str) -> float:
     """Decide the difficulty of the challenge based on the context."""
     
     prompt = get_difficulty_template(context)
-    raw_difficulty = llm.predict(prompt)
+    raw_difficulty = get_default_text_generator().predict(prompt)
     print(raw_difficulty)
     difficulty = float(raw_difficulty)
     return difficulty
