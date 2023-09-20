@@ -15,7 +15,7 @@ def test_Chatbot():
     generator: TextGenerator = Chatbot("DUMMY_KEY")
     assert isinstance(generator, TextGenerator), "The generator was not an TextGenerator"
 
-def get_default_text_generator():
+def get_default_text_generator_llm():
     # Arrange
     get_llm = True
     # Act
