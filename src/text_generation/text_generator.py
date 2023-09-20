@@ -54,7 +54,7 @@ def get_default_text_generator(temperature: float = 0.7, is_llm: bool = True) ->
     """
     assert 0.0 <= temperature <= 1.0, "Temperature must be between 0.0 and 1.0"
     if is_llm:
-        return LLM(temperature)
+        return LLM(temperature=temperature)
     else:
-        return Chatbot(temperature)
+        return Chatbot(temperature=temperature)
 
