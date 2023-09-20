@@ -1,5 +1,5 @@
 import pytest
-from src.referee import Difficulty, decide_difficulty
+from src.outcome_engine.referee import Difficulty, decide_difficulty
 
 @pytest.fixture
 def TRIVIAL_CONTEXT():

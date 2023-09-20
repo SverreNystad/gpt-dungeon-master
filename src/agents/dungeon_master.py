@@ -5,7 +5,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.agents import initialize_agent
 import logging
 from src.npc_generation import generate_npc
-from src.referee import decide_difficulty
+from src.outcome_engine.referee import decide_difficulty
 from src.text_generation.text_generator import get_default_text_generator
 
 # Set up logging
@@ -67,7 +67,7 @@ agent_chain = initialize_agent(
     agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, 
     verbose=False, 
     memory=memory,
-    max_iterations=1,
+    max_iterations=2,
     )
 
 def run_dungeon_master(prompt) -> str:
