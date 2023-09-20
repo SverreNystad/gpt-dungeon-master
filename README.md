@@ -6,7 +6,7 @@
 [![codecov.io](https://codecov.io/github/SverreNystad/gpt-dungeon-master/coverage.svg?branch=main)](https://codecov.io/github/SverreNystad/gpt-dungeon-master?branch=main)
 ![GPT-dungeon-master top language](https://img.shields.io/github/languages/top/SverreNystad/gpt-dungeon-master)
 ![GitHub language count](https://img.shields.io/github/languages/count/SverreNystad/gpt-dungeon-master)
-[![Project Version](https://img.shields.io/badge/version-0.0.3-blue)](https://img.shields.io/badge/version-0.0.1-blue)
+[![Project Version](https://img.shields.io/badge/version-0.0.6-blue)](https://img.shields.io/badge/version-0.0.6-blue)
 
 ![Alt text](docs/images/DALL·E%202023-09-09%2023.10.21%20-%20A%20robot%20in%20a%20medieval%20cloak%20sitting%20at%20the%20head%20of%20a%20stone%20table,%20with%20AI-driven%20holographic%20projections%20of%20a%2020%20sided%20dice,%20digital%20art.png)
 
