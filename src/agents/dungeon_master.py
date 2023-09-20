@@ -5,12 +5,10 @@ from langchain.llms import OpenAI
 from langchain.agents import initialize_agent
 import logging
 from src.npc_generation import generate_npc
+from src.text_generation.text_generator import get_default_text_generator
 
 # Set up logging
 logger = logging.getLogger(__name__)
-
-def dummy_func():
-    return "dummy"
 
 tools = [
     Tool(
@@ -24,6 +22,7 @@ tools = [
 
 memory = ConversationBufferMemory(memory_key="chat_history")
 
-llm=OpenAI(temperature=0)
+llm = get_default_text_generator(temperature=0.7, is_llm=False)
+
 agent_chain = initialize_agent(tools, llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, verbose=True, memory=memory)
 
