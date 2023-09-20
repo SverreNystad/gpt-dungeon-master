@@ -71,8 +71,10 @@ agent_chain = initialize_agent(
     )
 
 def run_dungeon_master(prompt) -> str:
-    """Run the dungeon master agent."""    
-    assert isinstance(prompt, str), "Prompt must be a string."
+    """Run the dungeon master agent."""
+    if not isinstance(prompt, str):
+        raise TypeError("Prompt must be a string.")
+
     if (len(prompt) < 1) or (len(prompt) > 1000):
         raise ValueError("Prompt must be at least 1 character or less than 1000 characters.")
     
