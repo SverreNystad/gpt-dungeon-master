@@ -1,4 +1,5 @@
-from langchain.agents import Tool
+from langchain import OpenAI
+from langchain.tools import StructuredTool
 from langchain.agents import AgentType
 from langchain.memory import ConversationBufferMemory
 from langchain.agents import initialize_agent
@@ -11,29 +12,27 @@ from src.text_generation.text_generator import get_default_text_generator
 logger = logging.getLogger(__name__)
 
 tools = [
-    Tool(
-        name = "NPC Generator",
-        func=generate_npc(),
+    StructuredTool.from_function(
+        name= "NPC Generator", 
+        func=generate_npc, 
         description="Generates a NPC based on the given prompt."
     ),
-    Tool(
+    StructuredTool.from_function(
         name = "Difficulty Analyzer",
-        func=decide_difficulty(),
-        description="Decides the difficulty of the challenge based on the context."
+        func=decide_difficulty,
+        description="Decides the difficulty of the challenge based on the context. Values between 0 and 1, where 0 is trivial and 1 is nearly impossible."
     ),
+    
 ]
 
 
-
 memory = ConversationBufferMemory(memory_key="chat_history")
-
-llm = get_default_text_generator(temperature=0.7, is_llm=False)
-
-agent_chain = initialize_agent(tools, llm, agent=AgentType.CONVERSATIONAL_REACT_DESCRIPTION, verbose=True, memory=memory)
+# llm = get_default_text_generator(temperature=0.7, is_llm=False)
+llm=OpenAI(temperature=0)
+agent_chain = initialize_agent(tools, llm, agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, verbose=True, memory=memory)
 
 def run_dungeon_master(prompt) -> str:
-    """Run the dungeon master agent."""
-    logger.info("Running dungeon_master.py")
+    """Run the dungeon master agent."""    
     assert isinstance(prompt, str), "Prompt must be a string."
     if (len(prompt) < 1) or (len(prompt) > 1000):
         raise ValueError("Prompt must be at least 1 character or less than 1000 characters.")
