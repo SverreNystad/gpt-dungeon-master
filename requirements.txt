@@ -15,7 +15,7 @@ ibm-cloud-sdk-core==3.16.7
 ibm-watson==7.0.1
 idna==3.4
 iniconfig==2.0.0
-langchain==0.0.297
+langchain==0.0.299
 langsmith==0.0.39
 marshmallow==3.20.1
 multidict==6.0.4
