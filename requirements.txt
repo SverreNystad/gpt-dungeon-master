@@ -6,7 +6,7 @@ attrs==23.1.0
 certifi==2023.7.22
 charset-normalizer==3.2.0
 colorama==0.4.6
-coverage==7.3.1
+coverage==7.3.2
 dataclasses-json==0.5.14
 exceptiongroup==1.1.3
 frozenlist==1.4.0
