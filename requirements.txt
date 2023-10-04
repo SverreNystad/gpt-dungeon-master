@@ -23,7 +23,7 @@ mypy-extensions==1.0.0
 numexpr==2.8.6
 numpy==1.26.0
 openai==0.28.0
-packaging==23.1
+packaging==23.2
 pluggy==1.3.0
 pydantic==2.3.0
 pydantic_core==2.6.3
