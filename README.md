@@ -8,7 +8,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/SverreNystad/gpt-dungeon-master)
 [![Project Version](https://img.shields.io/badge/version-0.0.6-blue)](https://img.shields.io/badge/version-0.0.6-blue)
 
-![image](https://github.com/SverreNystad/gpt-dungeon-master/assets/89105607/ff5d15be-85c4-4057-9ad4-dfa1bf3f6ed8)
+![image](docs/images/gpt-dungeon-master-logo.png)
 
 
 </div>
