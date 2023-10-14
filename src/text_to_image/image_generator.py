@@ -35,9 +35,9 @@ def generate_image_request(prompt: str, number_of_images: int=1, size: ImageSize
     """
     Generates an image based on the given prompt.
     Args:
-        :param prompt (str): A text description of the desired image(s). The maximum length is 1000 characters.
-        :param number_of_images (int): The number of images to generate. Defaults to 1, cant be more than 10 or less than 1.
-        :param size (ImageSize): The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
+        prompt (str): A text description of the desired image(s). The maximum length is 1000 characters.
+        number_of_images (int): The number of images to generate. Defaults to 1, cant be more than 10 or less than 1.
+        size (ImageSize): The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
     Returns:
         :return: A JSON object containing the generated image(s).
     """

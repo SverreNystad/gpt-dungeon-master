@@ -109,13 +109,14 @@ class NPC:
 
     # NPC STATS
 
-def generate_npc() -> NPC:
+def generate_npc(name: str = "", role: str = "") -> NPC:
     """Generate an NPC."""
     race: Race = Race.HALF_ELF
-    role: str = "Shopkeeper"
+    if role == "":
+        role: str = "Shopkeeper"
     age: int = generate_age_for_race(race)
-
-    name = generate_name(race, role)
+    if name == "":
+        name = generate_name(race, role)
     logger.info(f"Creating NPC: {name}")
 
     background = generate_general_background(name, age, race, role)
