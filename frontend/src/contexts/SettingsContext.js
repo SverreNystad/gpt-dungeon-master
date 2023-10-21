@@ -10,6 +10,7 @@ export const SettingsProvider = ({ children }) => {
     gptSpeech: 0.5,
     resolution: '1920x1080',
     isFullscreen: false,
+    mute: false,
     // ... other settings ...
   });
 
@@ -29,6 +30,7 @@ export const SettingsProvider = ({ children }) => {
       gptSpeech: 0.5,
       resolution: '1920x1080',
       isFullscreen: false,
+      mute: false,
       // ... other settings ...
     });
   };

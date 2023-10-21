@@ -59,6 +59,11 @@ const SettingsPage = () => {
                         onChange={handleSettingChange("gptSpeech")} 
                     />
                     <label> Mute sound</label>
+                    <input 
+                        type="checkbox" 
+                        checked={settings.mute} 
+                        onChange={handleSettingChange("mute")} 
+                    />
                 </div>
             </section>
 
