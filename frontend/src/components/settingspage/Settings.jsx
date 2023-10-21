@@ -3,7 +3,31 @@ import { SettingsContext } from '../../contexts/SettingsContext'; // adjust the 
 
 const SettingsPage = () => {
     const { settings, updateSetting, resetToDefaults } = useContext(SettingsContext);
-
+    const toggleFullScreen = () => {
+        if (!document.fullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+              document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+              document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+              document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+              document.documentElement.msRequestFullscreen();
+            }
+            updateSetting('isFullscreen', true); // update your state variable
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+          } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+          }
+          updateSetting('isFullscreen', false); // update your state variable
+        }
+      }
     // handler for changes in settings
     const handleSettingChange = (setting) => (e) => {
       updateSetting(setting, e.target.value);
@@ -26,7 +50,7 @@ const SettingsPage = () => {
                         onChange={handleSettingChange("backgroundVolume")} 
                     />
 
-                    <label>DM Speech Volume</label>
+                    <label>DM narration Volume</label>
                     <input 
                         type="range" 
                         min="0" max="1" 
@@ -34,7 +58,7 @@ const SettingsPage = () => {
                         value={settings.gptSpeech} 
                         onChange={handleSettingChange("gptSpeech")} 
                     />
-                    {/* Other audio controls go here */}
+                    <label> Mute sound</label>
                 </div>
             </section>
 
@@ -53,7 +77,7 @@ const SettingsPage = () => {
                     <input 
                         type="checkbox" 
                         checked={settings.isFullscreen} 
-                        onChange={settings.toggleFullscreen} 
+                        onChange={toggleFullScreen} 
                     />
                   Fullscreen Mode
                 </label>
