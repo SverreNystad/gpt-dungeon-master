@@ -63,8 +63,9 @@ export const SettingsProvider = ({ children }) => {
       isFullscreen: false,
       mute: false,
       selectedMic: '',
+      microphones: [],
       selectedOutputDevice: '',
-
+      outputDevices: [],
       // ... other settings ...
     });
     toggleFullScreen();
