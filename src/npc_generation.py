@@ -111,9 +111,9 @@ class NPC:
 
 def generate_npc(name: str = "", role: str = "") -> NPC:
     """Generate an NPC."""
-    race: Race = Race.HALF_ELF
     if role == "":
         role: str = "Shopkeeper"
+    race: Race = Race.HALF_ELF
     age: int = generate_age_for_race(race)
     if name == "":
         name = generate_name(race, role)
@@ -127,7 +127,9 @@ def generate_npc(name: str = "", role: str = "") -> NPC:
     psychology: NPCPsychology = generate_npc_psychology(profile, background, relations)
 
     appearance = generate_appearance(race, age, role, background)
-    return NPC(profile, relations, psychology, appearance)
+    npc = NPC(profile, relations, psychology, appearance)
+    logger.info(f"Created NPC: {npc}")
+    return npc
 
 def generate_name(race: Race, role: str) -> str:
     name_template = f"What would be a good name for a {race.value} that has the role of {role} for a RPG?"
