@@ -20,8 +20,6 @@ const AudioOutputSelector = ({ outPutDevice, onDevicesChange }) => {
       .catch(err => {
         console.error("Error fetching devices: ", err);
       });
-      console.log("outputDevices", outputDevices);
-      console.log("selectedOutputDevice", selectedOutputDevice);
   }, [selectedOutputDevice]);
 
   const handleOutputDeviceChange = (e) => {
