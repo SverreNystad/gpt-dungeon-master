@@ -1,9 +1,9 @@
 // MicrophoneDetector.js
 import React, { useState, useEffect } from 'react';
 
-const MicrophoneDetector = ({ onMicrophonesChange }) => {
+const MicrophoneDetector = ({currentMic, onMicrophonesChange }) => {
   const [microphones, setMicrophones] = useState([]);
-  const [selectedMic, setSelectedMic] = useState('');
+  const [selectedMic, setSelectedMic] = useState(currentMic);
 
   useEffect(() => {
     // Request permission and fetch microphones
@@ -15,10 +15,7 @@ const MicrophoneDetector = ({ onMicrophonesChange }) => {
             const mics = devices.filter(device => device.kind === 'audioinput');
             setMicrophones(mics);
   
-            // Find the microphone that matches the one in the stream
-            const defaultMic = stream.getTracks().find(track => track.kind === 'audio').getSettings().deviceId;
-            setSelectedMic(defaultMic);
-            onMicrophonesChange(mics, defaultMic); // Pass the default mic as a second argument
+            onMicrophonesChange(mics, selectedMic); // Pass the default mic as a second argument
   
             stream.getTracks().forEach(track => track.stop()); // Stop the used stream
           });
@@ -26,7 +23,7 @@ const MicrophoneDetector = ({ onMicrophonesChange }) => {
       .catch(err => {
         console.error("Error fetching devices: ", err);
       });
-  }, [onMicrophonesChange]);
+  }, [selectedMic]);
 
   const handleMicChange = (e) => {
     setSelectedMic(e.target.value);

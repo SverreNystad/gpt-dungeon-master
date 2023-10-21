@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-const AudioOutputSelector = ({ onDevicesChange }) => {
+const AudioOutputSelector = ({ outPutDevice, onDevicesChange }) => {
   const [outputDevices, setOutputDevices] = useState([]);
-  const [selectedOutputDevice, setSelectedOutputDevice] = useState('');
+  const [selectedOutputDevice, setSelectedOutputDevice] = useState(outPutDevice);
 
   useEffect(() => {
     // Request permission and fetch output devices
@@ -14,13 +14,15 @@ const AudioOutputSelector = ({ onDevicesChange }) => {
             const outputs = devices.filter(device => device.kind === 'audiooutput');
             setOutputDevices(outputs);
             stream.getTracks().forEach(track => track.stop()); // Stop the used stream
-            onDevicesChange(outputs); // Notify parent component of the change
+            onDevicesChange(outputs, selectedOutputDevice); // Notify parent component of the change
           });
       })
       .catch(err => {
         console.error("Error fetching devices: ", err);
       });
-  }, [onDevicesChange]);
+      console.log("outputDevices", outputDevices);
+      console.log("selectedOutputDevice", selectedOutputDevice);
+  }, [selectedOutputDevice]);
 
   const handleOutputDeviceChange = (e) => {
     setSelectedOutputDevice(e.target.value);

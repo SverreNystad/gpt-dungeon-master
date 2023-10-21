@@ -5,25 +5,25 @@ import MicrophoneDetector from "./MicrophoneDetector";
 const SettingsPage = () => {
     const { settings, updateSetting, resetToDefaults, toggleFullScreen } = useContext(SettingsContext);
     
-    // Fetch the list of microphones when the component mounts
-    const handleMicrophonesChange = (newMics, defaultMic) => {
+    // Fetch the list of microphones when the component mounts and update context
+    const handleMicrophonesChange = (newMics, selectedMic) => {
         // Update your context or state with the new microphones
         updateSetting('microphones', newMics);
 
-        if (defaultMic) {
-            updateSetting('selectedMic', defaultMic);
-        } else if (newMics.length && !settings.selectedMic) {
-            // Fallback to the first microphone if no default is provided
-            updateSetting('selectedMic', newMics[0].deviceId);
+        if (selectedMic) {
+            updateSetting('selectedMic', selectedMic);
         }
+        
     };
     
-    // Fetch the list of microphones when the component mounts
-    const handleOutputDevicesChange = (newDevices) => {
+    // Fetch the list of microphones when the component mounts and update context
+    const handleOutputDevicesChange = (newDevices, selectedOutputDevice) => {
         // Update your context or state with the new devices
         updateSetting('outputDevices', newDevices);
-        // You might also want to set a default selected device if it makes sense for your application
-        updateSetting('selectedOutputDevice', newDevices[0].deviceId);
+
+        if (selectedOutputDevice) {
+            updateSetting('selectedOutputDevice', selectedOutputDevice);
+        }
     };
 
     // handler for changes in settings
@@ -63,8 +63,8 @@ const SettingsPage = () => {
                         onChange={handleSettingChange("mute")} 
                     />
                 </div>
-                <AudioOutputSelector onDevicesChange={handleOutputDevicesChange} />
-                <MicrophoneDetector onMicrophonesChange={handleMicrophonesChange} />
+                <AudioOutputSelector outPutDevice={settings.selectedOutputDevice} onDevicesChange={handleOutputDevicesChange} />
+                <MicrophoneDetector currentMic={settings.selectedMic} onMicrophonesChange={handleMicrophonesChange} />
 
             </section>
 
