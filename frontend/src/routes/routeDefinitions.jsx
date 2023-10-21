@@ -7,6 +7,7 @@ const routes = {
     rulesLookup: "/rules-lookup",
     settings: "/settings",
     quit: "/quit",
+    gameplay: "/gameplay",
   };
   
   export default routes;
