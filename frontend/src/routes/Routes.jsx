@@ -6,7 +6,7 @@ import routes from './routeDefinitions';
 
 // Import your page components
 import MainMenu from '../components/mainmenu/MainMenu';
-import NewCampaign from '../components/newcampaign/NewCampaign';
+import NewCampaignPage from '../components/newcampaign/NewCampaign';
 import ExistingCampaign from '../components/existingcampaign/ExistingCampaign';
 import RulesLookup from '../components/ruleslookup/RulesLookup';
 import SettingsPage from '../components/settingspage/Settings';
@@ -19,7 +19,7 @@ const AppRoutes  = () => {
     <Routes >
       <Route path="/" element={<MainMenu/>} />
       <Route path={routes.mainMenu} element={<MainMenu/>} />
-      <Route path={routes.newCampaign} element={<NewCampaign/>} />
+      <Route path={routes.newCampaign} element={<NewCampaignPage/>} />
       <Route path={routes.existingCampaign} element={<ExistingCampaign/>} />
       <Route path={routes.settings} element={<SettingsPage/>}/>
       <Route path={routes.rulesLookup} element={<RulesLookup/>} />
