@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+
+  
+
 const SettingsPage = () => {
     // You might have state variables to track each setting, which could potentially be fetched from a server or local storage
     const [backgroundVolume, setBackgroundVolume] = useState(0.5); // assuming 0.5 is the default value
@@ -7,7 +10,8 @@ const SettingsPage = () => {
     
     // State variable for resolution setting
     const [resolution, setResolution] = useState('1920x1080'); // default value
-    
+    const [isFullscreen, setIsFullscreen] = useState(false); // default to not fullscreen
+
     // State variable for language setting
     const [language, setLanguage] = useState('en'); // default value is English
 
@@ -17,6 +21,17 @@ const SettingsPage = () => {
         setResolution('1920x1080');
         setLanguage('en');
     };
+    
+    const toggleFullscreen = () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen(); 
+          }
+        }
+        setIsFullscreen(!isFullscreen); // update the state
+      };
 
     return (
         <div>
@@ -58,6 +73,14 @@ const SettingsPage = () => {
                         <option value="800x600">800x600</option>
                         {/* Add as many resolutions as you need */}
                     </select>
+                    <label>
+                    <input 
+                        type="checkbox" 
+                        checked={isFullscreen} 
+                        onChange={toggleFullscreen} 
+                    />
+                  Fullscreen Mode
+                </label>
                 </div>
             </section>
 
