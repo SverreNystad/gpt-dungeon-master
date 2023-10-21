@@ -3,16 +3,17 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRoutes from './routes/Routes';
-import MainMenu from './components/mainmenu/MainMenu';
-// ... other imports
+import { SettingsProvider } from './contexts/SettingsContext'; // adjust the import path as needed
 
 function App() {
   return (
-    <Router>
-      <div>
-        <AppRoutes  />
-      </div>
-    </Router>
+    <SettingsProvider>
+      <Router>
+        <div>
+          <AppRoutes  />
+        </div>
+      </Router>
+    </SettingsProvider>
   );
 }
 

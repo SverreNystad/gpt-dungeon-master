@@ -1,37 +1,13 @@
-import React, { useState } from 'react';
-
-
-  
+import React, { useContext  } from 'react';
+import { SettingsContext } from '../../contexts/SettingsContext'; // adjust the import path as needed
 
 const SettingsPage = () => {
-    // You might have state variables to track each setting, which could potentially be fetched from a server or local storage
-    const [backgroundVolume, setBackgroundVolume] = useState(0.5); // assuming 0.5 is the default value
-    const [gptSpeech, setGptSpeech] = useState(0.5); // assuming 0.5 is the default value
-    
-    // State variable for resolution setting
-    const [resolution, setResolution] = useState('1920x1080'); // default value
-    const [isFullscreen, setIsFullscreen] = useState(false); // default to not fullscreen
+    const { settings, updateSetting, resetToDefaults } = useContext(SettingsContext);
 
-    // State variable for language setting
-    const [language, setLanguage] = useState('en'); // default value is English
-
-    const resetToDefaults = () => {
-        setBackgroundVolume(0.5);
-        setGptSpeech(0.5);
-        setResolution('1920x1080');
-        setLanguage('en');
+    // handler for changes in settings
+    const handleSettingChange = (setting) => (e) => {
+      updateSetting(setting, e.target.value);
     };
-    
-    const toggleFullscreen = () => {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-        } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen(); 
-          }
-        }
-        setIsFullscreen(!isFullscreen); // update the state
-      };
 
     return (
         <div>
@@ -46,8 +22,8 @@ const SettingsPage = () => {
                         type="range" 
                         min="0" max="1" 
                         step="0.01" 
-                        value={backgroundVolume} 
-                        onChange={(e) => setBackgroundVolume(e.target.value)} 
+                        value={settings.backgroundVolume} 
+                        onChange={handleSettingChange("backgroundVolume")} 
                     />
 
                     <label>DM Speech Volume</label>
@@ -55,8 +31,8 @@ const SettingsPage = () => {
                         type="range" 
                         min="0" max="1" 
                         step="0.01" 
-                        value={gptSpeech} 
-                        onChange={(e) => setGptSpeech(e.target.value)} 
+                        value={settings.gptSpeech} 
+                        onChange={handleSettingChange("gptSpeech")} 
                     />
                     {/* Other audio controls go here */}
                 </div>
@@ -67,7 +43,7 @@ const SettingsPage = () => {
                 <h2>Display Settings</h2>
                 <div>
                     <label>Screen Resolution</label>
-                    <select value={resolution} onChange={(e) => setResolution(e.target.value)}>
+                    <select value={settings.resolution} onChange={handleSettingChange("resolution")}>
                         <option value="1920x1080">1920x1080</option>
                         <option value="1280x720">1280x720</option>
                         <option value="800x600">800x600</option>
@@ -76,8 +52,8 @@ const SettingsPage = () => {
                     <label>
                     <input 
                         type="checkbox" 
-                        checked={isFullscreen} 
-                        onChange={toggleFullscreen} 
+                        checked={settings.isFullscreen} 
+                        onChange={settings.toggleFullscreen} 
                     />
                   Fullscreen Mode
                 </label>
@@ -89,7 +65,7 @@ const SettingsPage = () => {
                 <h2>Language and Subtitles</h2>
                 <div>
                     <label>Language</label>
-                    <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+                    <select value={settings.language} onChange={handleSettingChange('language')}>
                         <option value="en">English</option>
                         <option value="es">Spanish</option>
                         <option value="de">German</option>
