@@ -13,7 +13,6 @@ const SettingsPage = () => {
         if (selectedMic) {
             updateSetting('selectedMic', selectedMic);
         }
-        
     };
     
     // Fetch the list of microphones when the component mounts and update context
@@ -65,10 +64,8 @@ const SettingsPage = () => {
                 </div>
                 <AudioOutputSelector outPutDevice={settings.selectedOutputDevice} onDevicesChange={handleOutputDevicesChange} />
                 <MicrophoneDetector currentMic={settings.selectedMic} onMicrophonesChange={handleMicrophonesChange} />
-
             </section>
 
-            
             {/* Display Settings */}
             <section>
                 <h2>Display Settings</h2>
