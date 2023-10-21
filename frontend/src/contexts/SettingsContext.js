@@ -13,6 +13,8 @@ export const SettingsProvider = ({ children }) => {
     mute: false,
     selectedMic: '',
     microphones: [],
+    selectedOutputDevice: '',
+    outputDevices: [],
     // ... other settings ...
   });
 
@@ -23,6 +25,8 @@ export const SettingsProvider = ({ children }) => {
       [key]: value,
     }));
   };
+  
+  // Toggle fullscreen
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
         if (document.documentElement.requestFullscreen) {
@@ -59,6 +63,8 @@ export const SettingsProvider = ({ children }) => {
       isFullscreen: false,
       mute: false,
       selectedMic: '',
+      selectedOutputDevice: '',
+
       // ... other settings ...
     });
     toggleFullScreen();

@@ -1,22 +1,31 @@
 import React, { useContext, useEffect} from 'react';
 import { SettingsContext } from '../../contexts/SettingsContext'; // adjust the import path as needed
-
+import AudioOutputSelector from "./AudioOutputSelector";
+import MicrophoneDetector from "./MicrophoneDetector";
 const SettingsPage = () => {
     const { settings, updateSetting, resetToDefaults, toggleFullScreen } = useContext(SettingsContext);
     
-
     // Fetch the list of microphones when the component mounts
-    useEffect(() => {
-        navigator.mediaDevices.getUserMedia({ audio: true })
-          .then(stream => {
-            navigator.mediaDevices.enumerateDevices()
-              .then(devices => {
-                const mics = devices.filter(device => device.kind === 'audioinput');
-                updateSetting('microphones', mics);  // Update the list in your context
-                stream.getTracks().forEach(track => track.stop());
-              });
-          });
-    }, [updateSetting]);
+    const handleMicrophonesChange = (newMics, defaultMic) => {
+        // Update your context or state with the new microphones
+        updateSetting('microphones', newMics);
+
+        if (defaultMic) {
+            updateSetting('selectedMic', defaultMic);
+        } else if (newMics.length && !settings.selectedMic) {
+            // Fallback to the first microphone if no default is provided
+            updateSetting('selectedMic', newMics[0].deviceId);
+        }
+    };
+    
+    // Fetch the list of microphones when the component mounts
+    const handleOutputDevicesChange = (newDevices) => {
+        // Update your context or state with the new devices
+        updateSetting('outputDevices', newDevices);
+        // You might also want to set a default selected device if it makes sense for your application
+        updateSetting('selectedOutputDevice', newDevices[0].deviceId);
+    };
+
     // handler for changes in settings
     const handleSettingChange = (setting) => (e) => {
       updateSetting(setting, e.target.value);
@@ -54,16 +63,8 @@ const SettingsPage = () => {
                         onChange={handleSettingChange("mute")} 
                     />
                 </div>
-                <div>
-                    <label>Microphone</label>
-                    <select value={settings.selectedMic} onChange={handleSettingChange('selectedMic')}>
-                        {settings.microphones.map((mic, index) => (
-                            <option key={mic.deviceId} value={mic.deviceId}>
-                                {mic.label || `Microphone ${index + 1}`}
-                            </option>
-                        ))}
-                  </select>
-                </div>
+                <AudioOutputSelector onDevicesChange={handleOutputDevicesChange} />
+                <MicrophoneDetector onMicrophonesChange={handleMicrophonesChange} />
 
             </section>
 
