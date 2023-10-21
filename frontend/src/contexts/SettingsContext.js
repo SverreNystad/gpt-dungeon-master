@@ -11,6 +11,8 @@ export const SettingsProvider = ({ children }) => {
     resolution: '1920x1080',
     isFullscreen: false,
     mute: false,
+    selectedMic: '',
+    microphones: [],
     // ... other settings ...
   });
 
@@ -56,6 +58,7 @@ export const SettingsProvider = ({ children }) => {
       resolution: '1920x1080',
       isFullscreen: false,
       mute: false,
+      selectedMic: '',
       // ... other settings ...
     });
     toggleFullScreen();
