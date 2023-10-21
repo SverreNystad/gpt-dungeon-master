@@ -2,32 +2,8 @@ import React, { useContext  } from 'react';
 import { SettingsContext } from '../../contexts/SettingsContext'; // adjust the import path as needed
 
 const SettingsPage = () => {
-    const { settings, updateSetting, resetToDefaults } = useContext(SettingsContext);
-    const toggleFullScreen = () => {
-        if (!document.fullscreenElement) {
-            if (document.documentElement.requestFullscreen) {
-              document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-              document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-              document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
-              document.documentElement.msRequestFullscreen();
-            }
-            updateSetting('isFullscreen', true); // update your state variable
-        } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if (document.mozCancelFullScreen) { /* Firefox */
-            document.mozCancelFullScreen();
-          } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-            document.webkitExitFullscreen();
-          } else if (document.msExitFullscreen) { /* IE/Edge */
-            document.msExitFullscreen();
-          }
-          updateSetting('isFullscreen', false); // update your state variable
-        }
-      }
+    const { settings, updateSetting, resetToDefaults, toggleFullScreen } = useContext(SettingsContext);
+    
     // handler for changes in settings
     const handleSettingChange = (setting) => (e) => {
       updateSetting(setting, e.target.value);
