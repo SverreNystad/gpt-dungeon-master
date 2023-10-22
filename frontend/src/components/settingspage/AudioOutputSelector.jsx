@@ -14,6 +14,8 @@ const AudioOutputSelector = ({ outPutDevice, onDevicesChange }) => {
             const outputs = devices.filter(device => device.kind === 'audiooutput');
             setOutputDevices(outputs);
             stream.getTracks().forEach(track => track.stop()); // Stop the used stream
+            
+            // When no output device is selected, select the first one
             if (outputs.length > 0 && selectedOutputDevice == '') {
               setSelectedOutputDevice(outputs[0].deviceId);
             }

@@ -16,6 +16,8 @@ const MicrophoneDetector = ({currentMic, onMicrophonesChange }) => {
             setMicrophones(mics);
   
             onMicrophonesChange(mics, selectedMic); // Pass the default mic as a second argument
+
+            // When no microphone is selected, select the first one
             if (mics.length > 0 && selectedMic == '') {
               setSelectedMic(mics[0].deviceId);
             }
