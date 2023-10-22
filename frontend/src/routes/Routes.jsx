@@ -14,11 +14,13 @@ import Quit from '../components/quit/Quit';
 import SomeNotFoundComponent from '../components/somenotfoundcomponent/SomeNotFoundComponent';
 // ... other imports
 import MainGameplayPage from '../components/gameplay/MainGameplayPage';
+import CampaignOverview from '../components/gameplay/CampaignOverview';
 
 const AppRoutes  = () => {
   return (
     <Routes >
-      <Route path={routes.gameplay} element={<MainGameplayPage/>} />
+      <Route path={routes.gameplay + '/:campaignId'} element={<MainGameplayPage/>} />
+      <Route path={routes.campaignOverview + '/:campaignId'} element={<CampaignOverview/>} />
       <Route path="/" element={<MainMenu/>} />
       <Route path={routes.mainMenu} element={<MainMenu/>} />
       <Route path={routes.newCampaign} element={<NewCampaignPage/>} />

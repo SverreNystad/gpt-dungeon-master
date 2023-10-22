@@ -8,6 +8,7 @@ const routes = {
     settings: "/settings",
     quit: "/quit",
     gameplay: "/gameplay",
+    campaignOverview: "/campaign-overview",
   };
   
   export default routes;

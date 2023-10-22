@@ -1,0 +1,39 @@
+/* ImageDisplay.css */
+.image-display {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* space between images */
+    flex: 1 0 auto; /* doesn't grow, doesn't shrink, starting at 1/3 of parent width */
+    max-width: 33.33%; /* this is optional and for additional control */
+}
+
+.image-container {
+    position: relative;
+}
+
+.image {
+    width: 100%; /* make image fill the container */
+    cursor: pointer; /* change cursor on hover */
+}
+
+.image-actions {
+    position: absolute;
+    top: 10px; /* position from the top of the container */
+    right: 10px; /* position from the right of the container */
+    display: flex;
+    gap: 5px; /* space between buttons */
+}
+
+.image-actions button {
+    background: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer; /* change cursor on hover */
+    transition: background 0.3s ease;
+}
+
+.image-actions button:hover {
+    background: rgba(0, 0, 0, 0.7); /* slightly darker on hover */
+}
