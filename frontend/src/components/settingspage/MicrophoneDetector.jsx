@@ -16,7 +16,9 @@ const MicrophoneDetector = ({currentMic, onMicrophonesChange }) => {
             setMicrophones(mics);
   
             onMicrophonesChange(mics, selectedMic); // Pass the default mic as a second argument
-  
+            if (mics.length > 0 && selectedMic == '') {
+              setSelectedMic(mics[0].deviceId);
+            }
             stream.getTracks().forEach(track => track.stop()); // Stop the used stream
           });
       })
