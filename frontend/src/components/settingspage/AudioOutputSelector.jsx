@@ -13,13 +13,13 @@ const AudioOutputSelector = ({ outPutDevice, onDevicesChange }) => {
           .then(devices => {
             const outputs = devices.filter(device => device.kind === 'audiooutput');
             setOutputDevices(outputs);
-            stream.getTracks().forEach(track => track.stop()); // Stop the used stream
+            onDevicesChange(outputs, selectedOutputDevice); // Notify parent component of the change
             
             // When no output device is selected, select the first one
             if (outputs.length > 0 && selectedOutputDevice == '') {
               setSelectedOutputDevice(outputs[0].deviceId);
             }
-            onDevicesChange(outputs, selectedOutputDevice); // Notify parent component of the change
+            stream.getTracks().forEach(track => track.stop()); // Stop the used stream
           });
       })
       .catch(err => {

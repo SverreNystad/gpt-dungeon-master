@@ -14,7 +14,6 @@ const MicrophoneDetector = ({currentMic, onMicrophonesChange }) => {
           .then(devices => {
             const mics = devices.filter(device => device.kind === 'audioinput');
             setMicrophones(mics);
-  
             onMicrophonesChange(mics, selectedMic); // Pass the default mic as a second argument
 
             // When no microphone is selected, select the first one
