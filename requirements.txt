@@ -4,7 +4,7 @@ annotated-types==0.6.0
 async-timeout==4.0.3
 attrs==23.1.0
 certifi==2023.7.22
-charset-normalizer==3.3.1
+charset-normalizer==3.3.2
 colorama==0.4.6
 coverage==7.3.2
 dataclasses-json==0.6.1
@@ -15,7 +15,7 @@ ibm-cloud-sdk-core==3.17.2
 ibm-watson==7.0.1
 idna==3.4
 iniconfig==2.0.0
-langchain==0.0.322
+langchain==0.0.329
 langsmith==0.0.56
 marshmallow==3.20.1
 multidict==6.0.4
@@ -35,7 +35,7 @@ python-dotenv==1.0.0
 PyYAML==6.0.1
 requests==2.31.0
 six==1.16.0
-SQLAlchemy==2.0.22
+SQLAlchemy==2.0.23
 tenacity==8.2.3
 tomli==2.0.1
 tqdm==4.66.1
