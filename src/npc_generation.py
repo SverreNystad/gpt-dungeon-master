@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import logging
 import random
 from enum import Enum
+from dataclasses import asdict
 
 from src.text_generation.text_generator import get_default_text_generator
 
@@ -108,6 +109,15 @@ class NPC:
     # occupation: str
 
     # NPC STATS
+
+    def to_dict(self):
+        return {
+            "NPCProfile": asdict(self.NPCProfile),
+            "relations": [asdict(relation) for relation in self.relations.list_of_relations],
+            "psychology": asdict(self.psychology),
+            "appearance": self.appearance
+            # include other fields if necessary
+        }
 
 def generate_npc(name: str = "", role: str = "") -> NPC:
     """Generate an NPC."""
