@@ -7,7 +7,7 @@ class TextGenerator(ABC):
     """A text generator that can generate text based on a prompt."""
     
     @classmethod
-    def __instancecheck__(cls, instance):
+    def __instancecheck__(cls, instance) -> bool:
         return cls.__subclasscheck__(type(instance))
     
     @classmethod
