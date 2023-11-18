@@ -9,6 +9,7 @@ const routes = {
     quit: "/quit",
     gameplay: "/gameplay",
     campaignOverview: "/campaign-overview",
+    startScreen: "/start-screen",
   };
   
   export default routes;

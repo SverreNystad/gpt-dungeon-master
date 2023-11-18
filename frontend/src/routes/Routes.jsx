@@ -15,6 +15,7 @@ import SomeNotFoundComponent from '../components/somenotfoundcomponent/SomeNotFo
 // ... other imports
 import MainGameplayPage from '../components/gameplay/MainGameplayPage';
 import CampaignOverview from '../components/gameplay/CampaignOverview';
+import StartScreen from '../components/startscreen/StartScreen';
 
 const AppRoutes  = () => {
   return (
@@ -28,7 +29,9 @@ const AppRoutes  = () => {
       <Route path={routes.settings} element={<SettingsPage/>}/>
       <Route path={routes.rulesLookup} element={<RulesLookup/>} />
       <Route path={routes.quit} element={<Quit/>} />
+      <Route path={routes.startScreen} element={<StartScreen/>} />
       <Route path="*" element={<SomeNotFoundComponent />} />
+
     </Routes >
   );
 };
