@@ -42,5 +42,5 @@ tqdm==4.66.1
 typing-inspect==0.9.0
 typing_extensions==4.8.0
 urllib3==1.26.16
-websocket-client==1.6.4
+websocket-client==1.7.0
 yarl==1.9.2
