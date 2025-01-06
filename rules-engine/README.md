@@ -1,7 +1,7 @@
 # Docs for Rules-engine
 
-### The Rules-engine's responsiblities 
-* Retrieve up rules
+### The Rules-engine's responsibilities are: 
+* Retrieve relevant rules
 * Determine outcomes (skill checks/fights)
 
 ### Knowledge base
