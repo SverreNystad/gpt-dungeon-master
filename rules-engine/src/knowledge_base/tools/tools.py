@@ -1,4 +1,4 @@
-from tools.example_tool import example_tool
+from knowledge_base.tools.example_tool import example_tool
 from langchain_core.tools import StructuredTool
 
 def get_tools() -> list[StructuredTool]:

@@ -1,7 +1,6 @@
-import random
-from typing import Tuple
+from knowledge_base.rule_classes.rule import Rule
 
-class AbilityCheck:
+class AbilityCheck(Rule):
     # Class-level dictionary for abilities and difficulty classes
     ABILITIES = {
         "Strength": "measuring physical power",
@@ -39,25 +38,6 @@ class AbilityCheck:
         self.task_name = task_name
         self.ability = ability
         self.difficulty = difficulty
-
-
-
-    def make_check(self, ability_modifier: int, bonuses=0, penalties=0) -> Tuple[bool, int, int]:
-        """
-        Perform the ability check by rolling a d20 and adding modifiers.
-
-        Args:
-            ability_modifier [int]: The character's ability modifier for the relevant ability.
-            bonuses [int]: Any additional bonuses to the roll (default: 0).
-            penalties [int]: Any penalties to the roll (default: 0).
-
-        Return:
-            Tuple (success: bool, roll_result: int, total_score: int)
-        """
-        roll = random.randint(1, 20)
-        total_score = roll + ability_modifier + bonuses - penalties
-        success = total_score >= self.difficulty
-        return success, roll, total_score
 
     def __str__(self):
         """String representation of the ability check task."""
