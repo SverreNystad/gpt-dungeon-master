@@ -11,6 +11,29 @@ def test_rules_lookup():
 
     print(rules)
 
+
+def test_rules_lookup_ability_check():
+    description = "You are in a dark cave, and you see a boulder the size of you blocking the path"
+    character = "The player is a level 5 wizard with a strength of 8, intelligence of 18, wisdom of 12, and a charisma of 14, and a spellbook with the following spells: fireball, magic missile, and shield"
+    player_action = "The player tries to lift the boulder blocking the path"
+    context = f"{description} {character} {player_action}"
+
+    rules = lookup_rules(context)
+
+    print(rules)
+
+
+def test_rules_lookup_fighter_figthing():
+    description = "You are on a battlefield, and you see a goblin charging at you"
+    character = "The player is a level 1 fighter with a strength of 8, intelligence of 18, wisdom of 12, and a charisma of 14. The player is wearing a chainmail armor and has a longsword and a shield"
+    player_action = "The player tries to fight the goblin"
+    context = f"{description} {character} {player_action}"
+
+    rules = lookup_rules(context)
+
+    print(rules)
+
+
 def test_narrative_given_rules():
     rules = """
     {
@@ -74,9 +97,8 @@ def test_narrative_given_rules():
     }
     """
     
-    
 
 
 if __name__ == "__main__":
     
-    test_narrative_given_rules()
+    test_rules_lookup_fighter_figthing()
