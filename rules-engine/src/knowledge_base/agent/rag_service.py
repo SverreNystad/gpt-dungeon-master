@@ -1,4 +1,5 @@
 from knowledge_base.agent.agent import Agent
+from knowledge_base.agent.rag import RAG
 
 from langchain_core.prompts import PromptTemplate
 # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -73,4 +74,47 @@ def lookup_rules_v2(context, filepath = "knowledge_base/rulesystems/rules.txt") 
     result = rag_chain.invoke({"context": context})
     rules = result
     return rules
+
+
+def rag_setup():
+    from ragas.llms import LangchainLLMWrapper
+    from ragas.embeddings import LangchainEmbeddingsWrapper
+    from langchain_openai import ChatOpenAI
+    from langchain_openai import OpenAIEmbeddings
+    from knowledge_base.models.models import OpenAIModels
+    from langchain_core.documents import Document
+    evaluator_llm = LangchainLLMWrapper(OpenAIModels.gpt_4o_mini)
+    evaluator_embeddings = LangchainEmbeddingsWrapper(OpenAIEmbeddings())
+
+    # filepath = "rules-engine/src/knowledge_base/rulesystems/cc-srd5.md"
+    filepath = "knowledge_base/rulesystems/cc-srd5.md"
+
+    rules_document: str = ""
+    with open(filepath, encoding="utf-8") as f:
+        rules_document = f.read()
+    
+
+
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    splits = text_splitter.split_text(rules_document)
+
+
+    rag = RAG(OpenAIModels.gpt_4o_mini)
+
+    # Load documents
+    rag.load_documents(splits)
+
+    # Query and retrieve the most relevant document
+    query = "How many hitpoints does an Barbarian have at level 1? "
+    relevant_doc = rag.get_most_relevant_docs(query)
+
+    # Generate an answer
+    answer = rag.generate_answer(query, relevant_doc)
+
+    print(f"Query: {query}")
+    print(f"Relevant Document: {relevant_doc}")
+    print(f"Answer: {answer}")
+
+
+
 
