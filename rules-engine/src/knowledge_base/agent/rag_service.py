@@ -7,7 +7,11 @@ from langchain_chroma import Chroma
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import OpenAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter, MarkdownHeaderTextSplitter, MarkdownTextSplitter
+from langchain_experimental.text_splitter import SemanticChunker
+from langchain.retrievers import ParentDocumentRetriever
+from langchain.storage import InMemoryStore
+from langchain_core.documents import Document
 
 from langchain_core.prompts import PromptTemplate
 import pandas as ps
@@ -15,7 +19,8 @@ import pandas as ps
 
 class RagService:
     def __init__(self):
-        self.rag = RAG(OpenAIModels.gpt_4o_mini)
+        embedding_model = "text-embedding-3-small"
+        self.rag = RAG(OpenAIModels.gpt_4o_mini, embeddings_model=embedding_model)
 
         filepath = "knowledge_base/rulesystems/cc-srd5.md"
 
@@ -23,11 +28,49 @@ class RagService:
         with open(filepath, encoding="utf-8") as f:
             rules_document = f.read()
 
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-        splits = text_splitter.split_text(rules_document)
+
+        docs = [Document(rules_document)]
+
+        headers_to_split_on = [
+            ("#", "Header 1"),
+            ("##", "Header 2")
+        ]
+
+        markdown_splitter = MarkdownTextSplitter()
+        #markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on, strip_headers=False)
+        md_splits = markdown_splitter.split_documents(docs)
         
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=400,chunk_overlap = 0)
+        splits = text_splitter.split_documents(md_splits)
+
+        # text_splitter = SemanticChunker(
+        #     OpenAIEmbeddings(), breakpoint_threshold_type="percentile"
+        # )
+
+        #splits: list[str] = []
+        # for doc in text_splitter.split_documents(md_splits):
+        #     splits.append(doc.page_content)
+
+        store = InMemoryStore()
+        vectorstore = Chroma(embedding_function=self.rag.embeddings, collection_name="rules_doc", persist_directory="knowledge_base/db_data")
+        
+        self.parent_doc_retriever = ParentDocumentRetriever(
+            vectorstore=vectorstore,
+            docstore=store,
+            child_splitter=text_splitter,
+            parent_splitter =markdown_splitter
+        )
+
+        batch_size = 5
+        for i in range(0, 90, batch_size):
+            print(f"Batch: {i}")
+            batch = splits[i:i+batch_size]
+            self.parent_doc_retriever.add_documents(batch, ids=None)
+
+        #self.parent_doc_retriever.add_documents(splits, ids=None)
+
         # Load documents
-        self.rag.load_documents(splits)
+        #self.rag.load_documents(splits)
 
     def lookup_rule(self, context, filepath = "knowledge_base/rulesystems/rules.txt") -> list[str]:
         rules_document = ""
@@ -74,10 +117,11 @@ class RagService:
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         splits = text_splitter.split_text(rules_document)
 
+
         rag = RAG(OpenAIModels.gpt_4o_mini)
 
         # Load documents
-        rag.load_documents(splits)
+        rag.load_documents(md_splits)
 
         # Query and retrieve the most relevant document
         query = "How many hitpoints does an Barbarian have at level 1? "
@@ -99,15 +143,28 @@ class RagService:
 
         dataset = []
 
-        df = ps.read_csv("knowledge_base/validation_data/sample_questions_cl.csv")
+        df = ps.read_csv("knowledge_base/validation_data/sample_questions_race.csv")
         querys = df["question"].tolist()
         responses = df["answer"].tolist()
 
 
+        # for query, reference in zip(querys, responses):
+
+        #     relevant_docs = self.rag.get_most_relevant_docs(query, 5, 0.70)
+        #     response = self.rag.generate_answer(query, relevant_docs)
+        #     dataset.append(
+        #         {
+        #             "user_input":query,
+        #             "retrieved_contexts":relevant_docs,
+        #             "response":response,
+        #             "reference":reference
+        #         }
+        #     )
+
         for query, reference in zip(querys, responses):
 
-            relevant_docs = self.rag.get_most_relevant_docs(query, 5, 0.70)
-            response = self.rag.generate_answer(query, relevant_docs)
+            relevant_docs = self.rag.relevant_docs_parent_retriever(query, self.parent_doc_retriever)
+            response = self.rag.generate_answer_parent_retriever(query, relevant_docs)
             dataset.append(
                 {
                     "user_input":query,

@@ -3,11 +3,13 @@ from langchain_openai import ChatOpenAI
 from langchain_openai import OpenAIEmbeddings
 from knowledge_base.models.models import OpenAIModels
 from knowledge_base.agent.agent import Agent
+from langchain.retrievers import ParentDocumentRetriever
+from langchain_core.documents import Document
 
 class RAG:
-    def __init__(self, agent: Agent):
+    def __init__(self, agent: Agent, embeddings_model: str):
         self.llm = Agent.model
-        self.embeddings = OpenAIEmbeddings()
+        self.embeddings = OpenAIEmbeddings(model = embeddings_model)
         self.doc_embeddings: list[list[float]] = None
         self.docs: list[str] = None
 
@@ -43,7 +45,23 @@ class RAG:
 
         # Retrieve and return the corresponding documents
         return [self.docs[i] for i in top_k_indices]
+    
+    def relevant_docs_parent_retriever(self, query: str, parent_document_retriver: ParentDocumentRetriever, k: int = 5, threshold: float = 0.8) -> str:
+        return self.convert_docs_to_strings(parent_document_retriver.invoke(input=query)) 
+    
+    # Convert Document objects to strings
+    def convert_docs_to_strings(self, docs: list[Document]):
+        return [doc.page_content for doc in docs]
 
+    def generate_answer_parent_retriever(self, query: str, relevant_doc: list[str]):
+        """Generate an answer for a given query based on the most relevant document."""
+        prompt = f"question: {query}\n\nDocuments: {relevant_doc}"
+        messages = [
+            ("system", "You are a helpful assistant that answers questions based on given documents only."),
+            ("human", prompt),
+        ]
+        ai_msg = self.llm.invoke(messages)
+        return ai_msg.content
 
     def generate_answer(self, query: str, relevant_doc: list[str]):
         """Generate an answer for a given query based on the most relevant document."""

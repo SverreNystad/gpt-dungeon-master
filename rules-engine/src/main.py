@@ -1,5 +1,5 @@
 
-from knowledge_base.agent.rag_service import lookup_rules
+from knowledge_base.agent.rag_service import RagService
 
 def test_rules_lookup():
     description = "You are in a dark cave, and you hear a loud growl coming from the darkness"
@@ -29,9 +29,12 @@ def test_rules_lookup_fighter_figthing():
     player_action = "The player tries to fight the goblin"
     context = f"{description} {character} {player_action}"
 
-    rules = lookup_rules(context)
+    rules_1 = lookup_rules(context)
+    rules_2 = lookup_rules_v2(context)
 
-    print(rules)
+    print(rules_1)
+    print("\n\n\n\n")
+    print(rules_2)
 
 
 def test_narrative_given_rules():
@@ -97,8 +100,28 @@ def test_narrative_given_rules():
     }
     """
     
+async def test_faithfullness():
+    from ragas.dataset_schema import SingleTurnSample 
+    from ragas.metrics import Faithfulness
+    sample = SingleTurnSample(
+        user_input="What ability scores do Dragonborn gain?",
+        response="Dragonborn gain the following ability scores: their Strength score increases by 2, and their Charisma score increases by 1.",
+        retrieved_contexts=[
+            """## Dragonborn {#section-dragonborn}
 
+### Dragonborn Traits
+
+Your draconic heritage manifests in a variety of traits you share with other dragonborn.
+
+***Ability Score Increase.*** Your Strength score increases by 2, and your Charisma score increases by 1."""
+        ]
+    )
+    scorer = Faithfulness()
+    await scorer.single_turn_ascore(sample)
 
 if __name__ == "__main__":
     
-    test_rules_lookup_fighter_figthing()
+
+    #faith = test_faithfullness()
+    print(RagService().rag_evaluator())
+    #print(faith)
