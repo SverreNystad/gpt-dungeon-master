@@ -65,7 +65,7 @@ class RagService:
         for i in range(0, 90, batch_size):
             print(f"Batch: {i}")
             batch = splits[i:i+batch_size]
-            self.parent_doc_retriever.add_documents(batch, ids=None)
+            self.parent_doc_retriever.add_documents(batch, ids=i)
 
         #self.parent_doc_retriever.add_documents(splits, ids=None)
 
