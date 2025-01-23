@@ -19,7 +19,7 @@ class RAG:
         self.doc_embeddings = self.embeddings.embed_documents(documents)
 
 
-    def get_most_relevant_docs(self, query: str, k: int = 5, threshold: float = 0.8):
+    def get_most_relevant_docs(self, query: str, k: int = 5, threshold: float = 0.7):
         """Find the top-k most relevant documents for a given query that meet a similarity threshold."""
         if not self.docs or not self.doc_embeddings:
             raise ValueError("Documents and their embeddings are not loaded.")

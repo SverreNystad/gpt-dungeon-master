@@ -37,11 +37,14 @@ class RagService:
         ]
 
         markdown_splitter = MarkdownTextSplitter()
+        markdown_splitter._separators = self.get_md_seperators()
         #markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on, strip_headers=False)
-        md_splits = markdown_splitter.split_documents(docs)
+        splits = markdown_splitter.split_documents(docs)
+        print(len(splits))
         
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=400,chunk_overlap = 0)
-        splits = text_splitter.split_documents(md_splits)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=400,chunk_overlap = 200)
+        #splits = text_splitter.split_documents(md_splits)
+
 
         # text_splitter = SemanticChunker(
         #     OpenAIEmbeddings(), breakpoint_threshold_type="percentile"
@@ -62,15 +65,57 @@ class RagService:
         )
 
         batch_size = 5
-        for i in range(0, 90, batch_size):
+        splits_length = len(splits)
+        print(f"Docs length: {splits_length}")
+        for i in range(0, splits_length, batch_size):
             print(f"Batch: {i}")
-            batch = splits[i:i+batch_size]
-            self.parent_doc_retriever.add_documents(batch, ids=i)
+            ids = []
+            if (i + batch_size < splits_length):
+                batch = splits[i:i+batch_size]
+                for k in range(i, i + batch_size):
+                    ids.append(k)
+            else:
+                batch = splits[i:splits_length]
+                for k in range(i, splits_length):
+                    ids.append(k)
+
+            self.parent_doc_retriever.add_documents(batch, ids=ids)
+
+        print(f"Number of parent chunks  is: {len(list(store.yield_keys()))}")
+
+        print(f"Number of child chunks is: {len(self.parent_doc_retriever.vectorstore.get()['ids'])}")
+
+        
+        print("Finished adding docs")
 
         #self.parent_doc_retriever.add_documents(splits, ids=None)
 
         # Load documents
         #self.rag.load_documents(splits)
+
+    def get_md_seperators(self):
+        return [
+            # First, try to split along Markdown headings (starting with level 2)
+            "\n#{1,2} ",
+            # Note the alternative syntax for headings (below) is not handled here
+            # Heading level 2
+            # ---------------
+            # End of code block
+            "```\n",
+            # Horizontal lines
+            "\n\\*\\*\\*+\n",
+            "\n---+\n",
+            "\n___+\n",
+            # Note that this splitter doesn't handle horizontal lines defined
+            # by *three or more* of ***, ---, or ___, but this is not handled
+            "\n\n",
+            "\n",
+            " ",
+            "",
+        ]
+    
+    def generate_Chroma_database():
+        return 0
 
     def lookup_rule(self, context, filepath = "knowledge_base/rulesystems/rules.txt") -> list[str]:
         rules_document = ""
