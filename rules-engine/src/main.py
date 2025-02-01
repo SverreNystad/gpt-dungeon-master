@@ -1,5 +1,9 @@
 
 from knowledge_base.agent.rag_service import RagService
+import optuna
+import optunahub
+from optuna.study import StudyDirection
+from optuna_dashboard import run_server
 
 def test_rules_lookup():
     description = "You are in a dark cave, and you hear a loud growl coming from the darkness"
@@ -119,9 +123,51 @@ Your draconic heritage manifests in a variety of traits you share with other dra
     scorer = Faithfulness()
     await scorer.single_turn_ascore(sample)
 
-if __name__ == "__main__":
+def objective(trial: optuna.Trial) -> float:
+    nr_md_splitts = trial.suggest_int("md_splits", 1, 6)
+    chunk_size = trial.suggest_int("chunk_size", 200, 1200)
+    if chunk_size < 400:
+        max_chunk_overlap = chunk_size
+    else:
+        max_chunk_overlap = 400
+
+    chunk_overlap = trial.suggest_int("chunk_overlap", 0, max_chunk_overlap)
+    bm25_k = trial.suggest_int("bm25_k", 1, 20)
+    bm25_weight = trial.suggest_float("bm25_weight", 0.0, 1.0)
+
+    rag_service: RagService = RagService(
+        nr_md_splitts = nr_md_splitts,
+        chunk_size = chunk_size,
+        chunk_overlap = chunk_overlap,
+        bm25_k = bm25_k,
+        bm25_weight = bm25_weight)
     
+    context_recall, context_precision, context_entity_recall = rag_service.rag_evaluator()
+     
+    del rag_service
+    print(f"Context recall: {context_recall}")
+
+    return context_recall, context_precision, context_entity_recall
+
+if __name__ == "__main__":
+    #storage = optuna.storages.InMemoryStorage()
+
+    file_path = "knowledge_base/optuna_data/optuna_journal_storage.log"
+    lock_obj = optuna.storages.journal.JournalFileOpenLock(file_path)
+
+    storage = optuna.storages.JournalStorage(
+        optuna.storages.journal.JournalFileBackend(file_path, lock_obj=lock_obj),
+    )
+
+    module = optunahub.load_module(package="samplers/auto_sampler")
+    study = optuna.create_study(
+        sampler=module.AutoSampler(),
+        storage=storage,
+        directions=[StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE]
+        )
+    study.optimize(objective, n_trials=20)
+    run_server(storage)
 
     #faith = test_faithfullness()
-    print(RagService().rag_evaluator())
+    #print(RagService().rag_evaluator())
     #print(faith)
