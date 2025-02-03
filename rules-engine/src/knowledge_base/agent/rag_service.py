@@ -19,6 +19,7 @@ from ragas.llms import LangchainLLMWrapper
 from ragas.metrics import LLMContextRecall, ContextEntityRecall, ContextPrecision
 from langchain_community.vectorstores import FAISS
 from ragas.utils import safe_nanmean
+from langchain_community.vectorstores import FAISS
 
 
 from langchain_core.prompts import PromptTemplate
@@ -37,22 +38,24 @@ def fetch_store(splits: list[Document]) -> BaseStore:
 
 class RagService:
     def __init__(self,
-                nr_md_splitts: int = 2,
-                chunk_size: int = 400,
-                chunk_overlap: int = 200,
+                vector_k: int = 2,
+                breakpoint_threshold: float = 95.0,
+                score_threshold: float = 0.7,
                 bm25_k: int = 5,
-                bm25_weight: float = 0.2
+                bm25_weight: float = 0.2,
+                md_splits: int = 2
             ):
         embedding_model = "text-embedding-3-small"
         self.rag = RAG(OpenAIModels.gpt_4o_mini, embeddings_model=embedding_model)
         self.splits_length = 0
 
         self.rag_setup(
-            nr_md_splitts = nr_md_splitts,
-            chunk_size = chunk_size,
-            chunk_overlap = chunk_overlap,
+            vector_k=vector_k,
+            breakpoint_threshold=breakpoint_threshold,
+            score_threshold=score_threshold,
             bm25_k = bm25_k,
-            bm25_weight = bm25_weight
+            bm25_weight = bm25_weight,
+            md_splits = md_splits
         )
     
     def get_md_seperators(self, numberOfHeaders: int):
@@ -79,19 +82,41 @@ class RagService:
             " ",
             "",
         ]
+    
+    def markdown_setup(self, num_headers: int = 2) -> MarkdownHeaderTextSplitter:
+        headers_to_split_on = [
+            ("#", "Header 1")
+        ]
+
+        if num_headers > 1:
+            headers_to_split_on.append(("##", "Header 2"))
+        if num_headers > 2:
+            headers_to_split_on.append(("###", "Header 3"))
+        if num_headers > 3:
+            headers_to_split_on.append(("####", "Header 4"))
+        if num_headers > 4:
+            headers_to_split_on.append(("#####", "Header 5"))
+        if num_headers > 5:
+            headers_to_split_on.append(("######", "Header 6"))
+
+        return MarkdownHeaderTextSplitter(
+            headers_to_split_on=headers_to_split_on,
+            strip_headers=False
+        )
 
     def rag_setup(
             self, 
-            nr_md_splitts: int = 2,
-            chunk_size: int = 400,
-            chunk_overlap: int = 200,
+            vector_k: int = 2,
+            breakpoint_threshold: float = 95.0,
+            score_threshold: float = 0.7,
             bm25_k: int = 5,
             bm25_weight: float = 0.2,
+            md_splits: int = 2
             ):
         
         # TODO: Remove after Optima 
-        folder_path = "knowledge_base/db_data"
-        delete_folder_contents(folder_path)
+        # folder_path = "knowledge_base/db_data"
+        # delete_folder_contents(folder_path)
 
         filepath = "knowledge_base/rulesystems/cc-srd5.md"
 
@@ -99,59 +124,45 @@ class RagService:
         with open(filepath, encoding="utf-8") as f:
             rules_document = f.read()
 
-        docs = [Document(rules_document)]
+        #docs = [Document(rules_document)]
 
-        markdown_splitter = MarkdownTextSplitter()
-        markdown_splitter._separators = self.get_md_seperators(nr_md_splitts)
-        splits = markdown_splitter.split_documents(docs)
-        #print(len(splits))
-        
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size,chunk_overlap = chunk_overlap)
+        markdown_splitter = self.markdown_setup(md_splits)
+        #markdown_splitter._separators = self.get_md_seperators(nr_md_splitts)
+        splits = markdown_splitter.split_text(rules_document)
+        print(f"Markdown splits {len(splits)}")
 
-        store = fetch_store(splits)
-        vectorstore = Chroma(embedding_function=self.rag.embeddings, collection_name="rules_doc", persist_directory="knowledge_base/db_data")
-        
-        self.parent_doc_retriever = ParentDocumentRetriever(
-            vectorstore=vectorstore,
-            docstore=store,
-            child_splitter=text_splitter,
-            parent_splitter=markdown_splitter
+        text_splitter = SemanticChunker(
+            OpenAIEmbeddings(),
+            breakpoint_threshold_type="percentile",
+            breakpoint_threshold_amount=breakpoint_threshold
         )
 
-        #if self.parent_doc_retriever.vectorstore.get(["0"]) == None:
-        batch_size = 5
-        self.splits_length = len(splits)
-        print(f"Docs length: {self.splits_length}")
-        for i in range(0, self.splits_length, batch_size):
-            #print(f"Batch: {i}")
-            ids = []
-            if (i + batch_size < self.splits_length):
-                batch = splits[i:i+batch_size]
-                for k in range(i, i + batch_size):
-                    ids.append(k)
-            else:
-                batch = splits[i:self.splits_length]
-                for k in range(i, self.splits_length):
-                    ids.append(k)
+        
+        child_splits = text_splitter.split_documents(splits)
+        print(f"Semantic splits {len(child_splits)}")
 
-            self.parent_doc_retriever.add_documents(batch, ids=ids)
-
-        #     #TODO Save to file 
+        # Vector store backed retriever
+        vector_retriever = FAISS.from_documents(child_splits, OpenAIEmbeddings()).as_retriever(
+            search_type="similarity_score_threshold",
+            search_kwargs = {
+                "k": vector_k,
+                "score_threshold": score_threshold
+                }
+        )
 
         # BM25 retriver
-        child_splits = text_splitter.split_documents(splits)
         bm25_retriver = BM25Retriever.from_documents(child_splits)
         bm25_retriver.k = bm25_k
 
         self.ensemble_retriever = EnsembleRetriever(
-            retrievers=[bm25_retriver, self.parent_doc_retriever], weights=[bm25_weight, 1 - bm25_weight]
+            retrievers=[bm25_retriver, vector_retriever], weights=[bm25_weight, 1 - bm25_weight]
         )
 
 
         #self.parent_doc_retriever.child_splitter = 
-        print(f"Number of parent chunks  is: {len(list(store.yield_keys()))}")
+        # print(f"Number of parent chunks  is: {len(list(store.yield_keys()))}")
 
-        print(f"Number of child chunks is: {len(self.parent_doc_retriever.vectorstore.get()['ids'])}")
+        # print(f"Number of child chunks is: {len(self.parent_doc_retriever.vectorstore.get()['ids'])}")
 
         # print("Finished adding docs")
 
@@ -168,7 +179,7 @@ class RagService:
         for query, reference in zip(querys, responses):
 
             #relevant_docs = self.rag.relevant_docs_parent_retriever(query, self.parent_doc_retriever)
-            relevant_docs = self.rag.relevant_docs_ensemble_retrivers(query, self.parent_doc_retriever)
+            relevant_docs = self.rag.relevant_docs_ensemble_retrivers(query, self.ensemble_retriever)
             response = self.rag.generate_answer(query, relevant_docs)
             dataset.append(
                 {
@@ -195,7 +206,7 @@ class RagService:
         context_precision = safe_nanmean(result["context_precision"])
         context_entity_recall = safe_nanmean(result["context_entity_recall"])
 
-        self.close()
+        #self.close()
 
         return context_recall, context_precision, context_entity_recall
     
@@ -210,6 +221,10 @@ class RagService:
         del self.parent_doc_retriever
         folder_path = "knowledge_base/db_data"
         delete_folder_contents(folder_path)
+    
+    def ask_model(self, query: str):
+        relevant_docs = self.rag.relevant_docs_ensemble_retrivers(query, self.ensemble_retriever)
+        return self.rag.generate_answer(query, relevant_docs)
 
 def delete_folder_contents(folder_path: str):
     import os

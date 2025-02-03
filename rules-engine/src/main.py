@@ -153,27 +153,27 @@ def objective2(trial: optuna.Trial) -> float:
     return context_recall, context_precision
 
 
-
-
 def objective(trial: optuna.Trial) -> float:
-    nr_md_splitts = trial.suggest_int("md_splits", 1, 6)
-    chunk_size = trial.suggest_int("chunk_size", 200, 1200)
-    if chunk_size < 500:
-        max_chunk_overlap = chunk_size - 1
-    else:
-        max_chunk_overlap = 500
+    vector_k = trial.suggest_int("vector_k", 1, 20)
+    breakpoint_threshold = trial.suggest_int("breakpoint_threshold",low=95,high=99.9, step=0.1)
+    # if chunk_size < 500:
+    #     max_chunk_overlap = chunk_size - 1
+    # else:
+    #     max_chunk_overlap = 500
 
-    chunk_overlap = trial.suggest_int("chunk_overlap", 0, max_chunk_overlap)
+    score_threshold = trial.suggest_float("score_threshold", 0.3, 0.75)
     bm25_k = trial.suggest_int("bm25_k", 1, 25)
     bm25_weight = trial.suggest_float("bm25_weight", 0.0, 1.0)
+    md_splits = trial.suggest_int("md_splits", 2, 5)
 
     rag_service: RagService = RagService(
-        nr_md_splitts = nr_md_splitts,
-        chunk_size = chunk_size,
-        chunk_overlap = chunk_overlap,
+        vector_k= vector_k,
+        breakpoint_threshold=breakpoint_threshold,
+        score_threshold=score_threshold,
         bm25_k = bm25_k,
-        bm25_weight = bm25_weight)
-    
+        bm25_weight = bm25_weight,
+        md_splits=md_splits
+        )
     context_recall, context_precision, context_entity_recall = rag_service.rag_evaluator()
      
     del rag_service
@@ -183,8 +183,10 @@ def objective(trial: optuna.Trial) -> float:
 
 if __name__ == "__main__":
     optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
-    study_name = "rag_builder_Parent_BM25_without_CER" 
+    study_name = "rag_builder_Semantic_BM25_with_MD_splits" 
     storage_name = "sqlite:///{}.db".format(study_name)
+    module = optunahub.load_module(package="samplers/auto_sampler")
+    directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE]
 
     # file_path = "knowledge_base/optuna_data/optuna_journal_storage.log"
     # lock_obj = optuna.storages.journal.JournalFileOpenLock(file_path)
@@ -193,47 +195,36 @@ if __name__ == "__main__":
     #     optuna.storages.journal.JournalFileBackend(file_path, lock_obj=lock_obj),
     # )
 
-    module = optunahub.load_module(package="samplers/auto_sampler")
-    study = optuna.create_study(
-        study_name=study_name,
-        sampler=module.AutoSampler(),
-        storage=storage_name,
-        load_if_exists= True,
-        directions=[StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE]
-        )
+    
+
     # run_server(storage_name)
     # for _ in range(10):
     #     study.optimize(objective2, n_trials=10)
 
-    study_name = "rag_builder_Parent_BM25"
-    directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE]
-    storage_name = "sqlite:///{}.db".format(study_name)
-
-    study = optuna.create_study(
-        study_name=study_name,
-        sampler=module.AutoSampler(),
-        storage=storage_name,
-        load_if_exists= True,
-        directions=directions
-        )
+    # study = optuna.create_study(
+    #     study_name=study_name,
+    #     sampler=module.AutoSampler(),
+    #     storage=storage_name,
+    #     load_if_exists= True,
+    #     directions=directions
+    #     )
     
-    study.enqueue_trial({
-        "md_splits": 5,
-        "chunk_size": 1154,
-        "chunk_overlap": 231,
-        "bm25_k": 11,
-        "bm25_weight": 0.0895112
-    })
-    # for _ in range(1):
-    #      study.optimize(objective, n_trials=3)
+    # for _ in range(10):
+    #      study.optimize(objective, n_trials=5)
     #run_server(storage_name)
 
     rag_service: RagService = RagService(
-        nr_md_splitts = 2,
-        chunk_size = 639,
-        chunk_overlap = 88,
-        bm25_k = 24,
-        bm25_weight = 0.6948053)
+        vector_k=13,
+        breakpoint_threshold=98,
+        score_threshold=0.596,
+        bm25_k = 12,
+        bm25_weight = 0.02687,
+        md_splits=2
+        )
+    
+    # while(True):
+    #     query = input("Question: ")
+    #     print(rag_service.ask_model(query=query))
+
 
     print(rag_service.rag_evaluator())
-    #print(faith)
