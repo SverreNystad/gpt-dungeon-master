@@ -9,9 +9,9 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter, MarkdownHeaderTextSplitter, MarkdownTextSplitter
 from langchain_experimental.text_splitter import SemanticChunker
-from langchain.retrievers import ParentDocumentRetriever, EnsembleRetriever
+from langchain.retrievers import ParentDocumentRetriever, EnsembleRetriever, MultiVectorRetriever
 from langchain_community.retrievers import BM25Retriever
-from langchain.storage import InMemoryStore
+from langchain.storage import InMemoryStore, InMemoryByteStore
 from langchain_core.documents import Document
 from langchain_core.stores import BaseStore
 from ragas import evaluate
@@ -19,11 +19,14 @@ from ragas.llms import LangchainLLMWrapper
 from ragas.metrics import LLMContextRecall, ContextEntityRecall, ContextPrecision
 from langchain_community.vectorstores import FAISS
 from ragas.utils import safe_nanmean
-from langchain_community.vectorstores import FAISS
-
-
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 import pandas as ps
+import uuid
+import json
+import os
+
 
 def fetch_store(splits: list[Document]) -> BaseStore:
     store: BaseStore = InMemoryStore()
@@ -103,6 +106,64 @@ class RagService:
             headers_to_split_on=headers_to_split_on,
             strip_headers=False
         )
+    
+    def splits(self, md_splits: int, breakpoint_threshold: float) -> list[Document]:
+        filepath = "knowledge_base/rulesystems/cc-srd5.md"
+
+        rules_document: str = ""
+        with open(filepath, encoding="utf-8") as f:
+            rules_document = f.read()
+
+        markdown_splitter = self.markdown_setup(md_splits)
+        splits = markdown_splitter.split_text(rules_document)
+        print(f"Markdown splits {len(splits)}")
+
+        semantic_text_splitter = SemanticChunker(
+            OpenAIEmbeddings(),
+            breakpoint_threshold_type="percentile",
+            breakpoint_threshold_amount=breakpoint_threshold
+        )
+
+        child_splits = semantic_text_splitter.split_documents(splits)
+        print(f"Semantic splits {len(child_splits)}")
+
+        # Serialize the splits to a JSON-serializable format
+        serialized_splits = [
+            {"page_content": doc.page_content, "metadata": doc.metadata}
+            for doc in child_splits
+        ]
+
+        # Save the serialized splits to a file
+        with open("knowledge_base/db_data/splits.json", "w", encoding="utf-8") as f:
+            json.dump(serialized_splits, f, ensure_ascii=False, indent=4)
+
+        return child_splits
+    
+    def check_splits_file(self, filepath: str) -> bool:
+        # Check if the file exists
+        if not os.path.exists(filepath):
+            print(f"File {filepath} does not exist.")
+            return False
+
+        # Check if the file has data
+        with open(filepath, "r", encoding="utf-8") as f:
+            try:
+                data = json.load(f)
+                if not data:
+                    print(f"File {filepath} is empty.")
+                    return False
+            except json.JSONDecodeError:
+                print(f"File {filepath} is not a valid JSON.")
+                return False
+
+        print(f"File {filepath} exists and has data.")
+        return True
+    
+    def load_splits(self, filepath: str) -> list[Document]:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            child_splits = [Document(page_content=doc["page_content"], metadata=doc["metadata"]) for doc in data]
+        return child_splits
 
     def rag_setup(
             self, 
@@ -124,48 +185,106 @@ class RagService:
         with open(filepath, encoding="utf-8") as f:
             rules_document = f.read()
 
-        #docs = [Document(rules_document)]
-
         markdown_splitter = self.markdown_setup(md_splits)
-        #markdown_splitter._separators = self.get_md_seperators(nr_md_splitts)
         splits = markdown_splitter.split_text(rules_document)
         print(f"Markdown splits {len(splits)}")
 
-        text_splitter = SemanticChunker(
+        semantic_text_splitter = SemanticChunker(
             OpenAIEmbeddings(),
             breakpoint_threshold_type="percentile",
             breakpoint_threshold_amount=breakpoint_threshold
         )
 
-        
-        child_splits = text_splitter.split_documents(splits)
+        child_splits = semantic_text_splitter.split_documents(splits)
         print(f"Semantic splits {len(child_splits)}")
 
-        # Vector store backed retriever
-        vector_retriever = FAISS.from_documents(child_splits, OpenAIEmbeddings()).as_retriever(
-            search_type="similarity_score_threshold",
-            search_kwargs = {
-                "k": vector_k,
-                "score_threshold": score_threshold
-                }
+        # # Serialize the splits to a JSON-serializable format
+        # serialized_splits = [
+        #     {"page_content": doc.page_content, "metadata": doc.metadata}
+        #     for doc in child_splits
+        # ]
+
+        # filepath = "knowledge_base/db_data/splits.json"
+        # child_splits: list[Document]
+        # if self.check_splits_file(filepath):
+        #     child_splits = self.load_splits(filepath=filepath)
+        # else:
+        #     child_splits = self.splits(md_splits=md_splits, breakpoint_threshold=breakpoint_threshold)
+
+
+        persist_directory = "knowledge_base/db_data"
+
+        vectorstore = Chroma(
+            collection_name="summaries", 
+            embedding_function=OpenAIEmbeddings(), 
+            persist_directory=persist_directory + "/summary"
+            )
+        
+        # docstore = Chroma(
+        #     collection_name = "documents",
+        #     embedding_function=OpenAIEmbeddings(),
+        #     persist_directory= persist_directory + "/docs"
+        # )
+        docstore = InMemoryByteStore()
+        id_key = "doc_id"
+        # The retriever (empty to start)
+        multi_vector_retriever = MultiVectorRetriever(
+            vectorstore=vectorstore,
+            byte_store=docstore,
+            # docstore=docstore,
+            id_key=id_key,
+            search_type= "mmr"
         )
+
+        doc_ids = [str(uuid.uuid4()) for _ in child_splits]
+        for i, doc in enumerate(child_splits):
+            doc.metadata[id_key] = doc_ids[i]
+        multi_vector_retriever.docstore.mset(list(zip(doc_ids, child_splits)))
+        print("Finished adding child docs")
+
+        # Run if vectorstore is empty
+        chain = (
+            {"doc": lambda x: x.page_content}
+            | ChatPromptTemplate.from_template("Summarize the following document:\n\n{doc}")
+            | ChatOpenAI(name=OpenAIModels.gpt_4o_mini, max_retries=0)
+            | StrOutputParser()
+        )
+
+        summaries = chain.batch(child_splits, {"max_concurrency": 5})
+
+        print("Finished with summary")
+    
+        summary_docs = [
+        Document(page_content=s, metadata={id_key: doc_ids[i]})
+        for i, s in enumerate(summaries)
+        ]
+
+        multi_vector_retriever.vectorstore.add_documents(summary_docs)
+        print("Finished adding summary docs")
+
+        # We can also add the original chunks to the vectorstore if we so want
+        for i, doc in enumerate(child_splits):
+            doc.metadata[id_key] = doc_ids[i]
+        multi_vector_retriever.vectorstore.add_documents(child_splits)
 
         # BM25 retriver
         bm25_retriver = BM25Retriever.from_documents(child_splits)
         bm25_retriver.k = bm25_k
 
         self.ensemble_retriever = EnsembleRetriever(
-            retrievers=[bm25_retriver, vector_retriever], weights=[bm25_weight, 1 - bm25_weight]
+            retrievers=[bm25_retriver, multi_vector_retriever], weights=[bm25_weight, 1 - bm25_weight]
         )
 
+    def query(self, user_prompt:str):
+        """Generate a response to the user prompt by retrieving relevant docs from the rag 
+        and generating a response based on those documents"""
+        # Retrive the relevant docs
+        relevant_docs = self.rag.relevant_docs_ensemble_retrivers(user_prompt, self.ensemble_retriever)
 
-        #self.parent_doc_retriever.child_splitter = 
-        # print(f"Number of parent chunks  is: {len(list(store.yield_keys()))}")
+        # Generate a response from the LLM
+        response = self.rag.generate_answer(user_prompt, relevant_docs)
 
-        # print(f"Number of child chunks is: {len(self.parent_doc_retriever.vectorstore.get()['ids'])}")
-
-        # print("Finished adding docs")
-
+        return response
 
     def rag_evaluator(self) -> tuple[float, float, float]:
         dataset = []
@@ -194,7 +313,7 @@ class RagService:
 
         evaluator_llm = LangchainLLMWrapper(Agent.model)
         
-        result = evaluate(
+        result = evaluate( # TODO Use token_usage_parser
             dataset=evaluation_dataset,
             metrics=[LLMContextRecall(), ContextPrecision(), ContextEntityRecall()],
             llm=evaluator_llm
@@ -221,10 +340,7 @@ class RagService:
         del self.parent_doc_retriever
         folder_path = "knowledge_base/db_data"
         delete_folder_contents(folder_path)
-    
-    def ask_model(self, query: str):
-        relevant_docs = self.rag.relevant_docs_ensemble_retrivers(query, self.ensemble_retriever)
-        return self.rag.generate_answer(query, relevant_docs)
+
 
 def delete_folder_contents(folder_path: str):
     import os
