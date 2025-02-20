@@ -155,7 +155,7 @@ def objective2(trial: optuna.Trial) -> float:
 
 def objective(trial: optuna.Trial) -> float:
     vector_k = trial.suggest_int("vector_k", 1, 20)
-    breakpoint_threshold = trial.suggest_int("breakpoint_threshold",low=95,high=99.9, step=0.1)
+    breakpoint_threshold = trial.suggest_int("breakpoint_threshold",low=50,high=99, step=0.1)
     # if chunk_size < 500:
     #     max_chunk_overlap = chunk_size - 1
     # else:
@@ -182,11 +182,11 @@ def objective(trial: optuna.Trial) -> float:
     return context_recall, context_precision, context_entity_recall
 
 if __name__ == "__main__":
-    optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
-    study_name = "rag_builder_Semantic_BM25_with_MD_splits" 
-    storage_name = "sqlite:///{}.db".format(study_name)
-    module = optunahub.load_module(package="samplers/auto_sampler")
-    directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE]
+    # optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
+    # study_name = "rag_builder_Parent_BM25" 
+    # storage_name = "sqlite:///{}.db".format(study_name)
+    # module = optunahub.load_module(package="samplers/auto_sampler")
+    # directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE]
 
     # file_path = "knowledge_base/optuna_data/optuna_journal_storage.log"
     # lock_obj = optuna.storages.journal.JournalFileOpenLock(file_path)
@@ -211,7 +211,7 @@ if __name__ == "__main__":
     
     # for _ in range(10):
     #      study.optimize(objective, n_trials=5)
-    #run_server(storage_name)
+    # run_server(storage_name)
 
     rag_service: RagService = RagService(
         vector_k=13,
