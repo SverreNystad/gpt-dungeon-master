@@ -53,7 +53,7 @@ class RAG:
         return self.convert_docs_to_strings(ensemble_retriver.invoke(input=query))
     
     # Convert Document objects to strings
-    def convert_docs_to_strings(self, docs: list[Document]):
+    def convert_docs_to_strings(self, docs: list[Document]) -> list[str]:
         return [doc.page_content for doc in docs]
 
     def generate_answer(self, query: str, relevant_doc: list[str]):
