@@ -27,18 +27,6 @@ import uuid
 import json
 import os
 
-
-def fetch_store(splits: list[Document]) -> BaseStore:
-    store: BaseStore = InMemoryStore()
-
-    # Check for values are in persistance
-
-    for i, doc in enumerate(splits):
-        store.mset([(i, doc)])
-
-    # Retrieve data from file 
-    return store
-
 class RagService:
     def __init__(self,
                 vector_k: int = 2,
@@ -60,31 +48,6 @@ class RagService:
             bm25_weight = bm25_weight,
             md_splits = md_splits
         )
-    
-    def get_md_seperators(self, numberOfHeaders: int):
-        num_str = ""
-        for i in range(1, numberOfHeaders + 1):
-            num_str += f"{i},"
-
-        return [
-            # First, try to split along Markdown headings (starting with level 2)
-            "\n#{" + num_str + "} ",
-            # Note the alternative syntax for headings (below) is not handled here
-            # Heading level 2
-            # ---------------
-            # End of code block
-            "```\n",
-            # Horizontal lines
-            "\n\\*\\*\\*+\n",
-            "\n---+\n",
-            "\n___+\n",
-            # Note that this splitter doesn't handle horizontal lines defined
-            # by *three or more* of ***, ---, or ___, but this is not handled
-            "\n\n",
-            "\n",
-            " ",
-            "",
-        ]
     
     def markdown_setup(self, num_headers: int = 2) -> MarkdownHeaderTextSplitter:
         headers_to_split_on = [
@@ -182,7 +145,7 @@ class RagService:
         return summary_docs
 
 
-    def check_splits_file(self, filepath: str) -> bool:
+    def validate_file_existence_and_content(self, filepath: str) -> bool:
         # Check if the file exists
         if not os.path.exists(filepath):
             print(f"File {filepath} does not exist.")
@@ -226,7 +189,7 @@ class RagService:
 
         filepath = "knowledge_base/db_data/splits.json"
         child_splits: list[Document]
-        if self.check_splits_file(filepath):
+        if self.validate_file_existence_and_content(filepath):
             child_splits = self.load_splits(filepath=filepath)
         else:
             child_splits = self.splits(md_splits=md_splits, breakpoint_threshold=breakpoint_threshold)
@@ -250,9 +213,7 @@ class RagService:
         multi_vector_retriever = MultiVectorRetriever(
             vectorstore=vectorstore,
             byte_store=docstore,
-            # docstore=docstore,
             id_key=id_key,
-            # search_type= "mmr"
         )
 
         doc_ids = [str(uuid.uuid4()) for _ in child_splits]
@@ -261,12 +222,11 @@ class RagService:
         multi_vector_retriever.docstore.mset(list(zip(doc_ids, child_splits)))
         print("Finished adding child docs")
 
-        # Run if vectorstore is empty
         
         filepath = "knowledge_base/db_data/summary.json"
 
         summary_docs: list[Document]
-        if self.check_splits_file(filepath):
+        if self.validate_file_existence_and_content(filepath):
             summary_docs = self.load_splits(filepath=filepath)
         else:
            summary_docs = self.summary(splits=child_splits, doc_ids=doc_ids, id_key=id_key, filepath=filepath)
