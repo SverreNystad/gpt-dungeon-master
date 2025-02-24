@@ -58,9 +58,33 @@ class RAG:
 
     def generate_answer(self, query: str, relevant_doc: list[str]):
         """Generate an answer for a given query based on the most relevant document."""
-        prompt = f"question: {query}\n\nDocuments: {relevant_doc}"
+        system_prompt = """
+        You are a rules chatbot for the Dungeons & Dragons roleplaying game. Your task is to provide precise answers to user questions based solely on the relevant information retrieved from the D&D rulebook.
+
+        1) When a user asks a question, retrieve the relevant text from the rulebook using the RAG (Retrieval-Augmented Generation).
+
+        2) Analyze the retrieved information and formulate a concise answer that directly addresses the user's question.
+
+        3) Do not provide any additional commentary, interpretations, or information that is not present in the retrieved text.
+
+        4) If the retrieved information does not contain a direct answer to the question, respond with 'I cannot provide an answer based on the available information.'
+
+        For example:
+
+        User Question: 'What are the rules for casting a spell?'
+
+        Retrieved Information: [Insert relevant rules about spellcasting]
+
+        Your Response: [Generate a direct response based on that information]
+
+
+        Now, please answer the user question based on the retrieved information.    
+
+        """
+
+        prompt = f"question: {query}\n\n Relevant documents from the RAG: {relevant_doc}"
         messages = [
-            ("system", "You are a helpful assistant that answers questions based on given documents only."),
+            ("system", system_prompt),
             ("human", prompt),
         ]
         ai_msg = self.llm.invoke(messages)

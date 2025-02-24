@@ -224,36 +224,12 @@ class RagService:
 
         filepath = "knowledge_base/rulesystems/cc-srd5.md"
 
-        # rules_document: str = ""
-        # with open(filepath, encoding="utf-8") as f:
-        #     rules_document = f.read()
-
-        # markdown_splitter = self.markdown_setup(md_splits)
-        # splits = markdown_splitter.split_text(rules_document)
-        # print(f"Markdown splits {len(splits)}")
-
-        # semantic_text_splitter = SemanticChunker(
-        #     OpenAIEmbeddings(),
-        #     breakpoint_threshold_type="percentile",
-        #     breakpoint_threshold_amount=breakpoint_threshold
-        # )
-
-        # child_splits = semantic_text_splitter.split_documents(splits)
-        # print(f"Semantic splits {len(child_splits)}")
-
-        # # Serialize the splits to a JSON-serializable format
-        # serialized_splits = [
-        #     {"page_content": doc.page_content, "metadata": doc.metadata}
-        #     for doc in child_splits
-        # ]
-
         filepath = "knowledge_base/db_data/splits.json"
         child_splits: list[Document]
         if self.check_splits_file(filepath):
             child_splits = self.load_splits(filepath=filepath)
         else:
             child_splits = self.splits(md_splits=md_splits, breakpoint_threshold=breakpoint_threshold)
-
 
         persist_directory = "knowledge_base/db_data"
 
@@ -276,7 +252,7 @@ class RagService:
             byte_store=docstore,
             # docstore=docstore,
             id_key=id_key,
-            search_type= "mmr"
+            # search_type= "mmr"
         )
 
         doc_ids = [str(uuid.uuid4()) for _ in child_splits]
