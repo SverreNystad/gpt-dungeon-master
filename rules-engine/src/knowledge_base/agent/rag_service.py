@@ -139,6 +139,49 @@ class RagService:
 
         return child_splits
     
+    def summary(self, splits: list[Document], doc_ids: list[str], id_key: str, filepath: str) -> list[Document]:
+        prompt = ChatPromptTemplate.from_template(
+            """
+            Summarize the following sections of the Dungeons & Dragons rulebook,
+            focusing on key concepts, rules, and mechanics. 
+            Highlight important terms, character classes, spells, combat rules, 
+            and any unique features relevant for players and Dungeon Masters.
+            Use the section's metadata to add context to the data. 
+            Ensure the summary is concise and organized by topic for easy reference.
+            
+            Here is the text to summarize:\n\n {text} \n\n 
+            Here is the metadata belonging to the section: \n\n {metadata} 
+            """
+        )
+        
+        chain = (
+            prompt
+            | ChatOpenAI(name=OpenAIModels.gpt_4o_mini, max_retries=0)
+            | StrOutputParser()
+        )
+
+        inputs = [{"text": doc.page_content, "metadata": doc.metadata} for doc in splits]
+
+        summaries = chain.batch(inputs, config={"max_concurrency": 5})
+
+        summary_docs = [
+            Document(page_content=s, metadata={id_key: doc_ids[i]})
+            for i, s in enumerate(summaries)
+        ]
+
+            # Serialize the summaries to a JSON-serializable format
+        serialized_summaries = [
+            {"page_content": doc.page_content, "metadata": doc.metadata}
+            for doc in summary_docs
+        ]
+
+        # Save the serialized splits to a file
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(serialized_summaries, f, ensure_ascii=False, indent=4)
+        
+        return summary_docs
+
+
     def check_splits_file(self, filepath: str) -> bool:
         # Check if the file exists
         if not os.path.exists(filepath):
@@ -181,22 +224,22 @@ class RagService:
 
         filepath = "knowledge_base/rulesystems/cc-srd5.md"
 
-        rules_document: str = ""
-        with open(filepath, encoding="utf-8") as f:
-            rules_document = f.read()
+        # rules_document: str = ""
+        # with open(filepath, encoding="utf-8") as f:
+        #     rules_document = f.read()
 
-        markdown_splitter = self.markdown_setup(md_splits)
-        splits = markdown_splitter.split_text(rules_document)
-        print(f"Markdown splits {len(splits)}")
+        # markdown_splitter = self.markdown_setup(md_splits)
+        # splits = markdown_splitter.split_text(rules_document)
+        # print(f"Markdown splits {len(splits)}")
 
-        semantic_text_splitter = SemanticChunker(
-            OpenAIEmbeddings(),
-            breakpoint_threshold_type="percentile",
-            breakpoint_threshold_amount=breakpoint_threshold
-        )
+        # semantic_text_splitter = SemanticChunker(
+        #     OpenAIEmbeddings(),
+        #     breakpoint_threshold_type="percentile",
+        #     breakpoint_threshold_amount=breakpoint_threshold
+        # )
 
-        child_splits = semantic_text_splitter.split_documents(splits)
-        print(f"Semantic splits {len(child_splits)}")
+        # child_splits = semantic_text_splitter.split_documents(splits)
+        # print(f"Semantic splits {len(child_splits)}")
 
         # # Serialize the splits to a JSON-serializable format
         # serialized_splits = [
@@ -204,12 +247,12 @@ class RagService:
         #     for doc in child_splits
         # ]
 
-        # filepath = "knowledge_base/db_data/splits.json"
-        # child_splits: list[Document]
-        # if self.check_splits_file(filepath):
-        #     child_splits = self.load_splits(filepath=filepath)
-        # else:
-        #     child_splits = self.splits(md_splits=md_splits, breakpoint_threshold=breakpoint_threshold)
+        filepath = "knowledge_base/db_data/splits.json"
+        child_splits: list[Document]
+        if self.check_splits_file(filepath):
+            child_splits = self.load_splits(filepath=filepath)
+        else:
+            child_splits = self.splits(md_splits=md_splits, breakpoint_threshold=breakpoint_threshold)
 
 
         persist_directory = "knowledge_base/db_data"
@@ -217,7 +260,7 @@ class RagService:
         vectorstore = Chroma(
             collection_name="summaries", 
             embedding_function=OpenAIEmbeddings(), 
-            persist_directory=persist_directory + "/summary"
+            # persist_directory=persist_directory + "/summary"
             )
         
         # docstore = Chroma(
@@ -243,33 +286,27 @@ class RagService:
         print("Finished adding child docs")
 
         # Run if vectorstore is empty
-        chain = (
-            {"doc": lambda x: x.page_content}
-            | ChatPromptTemplate.from_template("Summarize the following document:\n\n{doc}")
-            | ChatOpenAI(name=OpenAIModels.gpt_4o_mini, max_retries=0)
-            | StrOutputParser()
-        )
+        
+        filepath = "knowledge_base/db_data/summary.json"
 
-        summaries = chain.batch(child_splits, {"max_concurrency": 5})
+        summary_docs: list[Document]
+        if self.check_splits_file(filepath):
+            summary_docs = self.load_splits(filepath=filepath)
+        else:
+           summary_docs = self.summary(splits=child_splits, doc_ids=doc_ids, id_key=id_key, filepath=filepath)
 
         print("Finished with summary")
-    
-        summary_docs = [
-        Document(page_content=s, metadata={id_key: doc_ids[i]})
-        for i, s in enumerate(summaries)
-        ]
 
         multi_vector_retriever.vectorstore.add_documents(summary_docs)
         print("Finished adding summary docs")
 
         # We can also add the original chunks to the vectorstore if we so want
-        for i, doc in enumerate(child_splits):
-            doc.metadata[id_key] = doc_ids[i]
         multi_vector_retriever.vectorstore.add_documents(child_splits)
 
         # BM25 retriver
         bm25_retriver = BM25Retriever.from_documents(child_splits)
         bm25_retriver.k = bm25_k
+        print("BM25 finished")
 
         self.ensemble_retriever = EnsembleRetriever(
             retrievers=[bm25_retriver, multi_vector_retriever], weights=[bm25_weight, 1 - bm25_weight]
@@ -318,6 +355,7 @@ class RagService:
             metrics=[LLMContextRecall(), ContextPrecision(), ContextEntityRecall()],
             llm=evaluator_llm
         )
+        result.upload()
 
         print(result)
         
