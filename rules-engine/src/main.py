@@ -155,7 +155,7 @@ def objective2(trial: optuna.Trial) -> float:
 
 def objective(trial: optuna.Trial) -> float:
     vector_k = trial.suggest_int("vector_k", 1, 20)
-    breakpoint_threshold = trial.suggest_int("breakpoint_threshold",low=50,high=99, step=0.1)
+    #breakpoint_threshold = trial.suggest_int("breakpoint_threshold",low=50,high=99, step=0.1)
     # if chunk_size < 500:
     #     max_chunk_overlap = chunk_size - 1
     # else:
@@ -164,29 +164,29 @@ def objective(trial: optuna.Trial) -> float:
     score_threshold = trial.suggest_float("score_threshold", 0.3, 0.75)
     bm25_k = trial.suggest_int("bm25_k", 1, 25)
     bm25_weight = trial.suggest_float("bm25_weight", 0.0, 1.0)
-    md_splits = trial.suggest_int("md_splits", 2, 5)
+    #md_splits = trial.suggest_int("md_splits", 2, 5)
 
     rag_service: RagService = RagService(
         vector_k= vector_k,
-        breakpoint_threshold=breakpoint_threshold,
+        #breakpoint_threshold=breakpoint_threshold,
         score_threshold=score_threshold,
         bm25_k = bm25_k,
         bm25_weight = bm25_weight,
-        md_splits=md_splits
+        #md_splits=md_splits
         )
-    context_recall, context_precision, context_entity_recall = rag_service.rag_evaluator()
+    context_recall, context_precision, total_token_use = rag_service.rag_evaluator()
      
     del rag_service
     print(f"Context recall: {context_recall}")
 
-    return context_recall, context_precision, context_entity_recall
+    return context_recall, context_precision, total_token_use
 
 if __name__ == "__main__":
     # optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
-    # study_name = "rag_builder_Parent_BM25" 
+    # study_name = "rag_builder_Semantic_BM25_with_MD_splits" 
     # storage_name = "sqlite:///{}.db".format(study_name)
     # module = optunahub.load_module(package="samplers/auto_sampler")
-    # directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE]
+    # directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MINIMIZE]
 
     # file_path = "knowledge_base/optuna_data/optuna_journal_storage.log"
     # lock_obj = optuna.storages.journal.JournalFileOpenLock(file_path)
