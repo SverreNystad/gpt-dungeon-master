@@ -1,8 +1,30 @@
-from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from src.knowledge_base.agent.rag_service import RagService
 
-app = FastAPI()
+app = FastAPI(
+    title="Rules Engine",
+    description="The rules engine to retrieve correct rules to provide answers to user prompts",
+    version="1.0.0",
+)
+
+# Allow CORS
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://localhost:8001",
+    "http://localhost:8002",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 rag_service: RagService = RagService(
     vector_k=13,
@@ -14,17 +36,12 @@ rag_service: RagService = RagService(
 )
 
 
-@app.get("/")
-def hello_world():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-
 @app.post("/rules")
 def rule_lookup(user_prompt: str):
+    if user_prompt is None:
+        raise HTTPException(status_code=400, detail="user_prompt is required")
+    if len(user_prompt) == 0:
+        raise HTTPException(status_code=400, detail="user_prompt cannot be empty")
+
     response = rag_service.query(user_prompt=user_prompt)
-    return {response: "0"}
+    return JSONResponse(content=response)
