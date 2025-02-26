@@ -1,7 +1,7 @@
 services:
   rules-engine:
     build:
-      context: /rules-engine
+      context: ./rules-engine
       dockerfile: Dockerfile
     ports:
       - "8001:8000"
