@@ -1,9 +1,8 @@
 import numpy as np
 from langchain_openai import OpenAIEmbeddings
-from knowledge_base.agent.agent import Agent
 from langchain.retrievers import ParentDocumentRetriever, EnsembleRetriever
 from langchain_core.documents import Document
-
+from src.rag.agent import Agent
 
 class RAG:
     def __init__(self, agent: Agent, embeddings_model: str):

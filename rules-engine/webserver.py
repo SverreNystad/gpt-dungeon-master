@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from src.knowledge_base.agent.rag_service import RagService
+from src.rag.rag_service import RagService
 
 app = FastAPI(
     title="Rules Engine",

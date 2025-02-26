@@ -1,4 +1,4 @@
-from knowledge_base.agent.rag_service import RagService
+from src.rag.rag_service import RagService
 import optuna
 import optunahub
 from optuna.study import StudyDirection
@@ -179,7 +179,7 @@ def objective(trial: optuna.Trial) -> float:
         score_threshold=score_threshold,
         bm25_k = bm25_k,
         bm25_weight = bm25_weight,
-        #md_splits=md_splits
+        md_splits=4
         )
     context_recall, context_precision, total_token_use = rag_service.rag_evaluator()
      
@@ -189,14 +189,11 @@ def objective(trial: optuna.Trial) -> float:
     return context_recall, context_precision, total_token_use
 
 if __name__ == "__main__":
-    # optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
-    # study_name = "rag_builder_Semantic_BM25_with_MD_splits" 
-    # storage_name = "sqlite:///{}.db".format(study_name)
-    # module = optunahub.load_module(package="samplers/auto_sampler")
-    # directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MINIMIZE]
-
-    # file_path = "knowledge_base/optuna_data/optuna_journal_storage.log"
-    # lock_obj = optuna.storages.journal.JournalFileOpenLock(file_path)
+    optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
+    study_name = "rag_builder_finetuning_k_with_4MD" 
+    storage_name = "sqlite:///{}.db".format(study_name)
+    module = optunahub.load_module(package="samplers/auto_sampler")
+    directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MINIMIZE]
 
     # storage = optuna.storages.JournalStorage(
     #     optuna.storages.journal.JournalFileBackend(file_path, lock_obj=lock_obj),
@@ -206,29 +203,36 @@ if __name__ == "__main__":
     # for _ in range(10):
     #     study.optimize(objective2, n_trials=10)
 
-    # study = optuna.create_study(
-    #     study_name=study_name,
-    #     sampler=module.AutoSampler(),
-    #     storage=storage_name,
-    #     load_if_exists= True,
-    #     directions=directions
-    #     )
+    study = optuna.create_study(
+        study_name=study_name,
+        sampler=module.AutoSampler(),
+        storage=storage_name,
+        load_if_exists= True,
+        directions=directions
+        )
 
-    # for _ in range(10):
-    #      study.optimize(objective, n_trials=5)
-    # run_server(storage_name)
+    # study.enqueue_trial({
+    #     "vector_k": 13,
+    #     "score_threshold": 0.596,
+    #     "bm25_k": 12,
+    #     "bm25_weight": 0.02687
+    # })
 
-    rag_service: RagService = RagService(
-        vector_k=13,
-        breakpoint_threshold=98,
-        score_threshold=0.596,
-        bm25_k=12,
-        bm25_weight=0.02687,
-        md_splits=2,
-    )
+    for _ in range(10):
+         study.optimize(objective, n_trials=1)
+    run_server(storage_name)
+
+    # rag_service: RagService = RagService(
+    #     vector_k=13,
+    #     breakpoint_threshold=98,
+    #     score_threshold=0.596,
+    #     bm25_k=12,
+    #     bm25_weight=0.02687,
+    #     md_splits=2,
+    # )
 
     # while(True):
     #     query = input("Question: ")
     #     print(rag_service.ask_model(query=query))
 
-    print(rag_service.rag_evaluator())
+    # print(rag_service.rag_evaluator())

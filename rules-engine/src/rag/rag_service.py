@@ -1,11 +1,8 @@
-from knowledge_base.agent.agent import Agent
-from knowledge_base.agent.rag import RAG
+import os
 from ragas import EvaluationDataset
 from langchain_openai import OpenAIEmbeddings
-from knowledge_base.models.models import OpenAIModels
 from langchain_chroma import Chroma
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import (
     RecursiveCharacterTextSplitter,
@@ -33,7 +30,8 @@ from langchain_core.prompts import PromptTemplate
 import pandas as ps
 import uuid
 import json
-import os
+from src.rag.agent import Agent, OpenAIModels
+from src.rag.rag import RAG
 
 
 class RagService:
@@ -78,51 +76,52 @@ class RagService:
         )
 
     def splits(self, md_splits: int, breakpoint_threshold: float) -> list[Document]:
-        filepath = "knowledge_base/rulesystems/cc-srd5.md"
+        filepath = "src/rulesystems/cc-srd5.md"
 
         rules_document: str = ""
         with open(filepath, encoding="utf-8") as f:
             rules_document = f.read()
 
+        #markdown_splitter = self.markdown_setup(md_splits)
         markdown_splitter = self.markdown_setup(md_splits)
         splits = markdown_splitter.split_text(rules_document)
         print(f"Markdown splits {len(splits)}")
 
-        semantic_text_splitter = SemanticChunker(
-            OpenAIEmbeddings(),
-            breakpoint_threshold_type="percentile",
-            breakpoint_threshold_amount=breakpoint_threshold,
-        )
+        # semantic_text_splitter = SemanticChunker(
+        #     OpenAIEmbeddings(),
+        #     breakpoint_threshold_type="percentile",
+        #     breakpoint_threshold_amount=breakpoint_threshold
+        # )
 
-        child_splits = semantic_text_splitter.split_documents(splits)
-        print(f"Semantic splits {len(child_splits)}")
+        #second_markdown_splitter = self.markdown_setup(4)
+
+        #child_splits = second_markdown_splitter.split_text(splits)
+        # print(f"Semantic splits {len(child_splits)}")
 
         # Serialize the splits to a JSON-serializable format
         serialized_splits = [
             {"page_content": doc.page_content, "metadata": doc.metadata}
-            for doc in child_splits
+            for doc in splits
         ]
 
         # Save the serialized splits to a file
-        with open("knowledge_base/db_data/splits.json", "w", encoding="utf-8") as f:
+        with open("src/db_data/splits.json", "w", encoding="utf-8") as f:
             json.dump(serialized_splits, f, ensure_ascii=False, indent=4)
 
-        return child_splits
-
-    def summary(
-        self, splits: list[Document], doc_ids: list[str], id_key: str, filepath: str
-    ) -> list[Document]:
+        return splits
+    
+    def summary(self, splits: list[Document], doc_ids: list[str], id_key: str, filepath: str) -> list[Document]:
         prompt = ChatPromptTemplate.from_template(
             """
-            Summarize the following sections of the Dungeons & Dragons rulebook,
+            Summarize the following part of the Dungeons & Dragons rulebook,
             focusing on key concepts, rules, and mechanics. 
             Highlight important terms, character classes, spells, combat rules, 
             and any unique features relevant for players and Dungeon Masters.
-            Use the section's metadata to add context to the data. 
+            Use the metadata (such as section, chapter, or other contextual details) to clarify the origin and relevance of the summarized content. 
             Ensure the summary is concise and organized by topic for easy reference.
             
             Here is the text to summarize:\n\n {text} \n\n 
-            Here is the metadata belonging to the section: \n\n {metadata} 
+            Here is the metadata belonging to the text: \n\n {metadata} 
             """
         )
 
@@ -195,12 +194,12 @@ class RagService:
     ):
 
         # TODO: Remove after Optima
-        # folder_path = "knowledge_base/db_data"
+        # folder_path = "src/db_data"
         # delete_folder_contents(folder_path)
 
-        filepath = "knowledge_base/rulesystems/cc-srd5.md"
+        filepath = "src/rulesystems/cc-srd5.md"
 
-        filepath = "knowledge_base/db_data/splits.json"
+        filepath = "src/db_data/splits.json"
         child_splits: list[Document]
         if self.validate_file_existence_and_content(filepath):
             child_splits = self.load_splits(filepath=filepath)
@@ -209,7 +208,7 @@ class RagService:
                 md_splits=md_splits, breakpoint_threshold=breakpoint_threshold
             )
 
-        persist_directory = "knowledge_base/db_data"
+        persist_directory = "src/db_data"
 
         vectorstore = Chroma(
             collection_name="summaries",
@@ -229,6 +228,8 @@ class RagService:
             vectorstore=vectorstore,
             byte_store=docstore,
             id_key=id_key,
+            search_type="similarity_score_threshold",
+            search_kwargs={"score_threshold": score_threshold, "k": vector_k}
         )
 
         doc_ids = [str(uuid.uuid4()) for _ in child_splits]
@@ -237,7 +238,7 @@ class RagService:
         multi_vector_retriever.docstore.mset(list(zip(doc_ids, child_splits)))
         print("Finished adding child docs")
 
-        filepath = "knowledge_base/db_data/summary.json"
+        filepath = "src/db_data/summary.json"
 
         summary_docs: list[Document]
         if self.validate_file_existence_and_content(filepath):
@@ -281,19 +282,16 @@ class RagService:
     def rag_evaluator(self) -> tuple[float, float, float]:
         dataset = []
 
-        df = ps.read_csv("knowledge_base/validation_data/sample_questions_class.csv")
+        df = ps.read_csv("src/validation_data/sample_questions_class.csv")
         querys = df["question"].tolist()
         responses = df["answer"].tolist()
 
-        token_use = 0
+        total_token_use = 0
 
         for query, reference in zip(querys, responses):
-
-            # relevant_docs = self.rag.relevant_docs_parent_retriever(query, self.parent_doc_retriever)
-            relevant_docs = self.rag.relevant_docs_ensemble_retrivers(
-                query, self.ensemble_retriever
-            )
-            response = self.rag.generate_answer(query, relevant_docs)
+            #relevant_docs = self.rag.relevant_docs_parent_retriever(query, self.parent_doc_retriever)
+            relevant_docs = self.rag.relevant_docs_ensemble_retrivers(query, self.ensemble_retriever)
+            response, token_use = self.rag.generate_answer(query, relevant_docs)
             dataset.append(
                 {
                     "user_input": query,
@@ -302,6 +300,7 @@ class RagService:
                     "reference": reference,
                 }
             )
+            total_token_use += token_use
 
         evaluation_dataset = EvaluationDataset.from_list(dataset)
 
@@ -312,18 +311,19 @@ class RagService:
             metrics=[LLMContextRecall(), ContextPrecision(), ContextEntityRecall()],
             llm=evaluator_llm,
         )
-        result.upload()
+        # Upload results to Ragas.io for detailed evaluation
+        # result.upload()
 
         print(result)
 
         context_recall = safe_nanmean(result["context_recall"])
         context_precision = safe_nanmean(result["context_precision"])
-        context_entity_recall = safe_nanmean(result["context_entity_recall"])
+        #context_entity_recall = safe_nanmean(result["context_entity_recall"])
 
         # self.close()
 
-        return context_recall, context_precision, context_entity_recall
-
+        return context_recall, context_precision, total_token_use
+    
     def close(self):
         # Close the Chroma connection
         if hasattr(self, "parent_doc_retriever") and hasattr(
@@ -335,7 +335,7 @@ class RagService:
     def __exit__(self):
         del self.parent_doc_retriever.vectorstore
         del self.parent_doc_retriever
-        folder_path = "knowledge_base/db_data"
+        folder_path = "src/db_data"
         delete_folder_contents(folder_path)
 
 

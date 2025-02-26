@@ -1,5 +1,5 @@
 from langchain_openai import ChatOpenAI
-from knowledge_base.config import OPENAI_API_KEY
+from config import OPENAI_API_KEY
 
 
 class OpenAIModels:
