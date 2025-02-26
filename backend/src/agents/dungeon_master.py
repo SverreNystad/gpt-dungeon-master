@@ -13,10 +13,12 @@ logger = logging.getLogger(__name__)
 
 # class DungeonMaster:
 
+
 def fight():
     print("You fight the monster!")
     print("You win!")
     return "You win!"
+
 
 def get_dungeon_master_template():
     """
@@ -35,6 +37,7 @@ def get_dungeon_master_template():
 
     return dungeon_master_template
 
+
 def narrate(prompt: str) -> str:
     """
     Narrate the story based on the given prompt.
@@ -48,26 +51,25 @@ def narrate(prompt: str) -> str:
     print(narration)
     return narration
 
+
 tools = [
     StructuredTool.from_function(
-        name= "NPC Generator", 
-        func=generate_npc, 
-        description="Generates a NPC based on the given prompt."
+        name="NPC Generator",
+        func=generate_npc,
+        description="Generates a NPC based on the given prompt.",
     ),
     StructuredTool.from_function(
-        name = "Difficulty Analyzer",
+        name="Difficulty Analyzer",
         func=decide_difficulty,
-        description="Decides the difficulty of the challenge the user tries to do based on the context. Values between 0 and 1, where 0 is trivial and 1 is nearly impossible."
+        description="Decides the difficulty of the challenge the user tries to do based on the context. Values between 0 and 1, where 0 is trivial and 1 is nearly impossible.",
     ),
     StructuredTool.from_function(
-        name = "Narrator",
+        name="Narrator",
         func=narrate,
-        description="Narrates the story based on the given prompt."
+        description="Narrates the story based on the given prompt.",
     ),
     StructuredTool.from_function(
-        name = "Fight",
-        func=fight,
-        description="If there is any combat!"
+        name="Fight", func=fight, description="If there is any combat!"
     ),
 ]
 
@@ -76,13 +78,14 @@ memory = ConversationBufferMemory(memory_key="chat_history")
 # llm = get_default_text_generator(temperature=0.7, is_llm=False)
 llm = OpenAI(temperature=0)
 agent_chain = initialize_agent(
-    tools, 
-    llm, 
-    agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, 
-    verbose=False, 
+    tools,
+    llm,
+    agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=False,
     memory=memory,
     max_iterations=2,
-    )
+)
+
 
 def run_dungeon_master(prompt) -> str:
     """Run the dungeon master agent."""
@@ -90,8 +93,10 @@ def run_dungeon_master(prompt) -> str:
         raise TypeError("Prompt must be a string.")
 
     if (len(prompt) < 1) or (len(prompt) > 1000):
-        raise ValueError("Prompt must be at least 1 character or less than 1000 characters.")
-    
+        raise ValueError(
+            "Prompt must be at least 1 character or less than 1000 characters."
+        )
+
     dm_result = agent_chain.run(prompt)
     logger.info(f"Finished running dungeon_master.py, result: {dm_result}")
     return dm_result

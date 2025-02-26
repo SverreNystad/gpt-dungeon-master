@@ -31,10 +31,9 @@ class Graph:
 
         self.graph = self.workflow.compile()
 
-
     def save_image(self):
         try:
-            with open("ex_agent.png", 'wb') as f:
+            with open("ex_agent.png", "wb") as f:
                 f.write(self.graph.get_graph().draw_mermaid_png())
                 print("Prints")
         except Exception as e:
@@ -45,19 +44,18 @@ class Graph:
         inputs = {"messages": [("user", userInput)]}
         print(inputs)
 
-        async for event in self.graph.astream(inputs, stream_mode ="values"):
+        async for event in self.graph.astream(inputs, stream_mode="values"):
             message = event["messages"][-1]
             if isinstance(message, tuple):
                 print(message)
             else:
                 message.pretty_print()
 
-    
     def print_stream(self, stream):
         print("Her er stream:")
         for i in range(stream.size()):
             print(stream[i])
-        #print(stream)
+        # print(stream)
         for s in stream:
             message = s["messages"][-1]
             if isinstance(message, tuple):

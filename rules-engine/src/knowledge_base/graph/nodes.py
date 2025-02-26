@@ -10,7 +10,8 @@ from agent.agent import Agent
 
 tools_by_name = {tool.name: tool for tool in get_tools()}
 
-#Tool node
+
+# Tool node
 def tool_node(state: GraphState):
     outputs = []
     for tool_call in state["messages"][-1].tool_calls:
@@ -24,6 +25,7 @@ def tool_node(state: GraphState):
         )
     return {"messages": outputs}
 
+
 # Call method
 def prompt_GM(
     state: GraphState,
@@ -34,7 +36,7 @@ def prompt_GM(
     #     "You are a helpful AI assistant, please respond to the users query to the best of your ability!"
     # )
     prompt = PromptTemplate(
-        template= """
+        template="""
         You are a helpful AI assistant, please respond to the users query to the best of your ability!
 
         Here are previous messages:

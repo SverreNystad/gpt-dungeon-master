@@ -1,4 +1,3 @@
-
 from knowledge_base.agent.rag_service import RagService
 import optuna
 import optunahub
@@ -9,7 +8,9 @@ import sys
 
 
 def test_rules_lookup():
-    description = "You are in a dark cave, and you hear a loud growl coming from the darkness"
+    description = (
+        "You are in a dark cave, and you hear a loud growl coming from the darkness"
+    )
     character = "The player is a level 5 wizard with a intelligence of 18, wisdom of 12, and a charisma of 14, and a spellbook with the following spells: fireball, magic missile, and shield"
     player_action = "The player casts fireball at the growling sound"
     context = f"{description} {character} {player_action}"
@@ -106,10 +107,12 @@ def test_narrative_given_rules():
         }
     }
     """
-    
+
+
 async def test_faithfullness():
-    from ragas.dataset_schema import SingleTurnSample 
+    from ragas.dataset_schema import SingleTurnSample
     from ragas.metrics import Faithfulness
+
     sample = SingleTurnSample(
         user_input="What ability scores do Dragonborn gain?",
         response="Dragonborn gain the following ability scores: their Strength score increases by 2, and their Charisma score increases by 1.",
@@ -121,10 +124,11 @@ async def test_faithfullness():
 Your draconic heritage manifests in a variety of traits you share with other dragonborn.
 
 ***Ability Score Increase.*** Your Strength score increases by 2, and your Charisma score increases by 1."""
-        ]
+        ],
     )
     scorer = Faithfulness()
     await scorer.single_turn_ascore(sample)
+
 
 def objective2(trial: optuna.Trial) -> float:
     nr_md_splitts = trial.suggest_int("md_splits", 1, 6)
@@ -139,14 +143,17 @@ def objective2(trial: optuna.Trial) -> float:
     bm25_weight = trial.suggest_float("bm25_weight", 0.0, 1.0)
 
     rag_service: RagService = RagService(
-        nr_md_splitts = nr_md_splitts,
-        chunk_size = chunk_size,
-        chunk_overlap = chunk_overlap,
-        bm25_k = bm25_k,
-        bm25_weight = bm25_weight)
-    
-    context_recall, context_precision, context_entity_recall = rag_service.rag_evaluator()
-     
+        nr_md_splitts=nr_md_splitts,
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+        bm25_k=bm25_k,
+        bm25_weight=bm25_weight,
+    )
+
+    context_recall, context_precision, context_entity_recall = (
+        rag_service.rag_evaluator()
+    )
+
     del rag_service
     print(f"Context recall: {context_recall}")
 
@@ -155,7 +162,9 @@ def objective2(trial: optuna.Trial) -> float:
 
 def objective(trial: optuna.Trial) -> float:
     vector_k = trial.suggest_int("vector_k", 1, 20)
-    breakpoint_threshold = trial.suggest_int("breakpoint_threshold",low=50,high=99, step=0.1)
+    breakpoint_threshold = trial.suggest_int(
+        "breakpoint_threshold", low=50, high=99, step=0.1
+    )
     # if chunk_size < 500:
     #     max_chunk_overlap = chunk_size - 1
     # else:
@@ -167,23 +176,26 @@ def objective(trial: optuna.Trial) -> float:
     md_splits = trial.suggest_int("md_splits", 2, 5)
 
     rag_service: RagService = RagService(
-        vector_k= vector_k,
+        vector_k=vector_k,
         breakpoint_threshold=breakpoint_threshold,
         score_threshold=score_threshold,
-        bm25_k = bm25_k,
-        bm25_weight = bm25_weight,
-        md_splits=md_splits
-        )
-    context_recall, context_precision, context_entity_recall = rag_service.rag_evaluator()
-     
+        bm25_k=bm25_k,
+        bm25_weight=bm25_weight,
+        md_splits=md_splits,
+    )
+    context_recall, context_precision, context_entity_recall = (
+        rag_service.rag_evaluator()
+    )
+
     del rag_service
     print(f"Context recall: {context_recall}")
 
     return context_recall, context_precision, context_entity_recall
 
+
 if __name__ == "__main__":
     # optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
-    # study_name = "rag_builder_Parent_BM25" 
+    # study_name = "rag_builder_Parent_BM25"
     # storage_name = "sqlite:///{}.db".format(study_name)
     # module = optunahub.load_module(package="samplers/auto_sampler")
     # directions = [StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE, StudyDirection.MAXIMIZE]
@@ -194,8 +206,6 @@ if __name__ == "__main__":
     # storage = optuna.storages.JournalStorage(
     #     optuna.storages.journal.JournalFileBackend(file_path, lock_obj=lock_obj),
     # )
-
-    
 
     # run_server(storage_name)
     # for _ in range(10):
@@ -208,7 +218,7 @@ if __name__ == "__main__":
     #     load_if_exists= True,
     #     directions=directions
     #     )
-    
+
     # for _ in range(10):
     #      study.optimize(objective, n_trials=5)
     # run_server(storage_name)
@@ -217,14 +227,13 @@ if __name__ == "__main__":
         vector_k=13,
         breakpoint_threshold=98,
         score_threshold=0.596,
-        bm25_k = 12,
-        bm25_weight = 0.02687,
-        md_splits=2
-        )
-    
+        bm25_k=12,
+        bm25_weight=0.02687,
+        md_splits=2,
+    )
+
     # while(True):
     #     query = input("Question: ")
     #     print(rag_service.ask_model(query=query))
-
 
     print(rag_service.rag_evaluator())
