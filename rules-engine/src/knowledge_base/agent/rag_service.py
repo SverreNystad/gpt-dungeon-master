@@ -7,9 +7,17 @@ from langchain_chroma import Chroma
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import OpenAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter, MarkdownHeaderTextSplitter, MarkdownTextSplitter
+from langchain_text_splitters import (
+    RecursiveCharacterTextSplitter,
+    MarkdownHeaderTextSplitter,
+    MarkdownTextSplitter,
+)
 from langchain_experimental.text_splitter import SemanticChunker
-from langchain.retrievers import ParentDocumentRetriever, EnsembleRetriever, MultiVectorRetriever
+from langchain.retrievers import (
+    ParentDocumentRetriever,
+    EnsembleRetriever,
+    MultiVectorRetriever,
+)
 from langchain_community.retrievers import BM25Retriever
 from langchain.storage import InMemoryStore, InMemoryByteStore
 from langchain_core.documents import Document
@@ -27,15 +35,17 @@ import uuid
 import json
 import os
 
+
 class RagService:
-    def __init__(self,
-                vector_k: int = 2,
-                breakpoint_threshold: float = 95.0,
-                score_threshold: float = 0.7,
-                bm25_k: int = 5,
-                bm25_weight: float = 0.2,
-                md_splits: int = 2
-            ):
+    def __init__(
+        self,
+        vector_k: int = 2,
+        breakpoint_threshold: float = 95.0,
+        score_threshold: float = 0.7,
+        bm25_k: int = 5,
+        bm25_weight: float = 0.2,
+        md_splits: int = 2,
+    ):
         embedding_model = "text-embedding-3-small"
         self.rag = RAG(OpenAIModels.gpt_4o_mini, embeddings_model=embedding_model)
         self.splits_length = 0
@@ -44,15 +54,13 @@ class RagService:
             vector_k=vector_k,
             breakpoint_threshold=breakpoint_threshold,
             score_threshold=score_threshold,
-            bm25_k = bm25_k,
-            bm25_weight = bm25_weight,
-            md_splits = md_splits
+            bm25_k=bm25_k,
+            bm25_weight=bm25_weight,
+            md_splits=md_splits,
         )
-    
+
     def markdown_setup(self, num_headers: int = 2) -> MarkdownHeaderTextSplitter:
-        headers_to_split_on = [
-            ("#", "Header 1")
-        ]
+        headers_to_split_on = [("#", "Header 1")]
 
         if num_headers > 1:
             headers_to_split_on.append(("##", "Header 2"))
@@ -66,10 +74,9 @@ class RagService:
             headers_to_split_on.append(("######", "Header 6"))
 
         return MarkdownHeaderTextSplitter(
-            headers_to_split_on=headers_to_split_on,
-            strip_headers=False
+            headers_to_split_on=headers_to_split_on, strip_headers=False
         )
-    
+
     def splits(self, md_splits: int, breakpoint_threshold: float) -> list[Document]:
         filepath = "knowledge_base/rulesystems/cc-srd5.md"
 
@@ -84,7 +91,7 @@ class RagService:
         semantic_text_splitter = SemanticChunker(
             OpenAIEmbeddings(),
             breakpoint_threshold_type="percentile",
-            breakpoint_threshold_amount=breakpoint_threshold
+            breakpoint_threshold_amount=breakpoint_threshold,
         )
 
         child_splits = semantic_text_splitter.split_documents(splits)
@@ -101,8 +108,10 @@ class RagService:
             json.dump(serialized_splits, f, ensure_ascii=False, indent=4)
 
         return child_splits
-    
-    def summary(self, splits: list[Document], doc_ids: list[str], id_key: str, filepath: str) -> list[Document]:
+
+    def summary(
+        self, splits: list[Document], doc_ids: list[str], id_key: str, filepath: str
+    ) -> list[Document]:
         prompt = ChatPromptTemplate.from_template(
             """
             Summarize the following sections of the Dungeons & Dragons rulebook,
@@ -116,14 +125,16 @@ class RagService:
             Here is the metadata belonging to the section: \n\n {metadata} 
             """
         )
-        
+
         chain = (
             prompt
             | ChatOpenAI(name=OpenAIModels.gpt_4o_mini, max_retries=0)
             | StrOutputParser()
         )
 
-        inputs = [{"text": doc.page_content, "metadata": doc.metadata} for doc in splits]
+        inputs = [
+            {"text": doc.page_content, "metadata": doc.metadata} for doc in splits
+        ]
 
         summaries = chain.batch(inputs, config={"max_concurrency": 5})
 
@@ -132,7 +143,7 @@ class RagService:
             for i, s in enumerate(summaries)
         ]
 
-            # Serialize the summaries to a JSON-serializable format
+        # Serialize the summaries to a JSON-serializable format
         serialized_summaries = [
             {"page_content": doc.page_content, "metadata": doc.metadata}
             for doc in summary_docs
@@ -141,9 +152,8 @@ class RagService:
         # Save the serialized splits to a file
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(serialized_summaries, f, ensure_ascii=False, indent=4)
-        
-        return summary_docs
 
+        return summary_docs
 
     def validate_file_existence_and_content(self, filepath: str) -> bool:
         # Check if the file exists
@@ -164,24 +174,27 @@ class RagService:
 
         print(f"File {filepath} exists and has data.")
         return True
-    
+
     def load_splits(self, filepath: str) -> list[Document]:
         with open(filepath, "r", encoding="utf-8") as f:
             data = json.load(f)
-            child_splits = [Document(page_content=doc["page_content"], metadata=doc["metadata"]) for doc in data]
+            child_splits = [
+                Document(page_content=doc["page_content"], metadata=doc["metadata"])
+                for doc in data
+            ]
         return child_splits
 
     def rag_setup(
-            self, 
-            vector_k: int = 2,
-            breakpoint_threshold: float = 95.0,
-            score_threshold: float = 0.7,
-            bm25_k: int = 5,
-            bm25_weight: float = 0.2,
-            md_splits: int = 2
-            ):
-        
-        # TODO: Remove after Optima 
+        self,
+        vector_k: int = 2,
+        breakpoint_threshold: float = 95.0,
+        score_threshold: float = 0.7,
+        bm25_k: int = 5,
+        bm25_weight: float = 0.2,
+        md_splits: int = 2,
+    ):
+
+        # TODO: Remove after Optima
         # folder_path = "knowledge_base/db_data"
         # delete_folder_contents(folder_path)
 
@@ -192,16 +205,18 @@ class RagService:
         if self.validate_file_existence_and_content(filepath):
             child_splits = self.load_splits(filepath=filepath)
         else:
-            child_splits = self.splits(md_splits=md_splits, breakpoint_threshold=breakpoint_threshold)
+            child_splits = self.splits(
+                md_splits=md_splits, breakpoint_threshold=breakpoint_threshold
+            )
 
         persist_directory = "knowledge_base/db_data"
 
         vectorstore = Chroma(
-            collection_name="summaries", 
-            embedding_function=OpenAIEmbeddings(), 
+            collection_name="summaries",
+            embedding_function=OpenAIEmbeddings(),
             # persist_directory=persist_directory + "/summary"
-            )
-        
+        )
+
         # docstore = Chroma(
         #     collection_name = "documents",
         #     embedding_function=OpenAIEmbeddings(),
@@ -222,14 +237,15 @@ class RagService:
         multi_vector_retriever.docstore.mset(list(zip(doc_ids, child_splits)))
         print("Finished adding child docs")
 
-        
         filepath = "knowledge_base/db_data/summary.json"
 
         summary_docs: list[Document]
         if self.validate_file_existence_and_content(filepath):
             summary_docs = self.load_splits(filepath=filepath)
         else:
-           summary_docs = self.summary(splits=child_splits, doc_ids=doc_ids, id_key=id_key, filepath=filepath)
+            summary_docs = self.summary(
+                splits=child_splits, doc_ids=doc_ids, id_key=id_key, filepath=filepath
+            )
 
         print("Finished with summary")
 
@@ -245,14 +261,17 @@ class RagService:
         print("BM25 finished")
 
         self.ensemble_retriever = EnsembleRetriever(
-            retrievers=[bm25_retriver, multi_vector_retriever], weights=[bm25_weight, 1 - bm25_weight]
+            retrievers=[bm25_retriver, multi_vector_retriever],
+            weights=[bm25_weight, 1 - bm25_weight],
         )
 
-    def query(self, user_prompt:str):
-        """Generate a response to the user prompt by retrieving relevant docs from the rag 
+    def query(self, user_prompt: str):
+        """Generate a response to the user prompt by retrieving relevant docs from the rag
         and generating a response based on those documents"""
         # Retrive the relevant docs
-        relevant_docs = self.rag.relevant_docs_ensemble_retrivers(user_prompt, self.ensemble_retriever)
+        relevant_docs = self.rag.relevant_docs_ensemble_retrivers(
+            user_prompt, self.ensemble_retriever
+        )
 
         # Generate a response from the LLM
         response = self.rag.generate_answer(user_prompt, relevant_docs)
@@ -270,43 +289,47 @@ class RagService:
 
         for query, reference in zip(querys, responses):
 
-            #relevant_docs = self.rag.relevant_docs_parent_retriever(query, self.parent_doc_retriever)
-            relevant_docs = self.rag.relevant_docs_ensemble_retrivers(query, self.ensemble_retriever)
+            # relevant_docs = self.rag.relevant_docs_parent_retriever(query, self.parent_doc_retriever)
+            relevant_docs = self.rag.relevant_docs_ensemble_retrivers(
+                query, self.ensemble_retriever
+            )
             response = self.rag.generate_answer(query, relevant_docs)
             dataset.append(
                 {
-                    "user_input":query,
-                    "retrieved_contexts":relevant_docs,
-                    "response":response,
-                    "reference":reference
+                    "user_input": query,
+                    "retrieved_contexts": relevant_docs,
+                    "response": response,
+                    "reference": reference,
                 }
             )
 
         evaluation_dataset = EvaluationDataset.from_list(dataset)
 
         evaluator_llm = LangchainLLMWrapper(Agent.model)
-        
-        result = evaluate( # TODO Use token_usage_parser
+
+        result = evaluate(  # TODO Use token_usage_parser
             dataset=evaluation_dataset,
             metrics=[LLMContextRecall(), ContextPrecision(), ContextEntityRecall()],
-            llm=evaluator_llm
+            llm=evaluator_llm,
         )
         result.upload()
 
         print(result)
-        
+
         context_recall = safe_nanmean(result["context_recall"])
         context_precision = safe_nanmean(result["context_precision"])
         context_entity_recall = safe_nanmean(result["context_entity_recall"])
 
-        #self.close()
+        # self.close()
 
         return context_recall, context_precision, context_entity_recall
-    
+
     def close(self):
         # Close the Chroma connection
-        if hasattr(self, 'parent_doc_retriever') and hasattr(self.parent_doc_retriever, 'vectorstore'):
-            ids = list(map(str, range(0, self.splits_length))) 
+        if hasattr(self, "parent_doc_retriever") and hasattr(
+            self.parent_doc_retriever, "vectorstore"
+        ):
+            ids = list(map(str, range(0, self.splits_length)))
             self.parent_doc_retriever.vectorstore.delete(ids=ids)
 
     def __exit__(self):
@@ -319,6 +342,7 @@ class RagService:
 def delete_folder_contents(folder_path: str):
     import os
     import shutil
+
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
         try:
@@ -328,4 +352,3 @@ def delete_folder_contents(folder_path: str):
                 shutil.rmtree(file_path)  # Remove the directory and its contents
         except Exception as e:
             print(f"Failed to delete {file_path}. Reason: {e}")
-

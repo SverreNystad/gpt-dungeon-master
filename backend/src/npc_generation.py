@@ -21,6 +21,7 @@ class Race(Enum):
     TIEFLING = "tiefling"
     HAFLING = "hafling"
 
+
 class LifeStage(Enum):
     CHILD = "child"
     ADOLESCENT = "adolescent"
@@ -29,20 +30,22 @@ class LifeStage(Enum):
     MIDDLE_AGE = "middle age"
     OLD = "old"
 
+
 @dataclass()
 class Age:
     years_old: int
     life_stage: LifeStage
 
+
 class Alignment(Enum):
     """
     An enumeration representing the nine classic alignments found in role-playing games.
-    
-    These alignments define a character's moral and ethical compass, and are often used 
+
+    These alignments define a character's moral and ethical compass, and are often used
     to depict a character's personal beliefs and tendencies.
     """
 
-    LAWFUL_GOOD = "lawful good" 
+    LAWFUL_GOOD = "lawful good"
     """Characters believe in order and doing what's right."""
     NEUTRAL_GOOD = "neutral good"
     """Characters do the best they can to help others, without bias."""
@@ -61,9 +64,11 @@ class Alignment(Enum):
     CHAOTIC_EVIL = "chaotic evil"
     """Characters act with malice, disregarding any semblance of order."""
 
+
 @dataclass()
 class NPCProfile:
     """The  for non-player characters (NPCs)."""
+
     name: str
     age: int
     race: Race
@@ -75,6 +80,7 @@ class NPCProfile:
 @dataclass()
 class NPCPsychology:
     """The psychology for non-player characters (NPCs)."""
+
     personality: str
     ideals: list[str]
     bonds: list[str]
@@ -95,19 +101,23 @@ class NPCRelation:
 @dataclass()
 class NPCRelations:
     """The relations for non-player characters (NPCs)."""
+
     list_of_relations: list[NPCRelation]
+
 
 @dataclass()
 class NPC:
     """Class for non-player characters (NPCs)."""
+
     # NPC PROFILE
     NPCProfile: NPCProfile
-    relations: NPCRelations 
+    relations: NPCRelations
     psychology: NPCPsychology
     appearance: str
     # occupation: str
 
     # NPC STATS
+
 
 def generate_npc(name: str = "", role: str = "") -> NPC:
     """Generate an NPC."""
@@ -131,12 +141,14 @@ def generate_npc(name: str = "", role: str = "") -> NPC:
     logger.info(f"Created NPC: {npc}")
     return npc
 
+
 def generate_name(race: Race, role: str) -> str:
     name_template = f"What would be a good name for a {race.value} that has the role of {role} for a RPG?"
     raw_name: str = get_default_text_generator().predict(name_template)
     # Clean the name
     name = raw_name.replace("\n", "")
     return name
+
 
 def generate_general_background(name: str, age: int, race: Race, role: str) -> str:
     """
@@ -150,12 +162,15 @@ def generate_general_background(name: str, age: int, race: Race, role: str) -> s
     Returns:
         str: The background of the NPC.
     """
-    
+
     text = f"""Generate a backstory for a NPC of race: {race.value}, with the name: {name}, and age: {age}. The character should have the role: {role} in the story."""
     background = get_default_text_generator().predict(text)
     return background
 
-def generate_alignment(info:str=None, alignment_list:list[Alignment]=None) -> Alignment:
+
+def generate_alignment(
+    info: str = None, alignment_list: list[Alignment] = None
+) -> Alignment:
     if info is None:
         return random.choice(Alignment)
     if alignment_list is None:
@@ -163,13 +178,16 @@ def generate_alignment(info:str=None, alignment_list:list[Alignment]=None) -> Al
 
     alignment_template = get_alignment_template(info, alignment_list)
     raw_alignment = get_default_text_generator().predict(alignment_template)
-    
+
     # Clean the alignment
     alignment = raw_alignment.replace("\n", "")
     alignment = alignment.lower()
     return alignment
 
-def get_alignment_template(info:str=None, alignment_list:list[Alignment]=[]) -> str:
+
+def get_alignment_template(
+    info: str = None, alignment_list: list[Alignment] = []
+) -> str:
     """Get the template for the alignment question.
     Args:
         info (str, optional): Information about the NPC. Defaults to None.
@@ -185,12 +203,13 @@ def get_alignment_template(info:str=None, alignment_list:list[Alignment]=[]) -> 
     alignment_template += f" It must be one of the following: {alignment_list}, do not give any other answer."
     return alignment_template
 
-def generate_npc_relations(background:str) -> NPCRelations:
+
+def generate_npc_relations(background: str) -> NPCRelations:
     """Generate the relations for an NPC."""
     # Generate relations
     relations_template = get_npc_relation_template(background)
     raw_relations = get_default_text_generator().predict(relations_template)
-    
+
     # Clean the relations
     raw_relations = raw_relations.strip()
     relations: list[str] = raw_relations.split("\n")
@@ -205,12 +224,14 @@ def generate_npc_relations(background:str) -> NPCRelations:
             type_of_relation: str = relation[1].strip()
             attitude: float = relation[2].strip()
             still_exist: bool = relation[3].strip()
-            different_relations.append(NPCRelation(name, type_of_relation, attitude, still_exist))
+            different_relations.append(
+                NPCRelation(name, type_of_relation, attitude, still_exist)
+            )
         except IndexError:
             print(f"Error: {raw_relation} is not a valid relation.")
 
-
     return NPCRelations(different_relations)
+
 
 def get_npc_relation_template(background: str) -> str:
     """Get the template for the NPC relation question."""
@@ -225,12 +246,15 @@ def get_npc_relation_template(background: str) -> str:
     )
     return npc_relation_template
 
-def generate_npc_psychology(profile: NPCProfile, background: str, relations: NPCRelations) -> NPCPsychology:
+
+def generate_npc_psychology(
+    profile: NPCProfile, background: str, relations: NPCRelations
+) -> NPCPsychology:
     """Generate the psychology for an NPC."""
     # Generate psychology
     psychology_template = get_psychology_template(profile, background, relations)
     raw_psychology = get_default_text_generator().predict(psychology_template)
-    
+
     # Clean the psychology
     raw_psychology = raw_psychology.strip()
     print(raw_psychology)
@@ -246,12 +270,17 @@ def generate_npc_psychology(profile: NPCProfile, background: str, relations: NPC
     fears: list[str] = psychology[5]
     interests: list[str] = psychology[6]
 
-    return NPCPsychology(personality_traits, ideals, bonds, flaws, goals, fears, interests)
+    return NPCPsychology(
+        personality_traits, ideals, bonds, flaws, goals, fears, interests
+    )
 
-def get_psychology_template(profile: NPCProfile, background: str, relations: NPCRelations) -> str:
+
+def get_psychology_template(
+    profile: NPCProfile, background: str, relations: NPCRelations
+) -> str:
     """
     Get the template for the NPC psychology question.
-    
+
     Args:
         profile (NPCProfile): The profile of the NPC.
         background (str): The background of the NPC.
@@ -271,6 +300,7 @@ def get_psychology_template(profile: NPCProfile, background: str, relations: NPC
         '[personality] | [ideals] | [bonds] | [flaws] | [goals] | [fears] | [interests]'
         Do not give any other answer and only give the values."""
     return psychology_template
+
 
 def generate_age_for_race(race: Race) -> int:
     """
@@ -322,8 +352,9 @@ def generate_age_for_race(race: Race) -> int:
 
     return age
 
+
 def generate_appearance(race: Race, age: int, role: str, backstory: str) -> str:
-    
+
     # Generate appearance
     appearance_template = get_appearance_template(race, age, role, backstory)
     raw_appearance = get_default_text_generator().predict(appearance_template)
@@ -332,8 +363,9 @@ def generate_appearance(race: Race, age: int, role: str, backstory: str) -> str:
     appearance = raw_appearance.strip()
     return appearance
 
+
 def get_appearance_template(race: Race, age: int, role: str, story: str) -> str:
-    """"Get the template for the appearance question."""
+    """ "Get the template for the appearance question."""
 
     # Physique & Build: {physique}
     # Facial Features: {facial_features}

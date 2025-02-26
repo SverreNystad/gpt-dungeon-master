@@ -1,12 +1,21 @@
 import logging
-from src.npc_generation import Alignment, Race, generate_alignment, generate_general_background, generate_npc, generate_npc_relations
+from src.npc_generation import (
+    Alignment,
+    Race,
+    generate_alignment,
+    generate_general_background,
+    generate_npc,
+    generate_npc_relations,
+)
 from src.text_to_image.image_generator import generate_image_request, ImageSize
 from src.agents.dungeon_master import run_dungeon_master
 
 # Set up logging
-logging.basicConfig(filename='gpt_dungeon_master.log',
-                    level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    filename="gpt_dungeon_master.log",
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
 
 # Create a logger instance for this script
 logger = logging.getLogger(__name__)

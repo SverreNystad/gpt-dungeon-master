@@ -6,16 +6,18 @@ import logging
 # Set up logging
 logger = logging.getLogger(__name__)
 
+
 @dataclass(init=False)
 class ImageSize:
     """
     Represents the size of an image.
     The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
     """
+
     width: int
     height: int
 
-    def __init__(self, width: int=256, height: int=256) -> None:
+    def __init__(self, width: int = 256, height: int = 256) -> None:
         if (width < 0) or (height < 0):
             raise ValueError("Width and height must be positive.")
         if (width not in [256, 512, 1024]) or (height not in [256, 512, 1024]):
@@ -27,11 +29,14 @@ class ImageSize:
 
     def __repr__(self) -> str:
         return f"{self.width}x{self.height}"
-    
+
     def __str__(self) -> str:
         return f"{self.width}x{self.height}"
 
-def generate_image_request(prompt: str, number_of_images: int=1, size: ImageSize=ImageSize(256,256)) -> str:
+
+def generate_image_request(
+    prompt: str, number_of_images: int = 1, size: ImageSize = ImageSize(256, 256)
+) -> str:
     """
     Generates an image based on the given prompt.
     Args:
@@ -41,30 +46,33 @@ def generate_image_request(prompt: str, number_of_images: int=1, size: ImageSize
     Returns:
         :return: A JSON object containing the generated image(s).
     """
-    logger.info(f"Running generate_image_request prompt= {prompt}, number_of_images= {number_of_images}, size= {size}")
+    logger.info(
+        f"Running generate_image_request prompt= {prompt}, number_of_images= {number_of_images}, size= {size}"
+    )
     if not (1 <= number_of_images <= 10):
         raise ValueError("Number of images must be between 1 and 10.")
-    
+
     if len(prompt) > 1000 or len(prompt) < 1:
-        raise ValueError("Prompt must be at least 1 character or less than 1000 characters.")
-    
+        raise ValueError(
+            "Prompt must be at least 1 character or less than 1000 characters."
+        )
+
     if not isinstance(size, ImageSize):
         raise TypeError("Size must be an instance of ImageSize.")
 
     URL = ImageConfig().URL
     API_KEY = ImageConfig().API_KEY
-    
+
     headers = {
-        'Content-Type': 'application/json',
-        'Authorization': f'Bearer {API_KEY}',
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {API_KEY}",
     }
 
     data = {
-        'prompt': prompt,
-        'n': number_of_images,
-        'size': str(size),
+        "prompt": prompt,
+        "n": number_of_images,
+        "size": str(size),
     }
 
     response = requests.post(URL, headers=headers, json=data)
     return response.json()
-

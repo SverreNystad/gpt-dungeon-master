@@ -1,11 +1,11 @@
 from pydantic import BaseModel
 
-class Rule(BaseModel):
 
+class Rule(BaseModel):
     """
     Rule class is the parent class for all rules.
 
-    It is used to 
+    It is used to
     """
 
     id: str

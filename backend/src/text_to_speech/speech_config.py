@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class WATSONConfig:
     VOICES = [
         "en-US_AllisonV3Voice",
@@ -22,8 +23,6 @@ class WATSONConfig:
         "en-US_LisaV3Voice",
         "en-US_MichaelV3Voice",
         "en-US_OliviaV3Voice",
-        
-
     ]
-    API_KEY = os.getenv('WATSON_API_KEY')
-    URL = os.getenv('WATSON_URL')
+    API_KEY = os.getenv("WATSON_API_KEY")
+    URL = os.getenv("WATSON_URL")
