@@ -56,7 +56,7 @@ class RAG:
     def convert_docs_to_strings(self, docs: list[Document]) -> list[str]:
         return [doc.page_content for doc in docs]
 
-    def generate_answer(self, query: str, relevant_doc: list[str]):
+    def generate_answer(self, query: str, relevant_doc: list[str]) -> tuple[str, int]:
         """Generate an answer for a given query based on the most relevant document."""
         system_prompt = """
         You are a rules chatbot for the Dungeons & Dragons roleplaying game. Your task is to provide precise answers to user questions based solely on the relevant information retrieved from the D&D rulebook.
@@ -88,4 +88,10 @@ class RAG:
             ("human", prompt),
         ]
         ai_msg = self.llm.invoke(messages)
-        return ai_msg.content
+
+        if hasattr(ai_msg, 'usage_metadata'):
+            token_count = ai_msg.usage_metadata['total_tokens']
+        else:
+            token_count = 0
+        
+        return ai_msg.content, token_count
