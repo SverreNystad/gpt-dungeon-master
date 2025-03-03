@@ -113,15 +113,24 @@ class RagService:
     def summary(self, splits: list[Document], doc_ids: list[str], id_key: str, filepath: str) -> list[Document]:
         prompt = ChatPromptTemplate.from_template(
             """
-            Summarize the following part of the Dungeons & Dragons rulebook,
-            focusing on key concepts, rules, and mechanics. 
-            Highlight important terms, character classes, spells, combat rules, 
-            and any unique features relevant for players and Dungeon Masters.
-            Use the metadata (such as section, chapter, or other contextual details) to clarify the origin and relevance of the summarized content. 
-            Ensure the summary is concise and organized by topic for easy reference.
-            
-            Here is the text to summarize:\n\n {text} \n\n 
-            Here is the metadata belonging to the text: \n\n {metadata} 
+            Summarize the following part of the Dungeons & Dragons rulebook, 
+            focusing on key concepts, rules, mechanics, and any unique features relevant 
+            for both players and Dungeon Masters. Use the provided metadata about the parts
+            location in the rulebook (e.g., what section, chapter and/or subheaders it belongs in) 
+            to clarify the origin and context of the summarized content. 
+
+            To optimize for RAG similarity search, follow these guidelines: 
+            - Produce a detailed yet concise summary with clearly labeled bullet points organized by topic.
+            - Ensure that key topics and important terms are explicitly mentioned to aid in similarity matching. 
+            - Integrate the metadata context throughout the summary where relevant.
+
+            Here is the text to summarize: 
+
+            {text}
+
+            Here is the metadata for this section:
+
+            {metadata}
             """
         )
 
