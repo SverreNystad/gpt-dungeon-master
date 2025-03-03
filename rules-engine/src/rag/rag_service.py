@@ -114,17 +114,27 @@ class RagService:
         prompt = ChatPromptTemplate.from_template(
             """
             Summarize the following part of the Dungeons & Dragons rulebook, 
-            focusing on key concepts, rules, mechanics, and any unique features relevant 
-            for both players and Dungeon Masters. Use the provided metadata about the parts
-            location in the rulebook (e.g., what section, chapter and/or subheaders it belongs in) 
-            to clarify the origin and context of the summarized content. 
+            focusing on key concepts, rules, mechanics, and any unique features.
 
-            To optimize for RAG similarity search, follow these guidelines: 
-            - Produce a detailed yet concise summary with clearly labeled bullet points organized by topic.
-            - Ensure that key topics and important terms are explicitly mentioned to aid in similarity matching. 
-            - Integrate the metadata context throughout the summary where relevant.
+            Use the provided metadata—which indicates the part's location in the rulebook 
+            (e.g., chapter, section, subheader) to both contextualize the content and to include 
+            this placement data at the start of your summary. 
 
-            Here is the text to summarize: 
+            For the output, follow this strict format:
+            1. **Metadata Section:** Start with a standardized string that concatenates all header values from the metadata. 
+                Use the following format (or similar consistent format): [Header 1: <value>] | [Header 2: <value>] | [Header 3: <value>]
+                (Include only the headers provided in the metadata.)
+
+            2. **Summary Section:** On a new line after the metadata, output your summary. 
+                The summary should be detailed yet concise, organized with clearly labeled bullet points or structured paragraphs, 
+                and should explicitly mention key topics and important terms for optimal RAG-search matching.
+
+            Additional guidelines:
+            - Ensure that the metadata is integrated at the very start of the output, followed immediately by the summary.
+            - Maintain clarity and consistency in formatting so that each summarized part always begins with its placement metadata.
+            - Focus on capturing the most relevant rules, mechanics, and context provided by the text.
+
+            Here is the text to summarize:
 
             {text}
 
