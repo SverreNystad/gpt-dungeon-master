@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">GPT Dungeon Master</string>
+    <string name="title_activity_main">GPT Dungeon Master</string>
+    <string name="package_name">no.gptdungeonmaster</string>
+    <string name="custom_url_scheme">no.gptdungeonmaster</string>
+</resources>
