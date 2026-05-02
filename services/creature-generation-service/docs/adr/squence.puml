@@ -1,0 +1,274 @@
+@startuml DnD Creature 3D Service - Backend Sequence
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 15
+skinparam BoxPadding 10
+
+title D&D Creature 3D Generation Service — Backend Sequence
+
+actor "DM GPT\n(Custom GPT)" as GPT
+
+box "API Layer" #E8F4FD
+    participant "FastAPI\n/creatures" as API
+    database "Redis\n(job queue + status)" as Redis
+end box
+
+box "Worker" #FFF4E5
+    participant "Generation Worker" as Worker
+    participant "Moderation" as Mod
+end box
+
+box "HuggingFace Models" #F0F0F0
+    participant "VLM\n(captioner)" as VLM
+    participant "LLM\n(prompt shaper)" as LLM
+    participant "FLUX.1-schnell\n(image gen)" as FLUX
+    participant "BiRefNet\n(bg removal)" as BiRef
+    participant "Hunyuan3D-2.1 /\nTRELLIS.2" as ThreeD
+end box
+
+database "S3\n(assets)" as S3
+
+== Job submission ==
+
+GPT -> API : POST /creatures\n{prompt?, reference_image_url?, quality}
+activate API
+API -> Mod : check prompt + image
+activate Mod
+Mod --> API : ok
+deactivate Mod
+
+API -> S3 : (if reference image)\nstore upload
+API -> Redis : enqueue job\n{job_id, payload}
+activate Redis
+Redis --> API : queued
+deactivate Redis
+API --> GPT : 202 Accepted\n{job_id, viewer_url}
+deactivate API
+
+== Polling loop ==
+
+loop until status == "complete" or "failed"
+    GPT -> API : GET /creatures/{job_id}
+    activate API
+    API -> Redis : read status
+    Redis --> API : {status, progress, urls?}
+    API --> GPT : {status, progress, urls?}
+    deactivate API
+end
+
+== Worker pipeline (async) ==
+
+Redis -> Worker : dequeue job
+activate Worker
+
+alt input is image
+    Worker -> VLM : caption(reference_image)
+    activate VLM
+    VLM --> Worker : description text
+    deactivate VLM
+end
+
+Worker -> LLM : shape_prompt(text)\n"front-facing, full body,\nneutral pose, plain bg"
+activate LLM
+LLM --> Worker : structured visual prompt
+deactivate LLM
+
+Worker -> Redis : status = "generating_image"
+
+Worker -> FLUX : generate(prompt, ref?)
+activate FLUX
+FLUX --> Worker : concept_image (RGB)
+deactivate FLUX
+
+Worker -> Mod : check output image
+activate Mod
+Mod --> Worker : ok
+deactivate Mod
+
+Worker -> BiRef : remove_background(image)
+activate BiRef
+BiRef --> Worker : concept_image (RGBA)
+deactivate BiRef
+
+Worker -> S3 : upload concept_image.png
+S3 --> Worker : signed URL
+
+Worker -> Redis : status = "generating_mesh"
+
+Worker -> ThreeD : image_to_3d(rgba_image)
+activate ThreeD
+note right : 20–60s on Hunyuan,\n60–180s on TRELLIS.2
+ThreeD --> Worker : mesh + textures
+deactivate ThreeD
+
+Worker -> Worker : export GLB + OBJ\n(trimesh / pygltflib)
+
+Worker -> S3 : upload model.glb, model.obj
+S3 --> Worker : signed URLs
+
+Worker -> Redis : status = "complete"\n{concept_url, glb_url, obj_url, viewer_url}
+deactivate Worker
+
+== Result delivery ==
+
+GPT -> API : GET /creatures/{job_id}
+activate API
+API -> Redis : read status
+Redis --> API : {status: "complete", urls...}
+API --> GPT : 200 OK\n{concept_image_url, glb_url,\n obj_url, viewer_url}
+deactivate API
+
+note over GPT
+  GPT renders concept image inline,
+  links viewer_url for the rotating
+  3D preview, and offers GLB/OBJ
+  downloads to the DM.
+end note
+
+== Error path (any stage) ==
+
+alt model failure or moderation block
+    Worker -> Redis : status = "failed"\n{error_code, message}
+    GPT -> API : GET /creatures/{job_id}
+    API --> GPT : 200 OK\n{status: "failed", error}
+end
+
+@enduml
+@startuml DnD Creature 3D Service - Backend Sequence
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 15
+skinparam BoxPadding 10
+
+title D&D Creature 3D Generation Service — Backend Sequence
+
+actor "DM GPT\n(Custom GPT)" as GPT
+
+box "API Layer" #E8F4FD
+    participant "FastAPI\n/creatures" as API
+    database "Redis\n(job queue + status)" as Redis
+end box
+
+box "Worker" #FFF4E5
+    participant "Generation Worker" as Worker
+    participant "Moderation" as Mod
+end box
+
+box "HuggingFace Models" #F0F0F0
+    participant "VLM\n(captioner)" as VLM
+    participant "LLM\n(prompt shaper)" as LLM
+    participant "FLUX.1-schnell\n(image gen)" as FLUX
+    participant "BiRefNet\n(bg removal)" as BiRef
+    participant "Hunyuan3D-2.1 /\nTRELLIS.2" as ThreeD
+end box
+
+database "S3\n(assets)" as S3
+
+== Job submission ==
+
+GPT -> API : POST /creatures\n{prompt?, reference_image_url?, quality}
+activate API
+API -> Mod : check prompt + image
+activate Mod
+Mod --> API : ok
+deactivate Mod
+
+API -> S3 : (if reference image)\nstore upload
+API -> Redis : enqueue job\n{job_id, payload}
+activate Redis
+Redis --> API : queued
+deactivate Redis
+API --> GPT : 202 Accepted\n{job_id, viewer_url}
+deactivate API
+
+== Polling loop ==
+
+loop until status == "complete" or "failed"
+    GPT -> API : GET /creatures/{job_id}
+    activate API
+    API -> Redis : read status
+    Redis --> API : {status, progress, urls?}
+    API --> GPT : {status, progress, urls?}
+    deactivate API
+end
+
+== Worker pipeline (async) ==
+
+Redis -> Worker : dequeue job
+activate Worker
+
+alt input is image
+    Worker -> VLM : caption(reference_image)
+    activate VLM
+    VLM --> Worker : description text
+    deactivate VLM
+end
+
+Worker -> LLM : shape_prompt(text)\n"front-facing, full body,\nneutral pose, plain bg"
+activate LLM
+LLM --> Worker : structured visual prompt
+deactivate LLM
+
+Worker -> Redis : status = "generating_image"
+
+Worker -> FLUX : generate(prompt, ref?)
+activate FLUX
+FLUX --> Worker : concept_image (RGB)
+deactivate FLUX
+
+Worker -> Mod : check output image
+activate Mod
+Mod --> Worker : ok
+deactivate Mod
+
+Worker -> BiRef : remove_background(image)
+activate BiRef
+BiRef --> Worker : concept_image (RGBA)
+deactivate BiRef
+
+Worker -> S3 : upload concept_image.png
+S3 --> Worker : signed URL
+
+Worker -> Redis : status = "generating_mesh"
+
+Worker -> ThreeD : image_to_3d(rgba_image)
+activate ThreeD
+note right : 20–60s on Hunyuan,\n60–180s on TRELLIS.2
+ThreeD --> Worker : mesh + textures
+deactivate ThreeD
+
+Worker -> Worker : export GLB + OBJ\n(trimesh / pygltflib)
+
+Worker -> S3 : upload model.glb, model.obj
+S3 --> Worker : signed URLs
+
+Worker -> Redis : status = "complete"\n{concept_url, glb_url, obj_url, viewer_url}
+deactivate Worker
+
+== Result delivery ==
+
+GPT -> API : GET /creatures/{job_id}
+activate API
+API -> Redis : read status
+Redis --> API : {status: "complete", urls...}
+API --> GPT : 200 OK\n{concept_image_url, glb_url,\n obj_url, viewer_url}
+deactivate API
+
+note over GPT
+  GPT renders concept image inline,
+  links viewer_url for the rotating
+  3D preview, and offers GLB/OBJ
+  downloads to the DM.
+end note
+
+== Error path (any stage) ==
+
+alt model failure or moderation block
+    Worker -> Redis : status = "failed"\n{error_code, message}
+    GPT -> API : GET /creatures/{job_id}
+    API --> GPT : 200 OK\n{status: "failed", error}
+end
+
+@enduml
