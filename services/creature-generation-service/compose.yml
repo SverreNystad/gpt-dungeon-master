@@ -1,0 +1,13 @@
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis-dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --requirepass "mypassword"
+    restart: unless-stopped
+
+volumes:
+  redis_data:
