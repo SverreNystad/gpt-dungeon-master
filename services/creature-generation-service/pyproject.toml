@@ -13,6 +13,7 @@ dependencies = [
     "diffusers>=0.37.1",
     "fastapi[standard]>=0.136.1",
     "openai>=2.33.0",
+    "playwright>=1.59.0",
     "pydantic>=2.13.3",
     "redis[hiredis]>=7.4.0",
     "torch>=2.11.0",
