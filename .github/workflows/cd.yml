@@ -1,0 +1,43 @@
+name: Deploy Microservice
+
+run-name: Deploy ${{ inputs.service }}:${{ inputs.image_version }} to ${{ inputs.environment }}
+
+on:
+    workflow_dispatch:
+        inputs:
+            service:
+                description: "Name of the microservice to deploy"
+                required: true
+                default: "my-service"
+            image_version:
+                description: "Version of the microservice to deploy"
+                required: true
+                default: "latest"
+            environment:
+                description: "Deployment environment (dev, staging, production)"
+                required: true
+                type: choice
+                default: "staging"
+                options:
+                    - dev
+                    - staging
+                    - production
+    workflow_call:
+        inputs:
+            service:
+                required: true
+                type: string
+            image_version:
+                required: true
+                type: string
+            environment:
+                required: true
+                type: string
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy Microservice
+              run: |
+                  echo "Deploying ${{ inputs.service }}:${{ inputs.image_version }} to ${{ inputs.environment }}"
