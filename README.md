@@ -59,6 +59,8 @@ Welcome to the GPT Dungeon Master repository! This project harnesses the power o
 
 **Interactive UI:** Engage with the GPT DM through a user-friendly interface. Input actions, ask questions, and immerse yourself in the game.
 
+For a prioritized, research-informed list of proposed capabilities, acceptance criteria, and milestones, see the [Feature Backlog](docs/feature-backlog.md). Features in that document are proposals, not claims of implementation.
+
 ## Usage
 The GPT Dungeon Master is currently in development. Check back later for updates.
 ```bash
