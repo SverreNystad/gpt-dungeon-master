@@ -58,6 +58,9 @@ Three jobs to be done:
 | F-014 | NPC schedules and off-screen goals | NPCs have locations, routines and goals that evolve when time advances; a merchant cannot simultaneously be at two distant locations. | Research proposal; RPBuddy |
 | F-015 | NPC beliefs, gossip and hidden information | Each NPC knows only what they plausibly witnessed or learned. Rumors can propagate across social links with provenance and uncertainty; secrets are not leaked by default. | Research proposal; RPBuddy |
 | F-016 | Factions, reputation and consequences | Record factions, alliances and reputation per player/party; meaningful choices alter attitudes, quest access or prices in subsequent scenes. | Research proposal; RPBuddy |
+| F-052 | Character relationships dashboard | Provide a player-accessible **Relationships** screen listing known companions and NPCs, their portrait/name, current relationship category (e.g., ally, friend, neutral, rival), and optional visible dimensions such as trust, respect, affection and fear. Display meaningful changes over time and a player-visible history of interactions, without exposing secret feelings or NPC-private facts. | User-requested social relationship UX; builds on F-008 and F-016 |
+| F-053 | Approval/disapproval and memory notifications | After a meaningful player decision, show contextual feedback such as **"Aela approves"**, **"Borin disapproves"**, or **"Aela will remember this"**. Reactions must derive from that character's personality, values, goals and *actual knowledge* of the action, not arbitrary LLM sentiment. Offer subtle/explicit/off notification modes and avoid spam. | User-requested choice feedback; builds on F-008, F-015 and F-016 |
+| F-054 | Persistent social memories and relationship consequences | Record important player actions as provenance-backed NPC memory events with who acted, who witnessed or credibly learned it, what happened, and resulting relationship changes. NPC dialogue, future help, discounts, loyalty, conflict or betrayal should refer back to those memories consistently after save/resume; corrections and false rumors must be handled explicitly. | User-requested narrative callbacks; builds on F-008, F-011, F-015 and F-016 |
 | F-017 | World clock, travel and event scheduling | Track elapsed time, weather/time-of-day where relevant, resting and travel duration. Scheduled events fire consistently when time advances. | Research proposal; AI Realm, RPBuddy |
 | F-018 | Inventory economy, shops and crafting hooks | Define item quantities, currency, merchant stock and transactions; purchases and trades are validated and never create items or currency from nothing. | Research proposal; RPBuddy, Friends & Fables |
 | F-036 | Quick Time Events (QTEs) and timed decisions | At dramatic moments (e.g., dodging a trap, catching a falling ally, choosing whether to interrupt a ritual), display a clearly telegraphed countdown and 2–3 actions or freeform input. Each response, timeout or opt-out resolves through the authoritative game engine into a traceable outcome. Start the timer only after the event is visibly loaded; offer adjustable durations, pause/untimed mode, keyboard accessibility and a non-punitive fallback. Do not use reflex QTEs for every action. | New feature request; experiential design proposal |
@@ -74,6 +77,42 @@ Three jobs to be done:
 | F-023 | GM authoring controls and override mode | Creator/GM can edit locations, NPCs, lore and encounters; approved overrides update canonical state and appear in the audit log, rather than silently changing prompt text. | Research proposal; AI Realm, SillyTavern |
 | F-024 | World/NPC/campaign import and export | Export a versioned machine-readable package with assets/licenses and import it into a new campaign; preserve stable entity IDs and validate schemas. Private user data is excluded by default. | Research proposal; Chub, SillyTavern |
 | F-025 | Player safety, privacy and content preferences | Provide content boundaries and session controls, clear user-generated-content visibility, deletion/export options and safeguards for shared worlds. Avoid exposing private campaign data in logs or public assets. | Research proposal; platform foundation |
+
+### Character relationships, approval feedback, and social memory (F-052–F-054)
+
+**Player promise:** The player can see where they stand with each known character, understand when a meaningful decision changes a relationship, and experience those consequences later. The inspiration is the readable companion approval and long-term memory of narrative role-playing games, without turning every interaction into a visible point-scoring exercise.
+
+**In-game example:**
+
+> You let a captured bandit go rather than execute him.  
+> **Aela approves.**  
+> **Borin disapproves.**  
+> **Aela will remember this.**
+
+Later, Aela may defend the player in a dispute because she witnessed that act of mercy; Borin may challenge the player's judgment. An absent NPC should **not** react immediately unless the action was publicly witnessed or later communicated through a plausible rumor or report.
+
+**Relationship screen:** Add a **Relationships** tab on the player/party dashboard with NPC portraits and names, relationship labels (companion, ally, neutral, rival), a current **stance** and *player-known* relationship history. Suggested internal dimensions are `trust`, `respect`, `affection`, and `fear`; their relative significance depends on personality. Avoid a single universal romance/friendship score. Allow optional visible meters for players who enjoy game-like feedback, with story-first labels as a default. Support NPC-to-player relationships initially; optional NPC-to-NPC relationships can reuse the model later.
+
+**Proposed social event model:** Each meaningful action creates one canonical `SocialEvent` with `event_id`, `actor_id`, `action_type`, `target_ids`, `location_id`, `world_timestamp`, `witness_ids`, `outcome`, and source narration/game-event reference. For each reacting NPC, persist `awareness_source` (witness, conversation, rumor, inference), `relationship_delta` by dimension, `memory_importance`, `knowledge_confidence`, and player visibility. Record whether a character **remembers an event** separately from whether they **approve of it**; remembered actions can be positive, negative or neutral.
+
+**Reaction logic and UX:**
+1. The validated game-state transition happens first. The social/relationship engine evaluates affected NPCs against their motivations, traits, cultural norms, loyalties and current relationship.
+2. An NPC can react only if present and aware, or when they plausibly learn of the event later. Secret reactions and unrevealed memories are not displayed; avoid spoiling hidden relationships, quests or secrets.
+3. Show **"{name} approves"**, **"{name} disapproves"**, or **"{name} will remember this"** as brief, optionally stacked notifications. Show *why* on demand if the player character could infer it; otherwise preserve mystery.
+4. Notify only for material changes or durable memories; repeated trivial acts should not farm approval indefinitely. Distinguish feedback about a relationship change from a narrative memory flag.
+5. Some characters may respect a decision they dislike, fear a person they trust, or remember a betrayal despite later reconciliation. Relationships can have multiple dimensions and nonlinear thresholds that unlock new dialogue, help, opposition or companion decisions.
+6. Expose an accessible notification history and a relationship timeline from **player-known facts only**. Provide clear preferences for notification visibility (**explicit**, **subtle**, **off**) and for whether numerical meters appear.
+7. On later meetings, NPCs can call back to relevant witnessed/learned events; memories remain consistent through save/resume and do not give characters omniscient knowledge. Rumors can be wrong and may be corrected, while the authoritative event history stays immutable.
+
+**Acceptance tests:**
+- A decision with two present companions triggers distinct, consistent reactions based on their character traits; the Relationships view reflects any committed changes.
+- An uninformed NPC never immediately reacts to a private decision. If the NPC later hears a rumor, the knowledge event and delayed reaction are recorded; rumors are not treated as known truth by default.
+- An approval notification and a **"will remember this"** notification may both occur for one event but are derived from separate persisted fields; duplicate retries never double-apply relationship deltas.
+- A later conversation (including after a long session or save/resume) can accurately reference an important event without inventing facts; corrections/reconciliations persist.
+- Player-facing meters and histories do not reveal NPC-private thoughts. Turning notifications off does not disable the underlying relationship or memory updates.
+- Repeated low-stakes actions are subject to diminishing returns or no relationship change; notifications are deduplicated to prevent spam.
+
+**Dependencies:** Reuse F-003/F-004 for event commits, F-008 for NPC traits and relationships, F-011 for persistent memory, F-015 for information provenance, and F-016 for faction/reputation consequences. The AI DM narrates established reactions but never invents an uncommitted relationship delta.
 
 ### Hybrid combat system specification (F-019, F-038–F-051)
 
@@ -173,7 +212,7 @@ The original README lists eight planned features. Preserve their intent; this ba
 | --- | --- | --- | --- |
 | M1 — Reliable solo core | Persistent solo campaign and one-on-one turn-based combat | F-001–F-006, F-010, F-019, F-038–F-043 | One hero vs. one enemy with validated initiative, rules, status, narration and save/resume |
 | M2 — Memory and rules | Campaigns remain coherent over time | F-007–F-012 | Repeated 100-turn test scenarios meet the team's defined consistency threshold |
-| M3 — Living campaign | World travel, NPC behavior and consequences | F-013–F-018, F-023 | Scheduled and social events are reproducible and inspectable |
+| M3 — Living campaign | World travel, NPC behavior, relationships and consequences | F-013–F-018, F-023, F-052–F-054 | Relationships view, approval/disapproval notifications, and witnessed/learned memories produce reproducible long-term NPC responses without revealing secrets |
 | M4 — Rich campaign experience | Advanced combat, boss phases, morale, companions, QTEs and timed objectives | F-020–F-022, F-025, F-036–F-037, F-044–F-049 | Test creative actions, social victories, phase changes, companion turns, timed objectives, accessibility and privacy |
 | M5 — Platform and creator growth | Portable worlds, creator network and optional grid/destructible combat | F-024, F-026–F-035, F-050–F-051 | Permission-checked world sharing and rules-consistent optional battlefield features |
 
@@ -200,6 +239,7 @@ Do not decide priority by competitor feature counts alone. Test each proposal ag
 | Do campaigns retain players? | D1/D7/D30 return rate, sessions per campaign, number of resumed campaigns, quest completion |
 | Does memory actually help? | Controlled long-campaign evaluations with hidden facts revealed only to specific NPCs; correction success rate |
 | Are simulation features valuable? | A/B test persistent NPC schedules vs simpler memory; qualitative interviews on perceived agency and world believability |
+| Do players understand and value character relationships? | Relationships-tab usage, recalled social-event accuracy, meaningful companion interaction rate, notification preference/disable rate, perceived NPC consistency, repeated-action farming incidents |
 | Is combat engaging and consistent? | Illegal action rate, rules contradictions, creative-action validation rate, combat completion/abandonment, surrender/escape frequency and turns per encounter |
 | Are timed decisions fun and fair? | QTE and multi-minute objective opt-in rate, objective completion/partial-success/timeout rates, accessibility mode usage, perceived fairness, model-latency-induced failures, and frequency of resumed scenes | 
 | Can the economics scale? | Marginal cost per completed session, inference spend per retained player, P95 action latency, gross margin by feature |
