@@ -54,12 +54,25 @@ Three jobs to be done:
 | F-017 | World clock, travel and event scheduling | Track elapsed time, weather/time-of-day where relevant, resting and travel duration. Scheduled events fire consistently when time advances. | Research proposal; AI Realm, RPBuddy |
 | F-018 | Inventory economy, shops and crafting hooks | Define item quantities, currency, merchant stock and transactions; purchases and trades are validated and never create items or currency from nothing. | Research proposal; RPBuddy, Friends & Fables |
 | F-019 | Tactical turn-based combat | Initiative, turn order, actions, resources, conditions, damage and outcomes are structured and replayable. Map-based positioning is optional initially; rules vary by active system. | Research proposal; Friends & Fables, RPBuddy |
+| F-036 | Quick Time Events (QTEs) and timed decisions | At dramatic moments (e.g., dodging a trap, catching a falling ally, choosing whether to interrupt a ritual), display a clearly telegraphed countdown and 2–3 actions or freeform input. Each response, timeout or opt-out resolves through the authoritative game engine into a traceable outcome. Start the timer only after the event is visibly loaded; offer adjustable durations, pause/untimed mode, keyboard accessibility and a non-punitive fallback. Do not use reflex QTEs for every action. | New feature request; experiential design proposal |
 | F-020 | Consistent generative visual assets | Optionally generate portraits, locations, items or battle scenes; link assets to persistent entities and reuse them so appearances remain consistent. Support manual uploads and opt-out. | README planned (generative art), expanded |
 | F-021 | Speech input and differentiated narration voices | Support speech-to-text and text-to-speech; users can mute/interrupt audio, and NPC voices remain associated with the correct character. | README planned (STT, TTS), expanded |
 | F-022 | Synchronous and asynchronous multiplayer | Support invitations, party membership, turn ownership and shared state. Concurrent conflicting actions are serialized or resolved explicitly; absent players can catch up via recap. | Research proposal; Friends & Fables |
 | F-023 | GM authoring controls and override mode | Creator/GM can edit locations, NPCs, lore and encounters; approved overrides update canonical state and appear in the audit log, rather than silently changing prompt text. | Research proposal; AI Realm, SillyTavern |
 | F-024 | World/NPC/campaign import and export | Export a versioned machine-readable package with assets/licenses and import it into a new campaign; preserve stable entity IDs and validate schemas. Private user data is excluded by default. | Research proposal; Chub, SillyTavern |
 | F-025 | Player safety, privacy and content preferences | Provide content boundaries and session controls, clear user-generated-content visibility, deletion/export options and safeguards for shared worlds. Avoid exposing private campaign data in logs or public assets. | Research proposal; platform foundation |
+
+### QTE interaction specification (F-036)
+
+**Player-facing example:** As a collapsing bridge breaks beneath the character, the AI DM describes the danger, and a short countdown presents: **Jump to the ledge**, **Grab the rope**, or **Shield your companion**. The player can also type a custom action when the input method supports it.
+
+- **Triggering:** Only for meaningful, time-sensitive set pieces such as hazards, chases, tense negotiations or combat reactions; optional per campaign and tunable by the GM. Use deliberate author-controlled triggers or validated gameplay events, not a timer fabricated by narrative text.
+- **Timing and fairness:** Make the deadline clear, configurable and generous by default. Start counting when the complete prompt and controls are rendered, not when text generation begins. Keep time synchronized with the game session and handle network interruption, reconnection and slow devices fairly.
+- **Resolution:** The choice, timestamp, applicable ability/rules check, resulting state transition and narrative consequence are persisted once. Timeout chooses a documented fallback (e.g., miss the handhold, suffer a minor complication or defer to an untimed check), not arbitrary instant death.
+- **Accessibility:** Offer untimed mode, adjustable countdowns, pause where appropriate, screen-reader announcements, full keyboard and pointer support, and reduced-motion presentation. Never make twitch reaction speed mandatory to continue the campaign.
+- **Multiplayer:** Specify whose reaction is required and how the deadline applies to each player; avoid penalizing the entire party for lag or an absent player.
+
+**QTE acceptance tests:** A completed action or timeout applies exactly one deterministic state transition; refreshing or reconnecting cannot duplicate outcomes; timers are not shortened by narration/model latency; changing the accessibility settings works before and during a campaign; untimed players can complete the same story branch.
 
 ## P2 — Creator ecosystem and platform expansion
 
@@ -98,7 +111,7 @@ The original README lists eight planned features. Preserve their intent; this ba
 | M1 — Reliable solo core | One story with authoritative state and persistence | F-001–F-006, F-010 | Complete the MVP vertical slice; save/resume produces no divergent state |
 | M2 — Memory and rules | Campaigns remain coherent over time | F-007–F-012 | Repeated 100-turn test scenarios meet the team's defined consistency threshold |
 | M3 — Living campaign | World travel, NPC behavior and consequences | F-013–F-018, F-023 | Scheduled and social events are reproducible and inspectable |
-| M4 — Rich campaign experience | Combat, visuals, voices and shared parties | F-019–F-022, F-025 | Integration tests cover combat and concurrent actions; privacy controls work |
+| M4 — Rich campaign experience | Combat, QTEs, visuals, voices and shared parties | F-019–F-022, F-025, F-036 | Integration tests cover combat, timed choice/timeout/reconnect paths and concurrent actions; accessibility and privacy controls work |
 | M5 — Platform and creator growth | Portable worlds and creator network | F-024, F-026–F-035 | At least one end-to-end import/export and a permission-checked publishing flow |
 
 The sequence is a **proposal**; parallelize UX work and defer costly generation/simulation features if unit economics are not yet proven.
@@ -124,6 +137,7 @@ Do not decide priority by competitor feature counts alone. Test each proposal ag
 | Do campaigns retain players? | D1/D7/D30 return rate, sessions per campaign, number of resumed campaigns, quest completion |
 | Does memory actually help? | Controlled long-campaign evaluations with hidden facts revealed only to specific NPCs; correction success rate |
 | Are simulation features valuable? | A/B test persistent NPC schedules vs simpler memory; qualitative interviews on perceived agency and world believability |
+| Are timed decisions fun and fair? | QTE opt-in rate, completion rate, timeout and abandonment rates, accessibility mode usage, perceived fairness, latency-induced failures | 
 | Can the economics scale? | Marginal cost per completed session, inference spend per retained player, P95 action latency, gross margin by feature |
 | Does UGC create a flywheel? | Weekly active creators, playable assets published, imported/forked assets, creator-to-player conversion |
 
@@ -153,4 +167,4 @@ Sources reflect **publicly described capabilities** (competitive review complete
 - What are the acceptable per-session inference budget and latency thresholds?
 - Will creators be allowed to monetize public worlds, and how will moderation, attribution and licensing work?
 
-**Next engineering action:** turn F-001–F-012 into scoped issues, verify the current codebase before marking any complete, and build the M1 vertical-slice test as the primary delivery gate.
+**Next engineering action:** turn F-001–F-012 into scoped issues, verify the current codebase before marking any complete, and build the M1 vertical-slice test as the primary delivery gate. Prototype F-036 as an optional timed hazard after the authoritative state pipeline is stable.
