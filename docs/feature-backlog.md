@@ -34,6 +34,13 @@ Three jobs to be done:
 | F-004 | Validated action-to-narration pipeline | Interpret player intent into a proposed action; validate permissions/rules; roll or resolve; commit state atomically; then narrate the *actual* outcome. Invalid actions cannot silently mutate state. | Research proposal; Friends & Fables, Latitude Voyage |
 | F-005 | Character sheets and progression | Show editable stats, abilities, HP, conditions, inventory and advancement. Picking up or using an item updates the sheet and is reflected in later responses. | Research proposal; AI Realm, Friends & Fables |
 | F-006 | Dice rolls and configurable rule adjudication | Support transparent, logged dice rolls with modifiers and advantage/disadvantage where applicable. The resolver is deterministic given a recorded seed and ruleset; do not present improvised outcomes as official rules. | README planned (rule enforcement), expanded |
+| F-019 | Turn-based combat and initiative | Start/end encounters, roll initiative, enforce active turn/action economy, validate attacks and checks, apply damage, and end combat through victory, retreat or surrender. An initial one-on-one battle uses F-006 dice/rules and F-003/F-004 game state. | Combat feature proposal |
+| F-038 | Freeform combat intent and legal actions | Convert speech/text into actor, target, intent, movement and required resources. Validate each command; impossible or ambiguous actions are rejected or clarified without accidental cost or turn consumption. | Combat feature proposal |
+| F-039 | Strategic enemy turn AI | Hostile NPCs choose legal actions from goals, abilities, distance, visibility, health and morale, without access to knowledge they do not possess. Telegraph powerful attacks where relevant. | Combat feature proposal |
+| F-040 | Abstract tactical positioning | Track engaged, near and far zones plus cover and obstacles; enforce reach, ranges and movement costs without requiring a tactical grid. | Combat feature proposal |
+| F-041 | Combat resources and status effects | Track HP, action points/availability, spell or ability resources, ammunition, buffs, debuffs and status-effect durations. Prevent double spending or actions forbidden by current conditions. | Combat feature proposal |
+| F-042 | Cinematic combat narration and combat log | Narrate mechanically resolved outcomes vividly; optionally show dice, modifiers, damage, effects and rationale. The AI narration never changes the committed result. | Combat feature proposal |
+| F-043 | Persistent combat consequences | Save injuries, NPC fate, loot, witnesses, quest progress, faction reputation and modified location state after encounters; save/resume mid-fight and after combat remains correct and idempotent. | Combat feature proposal |
 | F-007 | Grounded rules / knowledgebase retrieval | Load permitted reference material; retrieve relevant excerpts with source titles/sections; distinguish explicit rules from house rules and GM judgment. Prevent private/unlicensed rulebooks from being shared across users. | README planned (knowledgebase), expanded |
 | F-008 | NPC profiles and relationship memory | Persist names, traits, goals, location, relationships, player-facing knowledge and NPC-private knowledge. When revisited after many turns, NPCs retain previously established details. | README planned (character interaction), expanded; AI Realm, RPBuddy |
 | F-009 | Campaign journal, quest tracking and recaps | Track active/completed/failed quests and objective changes. Offer concise session summaries with links to relevant events; recap never invents canonical world changes. | Research proposal; Friends & Fables, AI Realm |
@@ -41,7 +48,7 @@ Three jobs to be done:
 | F-011 | Long-term memory with inspectable facts | Separate recent conversation from durable facts. Show facts used by the GM, their source event and a correction/edit mechanism; relevant facts survive a 100-turn test scenario. | Research proposal; AI Realm, Chub, RPBuddy |
 | F-012 | Automated campaign consistency tests | A fixed suite of multi-turn scenarios checks inventory conservation, HP, rules, location continuity, NPC knowledge, quest status and save/resume. Store reproducible traces and baseline pass rates. | Research proposal; foundational quality gate |
 
-**MVP vertical slice:** A player starts a village quest, meets two NPCs, acquires an item, makes a rule-checked skill roll, travels, resolves an encounter, saves, returns later and receives a correct recap. The authoritative state must match the story at each step.
+**MVP vertical slice:** A player starts a village quest, meets two NPCs, acquires an item, makes a rule-checked skill roll, travels, resolves a simple turn-based encounter (F-019, F-038–F-043), saves, returns later and receives a correct recap. The authoritative state must match the story at each step.
 
 ## P1 — Living world and richer play
 
@@ -53,15 +60,41 @@ Three jobs to be done:
 | F-016 | Factions, reputation and consequences | Record factions, alliances and reputation per player/party; meaningful choices alter attitudes, quest access or prices in subsequent scenes. | Research proposal; RPBuddy |
 | F-017 | World clock, travel and event scheduling | Track elapsed time, weather/time-of-day where relevant, resting and travel duration. Scheduled events fire consistently when time advances. | Research proposal; AI Realm, RPBuddy |
 | F-018 | Inventory economy, shops and crafting hooks | Define item quantities, currency, merchant stock and transactions; purchases and trades are validated and never create items or currency from nothing. | Research proposal; RPBuddy, Friends & Fables |
-| F-019 | Tactical turn-based combat | Initiative, turn order, actions, resources, conditions, damage and outcomes are structured and replayable. Map-based positioning is optional initially; rules vary by active system. | Research proposal; Friends & Fables, RPBuddy |
 | F-036 | Quick Time Events (QTEs) and timed decisions | At dramatic moments (e.g., dodging a trap, catching a falling ally, choosing whether to interrupt a ritual), display a clearly telegraphed countdown and 2–3 actions or freeform input. Each response, timeout or opt-out resolves through the authoritative game engine into a traceable outcome. Start the timer only after the event is visibly loaded; offer adjustable durations, pause/untimed mode, keyboard accessibility and a non-punitive fallback. Do not use reflex QTEs for every action. | New feature request; experiential design proposal |
 | F-037 | Timed objectives and dynamic countdowns | Give players a configurable 30-second to 10-minute deadline to accomplish one or more objectives across multiple actions (e.g., evacuate a burning village). Support real-time or narrative-action-time modes, clear progress and remaining-time UI, partial successes, branching consequences, NPC assistance, and pause/untimed accessibility options. Countdown time must exclude AI generation latency; objectives and resolution must be authoritative, persistent and replay-safe. | User-requested feature; inspiration: Detroit: Become Human |
+| F-044 | Creative environmental attacks | Players can shoot supports, push barrels, cut ropes, trigger traps and use actual scene props; check feasibility, difficulty and collateral consequences through game rules. | Combat feature proposal |
+| F-045 | Enemy morale and nonlethal resolution | NPCs can retreat, surrender, intimidate, negotiate or switch tactics based on health, goals and alliances; player social actions can end combat without a kill. | Combat feature proposal |
+| F-046 | Dynamic multi-phase boss encounters | Bosses shift behavior on validated state triggers such as broken wards, changing HP or ritual progress. Threats are telegraphed, and unexpected player plans can bypass phases. | Combat feature proposal |
+| F-047 | Cinematic combat QTE reactions | Reuse F-036 for occasional optional dodges, parries and counters, with rules-backed outcomes and an untimed equivalent. | Combat feature proposal |
+| F-048 | Timed multi-action combat objectives | Reuse F-037 for interrupting a ritual, escaping a collapsing dungeon or protecting allies before a deadline. Track progress, partial successes and predictable expiry without charging AI latency. | Combat feature proposal |
+| F-049 | Companion and party coordination | Allied NPCs can heal, defend, flank, distract and retreat using legal resources and turns; multiplayer control and initiative remain explicit. | Combat feature proposal |
 | F-020 | Consistent generative visual assets | Optionally generate portraits, locations, items or battle scenes; link assets to persistent entities and reuse them so appearances remain consistent. Support manual uploads and opt-out. | README planned (generative art), expanded |
 | F-021 | Speech input and differentiated narration voices | Support speech-to-text and text-to-speech; users can mute/interrupt audio, and NPC voices remain associated with the correct character. | README planned (STT, TTS), expanded |
 | F-022 | Synchronous and asynchronous multiplayer | Support invitations, party membership, turn ownership and shared state. Concurrent conflicting actions are serialized or resolved explicitly; absent players can catch up via recap. | Research proposal; Friends & Fables |
 | F-023 | GM authoring controls and override mode | Creator/GM can edit locations, NPCs, lore and encounters; approved overrides update canonical state and appear in the audit log, rather than silently changing prompt text. | Research proposal; AI Realm, SillyTavern |
 | F-024 | World/NPC/campaign import and export | Export a versioned machine-readable package with assets/licenses and import it into a new campaign; preserve stable entity IDs and validate schemas. Private user data is excluded by default. | Research proposal; Chub, SillyTavern |
 | F-025 | Player safety, privacy and content preferences | Provide content boundaries and session controls, clear user-generated-content visibility, deletion/export options and safeguards for shared worlds. Avoid exposing private campaign data in logs or public assets. | Research proposal; platform foundation |
+
+### Hybrid combat system specification (F-019, F-038–F-051)
+
+**Core UX:** Turn-based decisions + freeform natural-language actions + dice/rules adjudication + AI cinematic narration. Start with simplified rules and abstract positions, then expand into environmental tactics, enemy morale, boss phases, companions and optional timed sequences. Players should be able to fight, negotiate, escape or exploit the terrain rather than always choosing from a fixed attack menu.
+
+**Example — The Iron Captain:** The scene registers an orc captain, a damaged ceiling support, a captive and an exit. The player says "I shoot the support beam above him." The intent interpreter identifies the actual target; the engine checks range, weapon, ammunition and rules, rolls with a recorded seed, changes the beam's state and resolves debris/cover effects. Only after the state commits does the AI narrate the outcome. The captain might retaliate, retreat, take cover, threaten the captive or surrender. The battle's survivors, conditions, loot and location consequences persist.
+
+**Acceptance and quality gates:**
+
+1. An encounter can start, establish initiative, execute legal turns and end through victory, escape, surrender or negotiation. Invalid commands cannot silently create objects, gain resources or change state.
+2. For the same authoritative state, ruleset, ordered actions and saved random outcomes, combat is reproducible. Dice, modifiers, HP, conditions and narrated events agree.
+3. Reach, ranged attacks, cover and movement behave differently in engaged/near/far zones. Optional exact-grid mode is a later enhancement.
+4. Enemy turns respect their own inventory, skills, knowledge, morale and position; they cannot use player secrets or impossible abilities.
+5. An environmental action targets an existing entity and produces validated physical consequences. Creative solutions remain possible without granting automatic success.
+6. Combat produces meaningful nonviolent choices and aftermath: retreat, negotiation, surrender, injured survivors, witness memories, loot, quests and reputation remain consistent on save/resume.
+7. F-047 QTE reactions and F-048 multi-minute combat objectives use F-036/F-037 infrastructure; timers exclude model response delays and have accessible untimed alternatives.
+8. Refreshes, retries and reconnection cannot duplicate attacks, damage, resource spending, loot, timers or event resolution. Include a logged and replayable combat history.
+
+**Architecture:** `freeform player action → AI intent parsing → legality/rules checks → deterministic roll and state transition → atomic event commit → AI narration`. The LLM interprets and describes events but **never owns authoritative HP, initiative, target validity, inventory, clocks or combat resolution**. Reuse F-003, F-004, F-005, F-006, F-036 and F-037 rather than rebuilding their underlying systems.
+
+**Phasing:** M1 ships one hero vs. one enemy with F-019 and F-038–F-043. M4 layers on F-044–F-049, richer multi-combatant encounters and dramatic timed moments. M5 may add optional destructible battlefields (F-050) and precise grids (F-051).
 
 ### QTE interaction specification (F-036)
 
@@ -115,6 +148,8 @@ Three jobs to be done:
 | F-032 | Cross-device and mobile-friendly play | Campaign state and controls work across screen sizes; mobile view supports core actions and low-bandwidth mode. Consider PWA only after validating demand. | Research proposal; Friends & Fables, Everweave |
 | F-033 | Multilingual worlds and narration | Narrate and accept actions in multiple languages while preserving language-neutral entity IDs and rules; tests cover names, dice notation and lore across languages. | Research proposal; differentiation hypothesis |
 | F-034 | VTT and ecosystem integration | Export characters, dice history or encounter state to documented external formats/APIs; no hidden dependency on a specific vendor's proprietary content. | Research proposal; Friends & Fables, SillyTavern |
+| F-050 | Persistently destructible battlefields | Destroyed barriers, bridges and cover alter navigability, visibility and later exploration; changes are validated world events, not narration-only effects. | Combat feature proposal |
+| F-051 | Optional precision-grid combat | Advanced players can use grid/hex positioning, exact distances, line of sight and area effects; abstract zones remain the default. | Combat feature proposal |
 | F-035 | Shareable session recaps and creator clips | Create permission-checked summaries or visual recaps for a session; private information and unrevealed NPC secrets must be redacted. | Research proposal; acquisition hypothesis |
 
 ## Existing README feature coverage
@@ -136,11 +171,11 @@ The original README lists eight planned features. Preserve their intent; this ba
 
 | Milestone | Outcome | Feature IDs | Exit condition |
 | --- | --- | --- | --- |
-| M1 — Reliable solo core | One story with authoritative state and persistence | F-001–F-006, F-010 | Complete the MVP vertical slice; save/resume produces no divergent state |
+| M1 — Reliable solo core | Persistent solo campaign and one-on-one turn-based combat | F-001–F-006, F-010, F-019, F-038–F-043 | One hero vs. one enemy with validated initiative, rules, status, narration and save/resume |
 | M2 — Memory and rules | Campaigns remain coherent over time | F-007–F-012 | Repeated 100-turn test scenarios meet the team's defined consistency threshold |
 | M3 — Living campaign | World travel, NPC behavior and consequences | F-013–F-018, F-023 | Scheduled and social events are reproducible and inspectable |
-| M4 — Rich campaign experience | Combat, QTEs, multi-minute timed objectives, visuals, voices and shared parties | F-019–F-022, F-025, F-036, F-037 | Integration tests cover combat, timed choice, multi-step objectives, countdown expiry/reconnect and concurrent actions; accessibility and privacy controls work |
-| M5 — Platform and creator growth | Portable worlds and creator network | F-024, F-026–F-035 | At least one end-to-end import/export and a permission-checked publishing flow |
+| M4 — Rich campaign experience | Advanced combat, boss phases, morale, companions, QTEs and timed objectives | F-020–F-022, F-025, F-036–F-037, F-044–F-049 | Test creative actions, social victories, phase changes, companion turns, timed objectives, accessibility and privacy |
+| M5 — Platform and creator growth | Portable worlds, creator network and optional grid/destructible combat | F-024, F-026–F-035, F-050–F-051 | Permission-checked world sharing and rules-consistent optional battlefield features |
 
 The sequence is a **proposal**; parallelize UX work and defer costly generation/simulation features if unit economics are not yet proven.
 
@@ -165,6 +200,7 @@ Do not decide priority by competitor feature counts alone. Test each proposal ag
 | Do campaigns retain players? | D1/D7/D30 return rate, sessions per campaign, number of resumed campaigns, quest completion |
 | Does memory actually help? | Controlled long-campaign evaluations with hidden facts revealed only to specific NPCs; correction success rate |
 | Are simulation features valuable? | A/B test persistent NPC schedules vs simpler memory; qualitative interviews on perceived agency and world believability |
+| Is combat engaging and consistent? | Illegal action rate, rules contradictions, creative-action validation rate, combat completion/abandonment, surrender/escape frequency and turns per encounter |
 | Are timed decisions fun and fair? | QTE and multi-minute objective opt-in rate, objective completion/partial-success/timeout rates, accessibility mode usage, perceived fairness, model-latency-induced failures, and frequency of resumed scenes | 
 | Can the economics scale? | Marginal cost per completed session, inference spend per retained player, P95 action latency, gross margin by feature |
 | Does UGC create a flywheel? | Weekly active creators, playable assets published, imported/forked assets, creator-to-player conversion |
