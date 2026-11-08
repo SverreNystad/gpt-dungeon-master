@@ -55,6 +55,7 @@ Three jobs to be done:
 | F-018 | Inventory economy, shops and crafting hooks | Define item quantities, currency, merchant stock and transactions; purchases and trades are validated and never create items or currency from nothing. | Research proposal; RPBuddy, Friends & Fables |
 | F-019 | Tactical turn-based combat | Initiative, turn order, actions, resources, conditions, damage and outcomes are structured and replayable. Map-based positioning is optional initially; rules vary by active system. | Research proposal; Friends & Fables, RPBuddy |
 | F-036 | Quick Time Events (QTEs) and timed decisions | At dramatic moments (e.g., dodging a trap, catching a falling ally, choosing whether to interrupt a ritual), display a clearly telegraphed countdown and 2–3 actions or freeform input. Each response, timeout or opt-out resolves through the authoritative game engine into a traceable outcome. Start the timer only after the event is visibly loaded; offer adjustable durations, pause/untimed mode, keyboard accessibility and a non-punitive fallback. Do not use reflex QTEs for every action. | New feature request; experiential design proposal |
+| F-037 | Timed objectives and dynamic countdowns | Give players a configurable 30-second to 10-minute deadline to accomplish one or more objectives across multiple actions (e.g., evacuate a burning village). Support real-time or narrative-action-time modes, clear progress and remaining-time UI, partial successes, branching consequences, NPC assistance, and pause/untimed accessibility options. Countdown time must exclude AI generation latency; objectives and resolution must be authoritative, persistent and replay-safe. | User-requested feature; inspiration: Detroit: Become Human |
 | F-020 | Consistent generative visual assets | Optionally generate portraits, locations, items or battle scenes; link assets to persistent entities and reuse them so appearances remain consistent. Support manual uploads and opt-out. | README planned (generative art), expanded |
 | F-021 | Speech input and differentiated narration voices | Support speech-to-text and text-to-speech; users can mute/interrupt audio, and NPC voices remain associated with the correct character. | README planned (STT, TTS), expanded |
 | F-022 | Synchronous and asynchronous multiplayer | Support invitations, party membership, turn ownership and shared state. Concurrent conflicting actions are serialized or resolved explicitly; absent players can catch up via recap. | Research proposal; Friends & Fables |
@@ -73,6 +74,33 @@ Three jobs to be done:
 - **Multiplayer:** Specify whose reaction is required and how the deadline applies to each player; avoid penalizing the entire party for lag or an absent player.
 
 **QTE acceptance tests:** A completed action or timeout applies exactly one deterministic state transition; refreshing or reconnecting cannot duplicate outcomes; timers are not shortened by narration/model latency; changing the accessibility settings works before and during a campaign; untimed players can complete the same story branch.
+
+### Timed objectives and dynamic countdowns (F-037)
+
+**Design goal:** Create multi-action, high-stakes scenes with a deadline measured in minutes, inspired by the *time-pressure and branching-decision feel* of *Detroit: Become Human*. This is **not** the same as F-036: QTEs are short, reflex-oriented responses to a single prompt; **F-037 covers an entire scene with several decisions and objectives**. Both belong to a proposed **Time Pressure & Dynamic Events Engine**.
+
+**Player-facing example — The Burning Village:** A fire is spreading through Blackthorn. The player has **3 minutes** to **alert the guards**, **rescue trapped children**, and **protect the granary**. Each goal has a visible state (pending / active / completed / failed). The player may choose among suggested actions, type a custom action, delegate to NPC allies, or accept a trade-off. A new threat (the roof begins collapsing) can appear as time passes. Saving the children but losing the granary is a valid partial success, with persistent effects on villagers, supplies, factions and future quests.
+
+**Proposed behavior:**
+
+1. **Start and presentation:** The game engine creates a structured timed scene with start/deadline, clock mode, objectives, dependencies, milestones, and outcomes. The UI shows a readable countdown, objective progress, stakes and any approaching deadlines. Begin ticking only after the scene and controls have been delivered to the client.
+2. **Two clock modes:** **Real-time** advances while the player deliberates, excluding AI/model generation and processing delays; **narrative time** advances by predefined costs for actions (for example, searching a room takes 30 in-game seconds). The selected mode is visible before the event starts. Do not switch modes unexpectedly.
+3. **Multiple actions:** Each player action can complete an objective, consume time, change risk, unlock another task or trigger an event. Allow freeform actions subject to validation by the same authoritative rules/state engine as normal play.
+4. **Dynamic events:** At deterministic milestones (e.g., 50% time left, first rescue, a failed check), the engine may trigger predefined or validated emerging threats. Generated prose may *describe* events but does not control the authoritative clock or invent irreversible state transitions.
+5. **Outcomes and consequences:** Resolve full completion, partial completion, timeout, abandonment and hard failures through an explicit outcome table or rules. Update quests, injuries, NPC status, reputation, world resources and journal exactly once. Do not force a total game-over on timeout by default.
+6. **NPC and multiplayer interactions:** Allies may undertake delegated tasks with defined time and capability costs. Multiplayer sessions need server-authoritative deadlines, clear task ownership and lag/disconnect policies; no player should be penalized for another player's network failure.
+7. **Fairness and accessibility:** Timer length and difficulty are configurable. Support adjustable duration, pause where possible, untimed/narrative-time modes, visible time warnings, keyboard/screen-reader access and reduced motion. Audio narration and TTS playback should not silently consume a player's response window; compensate or pause accordingly.
+8. **Persistence and recovery:** Save the scene clock configuration, remaining logical time, objectives, decisions and event log; resume/reconnect without double applying outcomes or unexpectedly consuming time. For real-time multiplayer, define and communicate whether the event pauses when the session is suspended.
+9. **Instrumentation:** Capture event starts, mode, selected actions, time spent on deliberation vs. model delay, objectives completed, timeout paths, skips, accessibility settings and subjective fairness; do not log unnecessary personal content.
+
+**Acceptance criteria:**
+- In the Burning Village scenario, the player can complete three objectives over multiple actions within an illustrated 3-minute deadline, or reach traceable partial-success and timeout endings.
+- The countdown is **not reduced by model inference/network response delay**; real-time and narrative-time modes produce predictable results under controlled tests.
+- Choices, NPC delegation, milestone events and expiry update canonical state **exactly once** even after retries, refreshes, disconnects or concurrent player actions.
+- UI displays accurate remaining time, progress and consequences; an accessible untimed path preserves meaningful choices without reflex requirements.
+- Automated tests verify deadline expiry, paused/resumed sessions, clock-mode switching restrictions, branching outcomes and a scene where the player saves only some targets.
+
+**Implementation dependency:** Reuse F-003/F-004's canonical state-transition system and F-017's world clock; build F-036/F-037 on shared timed-event primitives rather than putting countdown business logic in an LLM prompt.
 
 ## P2 — Creator ecosystem and platform expansion
 
@@ -111,7 +139,7 @@ The original README lists eight planned features. Preserve their intent; this ba
 | M1 — Reliable solo core | One story with authoritative state and persistence | F-001–F-006, F-010 | Complete the MVP vertical slice; save/resume produces no divergent state |
 | M2 — Memory and rules | Campaigns remain coherent over time | F-007–F-012 | Repeated 100-turn test scenarios meet the team's defined consistency threshold |
 | M3 — Living campaign | World travel, NPC behavior and consequences | F-013–F-018, F-023 | Scheduled and social events are reproducible and inspectable |
-| M4 — Rich campaign experience | Combat, QTEs, visuals, voices and shared parties | F-019–F-022, F-025, F-036 | Integration tests cover combat, timed choice/timeout/reconnect paths and concurrent actions; accessibility and privacy controls work |
+| M4 — Rich campaign experience | Combat, QTEs, multi-minute timed objectives, visuals, voices and shared parties | F-019–F-022, F-025, F-036, F-037 | Integration tests cover combat, timed choice, multi-step objectives, countdown expiry/reconnect and concurrent actions; accessibility and privacy controls work |
 | M5 — Platform and creator growth | Portable worlds and creator network | F-024, F-026–F-035 | At least one end-to-end import/export and a permission-checked publishing flow |
 
 The sequence is a **proposal**; parallelize UX work and defer costly generation/simulation features if unit economics are not yet proven.
@@ -137,7 +165,7 @@ Do not decide priority by competitor feature counts alone. Test each proposal ag
 | Do campaigns retain players? | D1/D7/D30 return rate, sessions per campaign, number of resumed campaigns, quest completion |
 | Does memory actually help? | Controlled long-campaign evaluations with hidden facts revealed only to specific NPCs; correction success rate |
 | Are simulation features valuable? | A/B test persistent NPC schedules vs simpler memory; qualitative interviews on perceived agency and world believability |
-| Are timed decisions fun and fair? | QTE opt-in rate, completion rate, timeout and abandonment rates, accessibility mode usage, perceived fairness, latency-induced failures | 
+| Are timed decisions fun and fair? | QTE and multi-minute objective opt-in rate, objective completion/partial-success/timeout rates, accessibility mode usage, perceived fairness, model-latency-induced failures, and frequency of resumed scenes | 
 | Can the economics scale? | Marginal cost per completed session, inference spend per retained player, P95 action latency, gross margin by feature |
 | Does UGC create a flywheel? | Weekly active creators, playable assets published, imported/forked assets, creator-to-player conversion |
 
@@ -167,4 +195,4 @@ Sources reflect **publicly described capabilities** (competitive review complete
 - What are the acceptable per-session inference budget and latency thresholds?
 - Will creators be allowed to monetize public worlds, and how will moderation, attribution and licensing work?
 
-**Next engineering action:** turn F-001–F-012 into scoped issues, verify the current codebase before marking any complete, and build the M1 vertical-slice test as the primary delivery gate. Prototype F-036 as an optional timed hazard after the authoritative state pipeline is stable.
+**Next engineering action:** turn F-001–F-012 into scoped issues, verify the current codebase before marking any complete, and build the M1 vertical-slice test as the primary delivery gate. Prototype F-036 as an optional timed hazard and F-037 as a multi-action Burning Village countdown after the authoritative state pipeline is stable.
